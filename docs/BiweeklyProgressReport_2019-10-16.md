@@ -1,4 +1,4 @@
-## Team 8 | Biweekly Documentation
+## Team 8 | Biweekly Progress Report
 ##### Members: Anastasija Novikova, Nina Baumgartner, Jonas Kocher, Lukas Schacher 
 
 ## Weeks #0-2
