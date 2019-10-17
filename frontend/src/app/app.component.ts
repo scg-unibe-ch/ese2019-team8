@@ -4,6 +4,7 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import {TodoList} from './todo-list';
+import {IonChip} from './ionChip';
 import {HttpClient} from '@angular/common/http';
 
 @Component({
@@ -15,6 +16,7 @@ import {HttpClient} from '@angular/common/http';
 export class AppComponent implements OnInit {
   todoList: TodoList = new TodoList(null, '');
   todoLists: TodoList[] = [];
+  ionChip: IonChip = new IonChip(null, '');
 
   constructor(
     private platform: Platform,
@@ -35,6 +37,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.httpClient.get('http://localhost:3000/todolist').subscribe((instances: any) => {
       this.todoLists = instances.map((instance) => new TodoList(instance.id, instance.name));
+      this.ionChip = instances.map((instances));
     });
   }
 
