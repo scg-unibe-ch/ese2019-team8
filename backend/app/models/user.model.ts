@@ -4,7 +4,6 @@ import {Column, PrimaryKey, Model, Table} from 'sequelize-typescript';
 import * as bcrypt from 'bcrypt';
 */
 
-
 @Table
 export class User extends Model<User> {
 
@@ -33,6 +32,9 @@ export class User extends Model<User> {
   @Column
   phoneNumber!: string;
 
+  // True if user is approved by admin (todo)
+  @Column
+  isApproved!: boolean;
 
   fromSimplification(simplification: any): void {
     this.username = simplification['username'];
@@ -43,6 +45,7 @@ export class User extends Model<User> {
     this.zip = simplification['zip'];
     this.city = simplification['city'];
     this.phoneNumber = simplification['phoneNumber'];
+    this.isApproved = simplification['isApproved'];
   }
 
   toSimplification(): any {
@@ -54,7 +57,8 @@ export class User extends Model<User> {
       'address': this.address,
       'zip': this.zip,
       'city': this.city,
-      'phoneNumber': this.phoneNumber
+      'phoneNumber': this.phoneNumber,
+      'isApproved': this.isApproved
     };
   }
 
