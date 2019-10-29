@@ -19,84 +19,8 @@
 
   <!--Two Columns for Login and New Account-->
   <ion-content>
-    <ion-row>
-      <!--Login Col-->
-      <ion-col size="12" size-md>
-        <ion-title>
-          Login
-        </ion-title>
-        <ion-row>
-          <ion-col size="10">
-            <ion-item>
-              <ion-label position="stacked">Username or Email</ion-label>
-              <ion-input></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label position="stacked">Password</ion-label>
-              <ion-input></ion-input>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-        <!--Button-->
-        <ion-col size="2">
-          <ion-button (click)="onTodoListCreate()" color="dark">Login</ion-button>
-        </ion-col>
-      </ion-col>
 
-      <!--New Account Col-->
-      <ion-col size="12" size-md>
-        <ion-title>
-          Create new Account
-        </ion-title>
-        <ion-row>
-          <ion-col size="10">
-            <ion-item>
-              <ion-label position="stacked">Username<ion-text color="danger">*</ion-text></ion-label>
-              <ion-input></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label position="stacked">Email</ion-label>
-              <ion-input></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label position="stacked">Password<ion-text color="danger">*</ion-text></ion-label>
-              <ion-input></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label position="stacked">Password<ion-text color="danger">*</ion-text></ion-label>
-              <ion-input></ion-input>
-            </ion-item>
-            <!-- Checkbox for service Providers -->
-            <ion-item>
-              <ion-checkbox slot="start" color="dark" ></ion-checkbox>
-              <ion-label>Register as service provider</ion-label>
-            </ion-item>
-            <!--Description of Service-->
-            <ion-item>
-              <ion-label position="stacked">Description of service</ion-label>
-              <ion-textarea></ion-textarea>
-            </ion-item>
-            <ion-item>
-              <ion-label position="stacked">Address</ion-label>
-              <ion-input placeholder="Address Line 1"></ion-input>
-              <ion-input placeholder="Zip Code"></ion-input>
-              <ion-input placeholder="City"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label position="stacked" >Phone</ion-label>
-              <ion-input></ion-input>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-        <!--Button-->
-        <ion-col size="2">
-          <ion-button (click)="onUSerItemCreate()" color="dark">Create Account</ion-button>
-        </ion-col>
-
-      </ion-col>
-    </ion-row>
-    <app-todo-list (destroy)="onTodoListDestroy($event)" *ngFor="let todoList of todoLists"
-                   [todoList]="todoList"></app-todo-list>
+    <app-user-item></app-user-item>
 
   </ion-content>
 </ion-app>

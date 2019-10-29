@@ -32,9 +32,10 @@ export class UserItemComponent implements OnInit {
     }).subscribe();
   }
 
-  onUSerItemCreate() {
-    this.httpClient.post('http://localhost:3000/user/' + this.userItem.id, {
+  onUserItemCreate() {
+    this.httpClient.post('http://localhost:3000/user', {
         username: this.userItem.username,
+        password: this.userItem.password,
         isServiceProvider: this.userItem.isServiceProvider,
         email: this.userItem.email,
         address: this.userItem.address,

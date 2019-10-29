@@ -1,8 +1,9 @@
 export class UserItem {
   userItemsId: number;
+  id: number;
 
   constructor(
-    public id: number,
+    public password: string,
     public username: string,
     public isServiceProvider: boolean,
     public email: string,
