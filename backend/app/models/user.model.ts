@@ -1,4 +1,4 @@
-import {Column, PrimaryKey, Model, Table} from 'sequelize-typescript';
+import {Column, Default, AllowNull, PrimaryKey, Model, Table} from 'sequelize-typescript';
 
 /*
 import * as bcrypt from 'bcrypt';
@@ -11,6 +11,7 @@ export class User extends Model<User> {
   @Column
   username!: String;
 
+  @AllowNull(false)
   @Column
   passwordHash!: String;
 
@@ -29,12 +30,13 @@ export class User extends Model<User> {
   @Column
   city!: string;
 
-  @Column
-  phoneNumber!: string;
-
   // True if user is approved by admin (todo)
+  @Default(false)
   @Column
   isApproved!: boolean;
+
+  @Column
+  phoneNumber!: string;
 
   fromSimplification(simplification: any): void {
     this.username = simplification['username'];
