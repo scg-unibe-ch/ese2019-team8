@@ -1,12 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {TodoList} from '../todo-list';
-import {TodoItem} from '../todo-item';
+import {TodoList} from './todo-list';
+import {TodoItem} from './todo-item';
 import {HttpClient, HttpParams} from '@angular/common/http';
 
 @Component({
-  /*
-  selector wird gebraucht um in html Datei component anzeigen zu lassen
-  */
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss'],

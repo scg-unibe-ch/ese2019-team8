@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {TodoItem} from '../../todo-item';
+import {TodoItem} from '../todo-item';
 import {HttpClient} from '@angular/common/http';
 
 @Component({

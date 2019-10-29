@@ -3,8 +3,9 @@ import {Component, OnInit} from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import {TodoList} from './todo-list';
-import {IonChip} from './ionChip';
+import {TodoList} from './Components/todo-list/todo-list';
+import {IonChip} from './Components/ion-chip/ionChip';
+import {UserItem} from './Components/user-item/user-item';
 import {HttpClient} from '@angular/common/http';
 
 @Component({
@@ -17,6 +18,7 @@ export class AppComponent implements OnInit {
   todoList: TodoList = new TodoList(null, '');
   todoLists: TodoList[] = [];
   ionChip: IonChip = new IonChip(null, '');
+  userItem: UserItem = new UserItem(null, '', false, '', '', null, '', null);
 
   constructor(
     private platform: Platform,
@@ -38,6 +40,7 @@ export class AppComponent implements OnInit {
     this.httpClient.get('http://localhost:3000/todolist').subscribe((instances: any) => {
       this.todoLists = instances.map((instance) => new TodoList(instance.id, instance.name));
       this.ionChip = instances.map((instances));
+      this.userItem = instances.map((instances));
     });
   }
 
@@ -50,6 +53,21 @@ export class AppComponent implements OnInit {
       this.todoList = new TodoList(null, '');
     });
   }
+
+  onUSerItemCreate() {
+    this.httpClient.post('http://localhost:3000/todolist', {
+      username: this.userItem.username,
+      isServiceProvider: this.userItem.isServiceProvider,
+      email: this.userItem.email,
+      address: this.userItem.address,
+      zip: this.userItem.zip,
+      city: this.userItem.city,
+      phoneNumber: this.userItem.phoneNumber
+    }).subscribe((instance: any) => {
+      this.userItem.id = instance.id;
+    });
+  }
+
 
   onTodoListDestroy(todoList: TodoList) {
     this.todoLists.splice(this.todoLists.indexOf(todoList), 1);

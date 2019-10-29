@@ -219,5 +219,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+#Div
+Terminal Commands.txt
 
 # End of https://www.gitignore.io/api/osx,node,linux,windows,webstorm
