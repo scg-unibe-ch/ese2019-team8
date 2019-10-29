@@ -5,10 +5,10 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 
 @Component({
   selector: 'app-user-item',
-  templateUrl: './user-item.component.html',
-  styleUrls: ['./user-item.component.scss'],
+  templateUrl: './registration.component.html',
+  styleUrls: ['./registration.component.scss'],
 })
-export class UserItemComponent implements OnInit {
+export class RegistrationComponent implements OnInit {
   userItem: UserItem;
 
 

@@ -6,7 +6,6 @@ import {TodoListController, TodoItemController} from './controllers';
 import {Sequelize} from 'sequelize-typescript';
 import {TodoList} from './models/todolist.model';
 import {TodoItem} from './models/todoitem.model';
-import {WelcomeController} from './controllers';
 
 import {UserController} from './controllers';
 import {User} from './models/user.model';
@@ -39,7 +38,6 @@ app.use(function (req, res, next) {
 
 app.use('/todolist', TodoListController);
 app.use('/todoitem', TodoItemController);
-app.use('/welcome', WelcomeController);
 
 app.use('/user', UserController);
 

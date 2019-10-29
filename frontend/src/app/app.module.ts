@@ -14,7 +14,8 @@ import { TodoListComponent } from './Components/todo-list/todo-list.component';
 import { TodoItemComponent } from './Components/todo-list/todo-item/todo-item.component';
 
 import {ComponentIonChipComponent} from './Components/ion-chip/component-ion-chip.component';
-import {UserItemComponent} from './Components/user-item/user-item.component';
+import {RegistrationComponent} from './Components/registration/registration.component';
+import {LoginComponent} from './Components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {UserItemComponent} from './Components/user-item/user-item.component';
     TodoListComponent,
     TodoItemComponent,
     ComponentIonChipComponent,
-    UserItemComponent
+    RegistrationComponent,
+    LoginComponent
   ],
   entryComponents: [],
   imports: [
