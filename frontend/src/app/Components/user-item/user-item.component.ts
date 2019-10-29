@@ -15,13 +15,13 @@ export class UserItemComponent implements OnInit {
   constructor(private httpClient: HttpClient) { }
 
   ngOnInit() {
-    this.httpClient.get('http://localhost:3000/todoitem', {
+    this.httpClient.get('http://localhost:3000/user/', {
       params: new HttpParams().set('userItemId', '' + this.userItem.id)
     }).subscribe();
   }
 
   onSave() {
-    this.httpClient.put('http://localhost:3000/todolist/' + this.userItem.id, {
+    this.httpClient.put('http://localhost:3000/user/' + this.userItem.id, {
       username: this.userItem.username,
       isServiceProvider: this.userItem.isServiceProvider,
       email: this.userItem.email,
@@ -33,9 +33,7 @@ export class UserItemComponent implements OnInit {
   }
 
   onUSerItemCreate() {
-    this.userItem.userItemsId = this.userItem.id;
-    this.httpClient.post('http://localhost:3000/todoitem', {
-        todoListId: this.userItem.userItemsId,
+    this.httpClient.post('http://localhost:3000/user/' + this.userItem.id, {
         username: this.userItem.username,
         isServiceProvider: this.userItem.isServiceProvider,
         email: this.userItem.email,
