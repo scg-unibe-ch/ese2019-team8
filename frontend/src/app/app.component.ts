@@ -54,21 +54,6 @@ export class AppComponent implements OnInit {
     });
   }
 
-  onUSerItemCreate() {
-    this.httpClient.post('http://localhost:3000/todolist', {
-      username: this.userItem.username,
-      isServiceProvider: this.userItem.isServiceProvider,
-      email: this.userItem.email,
-      address: this.userItem.address,
-      zip: this.userItem.zip,
-      city: this.userItem.city,
-      phoneNumber: this.userItem.phoneNumber
-    }).subscribe((instance: any) => {
-      this.userItem.id = instance.id;
-    });
-  }
-
-
   onTodoListDestroy(todoList: TodoList) {
     this.todoLists.splice(this.todoLists.indexOf(todoList), 1);
   }

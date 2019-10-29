@@ -4,13 +4,12 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 
 
 @Component({
-  selector: 'app-user-item',
+  selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss'],
 })
 export class RegistrationComponent implements OnInit {
-  userItem: UserItem;
-
+  userItem: UserItem = new UserItem(null, '', false, '', '', null, '', null);
 
   constructor(private httpClient: HttpClient) { }
 
@@ -32,7 +31,7 @@ export class RegistrationComponent implements OnInit {
     }).subscribe();
   }
 
-  onUserItemCreate() {
+  clickRegistration() {
     this.httpClient.post('http://localhost:3000/user', {
         username: this.userItem.username,
         password: this.userItem.password,
