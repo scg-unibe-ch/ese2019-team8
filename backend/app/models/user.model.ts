@@ -1,9 +1,5 @@
 import {Column, Default, AllowNull, PrimaryKey, Model, Table} from 'sequelize-typescript';
 
-/*
-import * as bcrypt from 'bcrypt';
-*/
-
 @Table
 export class User extends Model<User> {
 
