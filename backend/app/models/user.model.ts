@@ -50,7 +50,6 @@ export class User extends Model<User> {
 
   toSimplification(): any {
     return {
-      'id': this.id,
       'username': this.username,
       'isServiceProvider': this.isServiceProvider,
       'email': this.email,
