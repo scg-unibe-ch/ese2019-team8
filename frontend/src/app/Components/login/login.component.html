@@ -1,31 +1,31 @@
 <ion-app>
   <ion-content>
     <ion-grid>
-    <ion-row>
-      <!--Login Col-->
-      <ion-col>
-        <ion-title>
-          Login
-        </ion-title>
-        <ion-row>
-          <ion-col>
-            <ion-item>
-              <ion-label position="stacked">Username or Email</ion-label>
-              <ion-input></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label position="stacked">Password</ion-label>
-              <ion-input></ion-input>
-            </ion-item>
+      <ion-row>
+        <!--Login Col-->
+        <ion-col>
+          <ion-title>
+            Login
+          </ion-title>
+          <ion-row>
+            <ion-col>
+              <ion-item>
+                <ion-label position="stacked">Username or Email</ion-label>
+                <ion-input name="username"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">Password</ion-label>
+                <ion-input name="password" type="password"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+          <!--Button-->
+          <ion-col size="2">
+            <ion-button (click)="clickLogin()" color="dark">Login</ion-button>
           </ion-col>
-        </ion-row>
-        <!--Button-->
-        <ion-col size="2">
-          <ion-button (click)="clickLogin()" color="dark">Login</ion-button>
         </ion-col>
-      </ion-col>
 
-    </ion-row>
+      </ion-row>
     </ion-grid>
   </ion-content>
 
