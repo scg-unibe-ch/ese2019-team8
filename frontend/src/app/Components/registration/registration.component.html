@@ -11,20 +11,20 @@
           <ion-col>
             <ion-item>
               <ion-label position="stacked">Username<ion-text color="danger">*</ion-text></ion-label>
-              <ion-input name="username" [(ngModel)]="userItem.username"></ion-input>
+              <ion-input name="username" required="true" [(ngModel)]="userItem.username"></ion-input>
             </ion-item>
             <ion-item>
-              <ion-label position="stacked">Email</ion-label>
-              <ion-input name="email" [(ngModel)]="userItem.email"></ion-input>
+              <ion-label position="stacked">Email<ion-text color="danger">*</ion-text></ion-label>
+              <ion-input name="email" type="email" required="true" [(ngModel)]="userItem.email"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="stacked">Password<ion-text color="danger">*</ion-text></ion-label>
-              <ion-input name="password" [(ngModel)]="userItem.password"></ion-input>
+              <ion-input name="password" type="password" maxlength="8" required="true" [(ngModel)]="userItem.password"></ion-input>
             </ion-item>
             <ion-item>
-              <!-- TODO: confirm second password matches first one -->
+              <!-- TODO: confirm second password matches first one, pattern in input -->
               <ion-label position="stacked">Password<ion-text color="danger">*</ion-text></ion-label>
-              <ion-input></ion-input>
+              <ion-input type="password" maxlength="8" required="true"></ion-input>
             </ion-item>
             <!-- Checkbox for service Providers -->
             <ion-item>
