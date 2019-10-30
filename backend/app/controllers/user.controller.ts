@@ -18,6 +18,39 @@ router.get('/', async (req: Request, res: Response) => {
   res.send(instances.map(e => e.toSimplification()));
 });
 
+/*
+Login
+ */
+router.get('/login', async (req: Request, res: Response) => {
+  const user = await User.findByPrimary(req.body.username);
+  if (!user) {
+    res.statusCode = 403;
+    res.json({
+      'message': 'user not found'
+    });
+    return;
+  }
+
+  if (bcrypt.compareSync(req.body.password, user.passwordHash)) {
+    res.statusCode = 200;
+    res.json({
+      'message': 'successfully logged in'
+    });
+    // TODO create/send jwt
+    // res.send(jwt);
+
+    // provisional
+    return;
+  } else {
+    res.statusCode = 403;
+    res.json({
+      'message': 'wrong password'
+    });
+    return;
+  }
+
+});
+
 
 router.post('/', async (req: Request, res: Response) => {
   const simpleUser = req.body;
