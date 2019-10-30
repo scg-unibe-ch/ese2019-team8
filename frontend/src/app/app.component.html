@@ -19,12 +19,17 @@
 
   <!--Two Columns for Login and New Account-->
   <ion-content>
-
-    <app-login></app-login>
+    <ion-row style="height: 100%">
+      <ion-col>
+        <div>
+        <app-login></app-login>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          <app-registration></app-registration>
+          </div>
+      </ion-col>
+    </ion-row>
   </ion-content>
-
-  <ion-content>
-    <app-registration></app-registration>
-  </ion-content>
-
 </ion-app>
