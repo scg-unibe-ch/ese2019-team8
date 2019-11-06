@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import {UserItem} from '../user-item';
 import { LoginComponent } from './login.component';
 
 describe('LoginComponent', () => {

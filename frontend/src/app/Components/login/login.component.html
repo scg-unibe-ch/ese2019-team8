@@ -11,11 +11,11 @@
             <ion-col>
               <ion-item>
                 <ion-label position="stacked">Username or Email</ion-label>
-                <ion-input name="username"></ion-input>
+                <ion-input name="username" [(ngModel)]="userItem.username" ></ion-input>
               </ion-item>
               <ion-item>
                 <ion-label position="stacked">Password</ion-label>
-                <ion-input name="password" type="password"></ion-input>
+                <ion-input name="password" type="password" [(ngModel)]="userItem.password"></ion-input>
               </ion-item>
             </ion-col>
           </ion-row>
