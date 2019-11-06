@@ -31,17 +31,17 @@ router.get('/login', async (req: Request, res: Response) => {
   if (bcrypt.compareSync(req.body.password, user.passwordHash)) {
     res.statusCode = 200;
     const payload = {
-      username: user.username,
-      exp: EXPIRATION_TIME()
+      'username': user.username.toString(),
+      'exp': EXPIRATION_TIME()
     };
-    /*
     const signOptions = {
-      expiresIn: '1h',
-      algorithm: 'RS256'
+      /*
+      'expiresIn': '1h',
+      'algorithm': 'RS256'
+       */
     };
-     */
-    const token = jwt.sign(payload, PRIVATE_KEY);
-    // const token = jwt.sign(payload, PRIVATE_KEY, signOptions);
+    // const token = jwt.sign(payload, PRIVATE_KEY);
+    const token = jwt.sign(payload, PRIVATE_KEY, signOptions);
     res.send(token);
     res.json({
       'message': 'successfully logged in'
@@ -56,6 +56,38 @@ router.get('/login', async (req: Request, res: Response) => {
 
 });
 
+/*
+Get user information
+ */
+router.get('/profile', async (req: Request, res: Response) => {
+  const token = req.body.token;
+
+  let verification = false;
+  try {
+    verification = jwt.verify(token, PRIVATE_KEY);
+  } catch (err) {}
+
+  if (verification) {
+    const payload = jwt.decode(token);
+    const username = payload.username;
+    const user = await User.findByPrimary(username);
+    if (user) {
+      res.statusCode = 200;
+      res.send(user.toSimplification());
+    } else {
+      res.statusCode = 404;
+      res.json({
+        'message': 'user not found'
+      });
+    }
+
+  } else {
+    res.statusCode = 403;
+    res.json({
+      'message': 'not logged in'
+    });
+  }
+});
 
 router.post('/', async (req: Request, res: Response) => {
   const simpleUser = req.body;
