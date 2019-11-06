@@ -1,5 +1,7 @@
 ## Team 8 | Biweekly Progress Reports
-##### Members: Anastasija Novikova, Nina Baumgartner, Jonas Ph. Kocher, Lukas Schacher## Weeks #3-4
+##### Members: Anastasija Novikova, Nina Baumgartner, Jonas Ph. Kocher, Lukas Schacher
+
+## Weeks #3-4
 Done:
 * Registration now works from backend with postman and also with form from frontend.
 * Rearranged and refactored lots of files, not much clearer overview.
@@ -8,7 +10,7 @@ Done:
 TODO:
 * Login and session management (with json web token).
 * Rearrange layout from frontend, page is a bit crowded right now.
-* Mandatory fields in registration form and passwort entry not as plaintext, check for password confirmation
+* Mandatory fields in registration form and password entry not as plaintext, check for password confirmation
 * Milestone 2
 * Fix default values in database
 * Maybe email confirmation

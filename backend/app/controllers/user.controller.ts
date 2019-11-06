@@ -5,12 +5,9 @@ const router: Router = Router();
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-
-/* used later for sessionmanagement
 const jwt = require('jsonwebtoken');
 const PRIVATE_KEY = 'LirumLarumLoeffelstiel';
-const EXPIRATION_TIME = () => {return Math.floor(Date.now() / 1000) + (60 * 60)};
-*/
+const EXPIRATION_TIME = () => Math.floor(Date.now() / 1000) + (60 * 60);
 
 router.get('/', async (req: Request, res: Response) => {
   const instances = await User.findAll();
@@ -33,14 +30,22 @@ router.get('/login', async (req: Request, res: Response) => {
 
   if (bcrypt.compareSync(req.body.password, user.passwordHash)) {
     res.statusCode = 200;
+    const payload = {
+      username: user.username,
+      exp: EXPIRATION_TIME()
+    };
+    /*
+    const signOptions = {
+      expiresIn: '1h',
+      algorithm: 'RS256'
+    };
+     */
+    const token = jwt.sign(payload, PRIVATE_KEY);
+    // const token = jwt.sign(payload, PRIVATE_KEY, signOptions);
+    res.send(token);
     res.json({
       'message': 'successfully logged in'
     });
-    // TODO create/send jwt
-    // res.send(jwt);
-
-    // provisional
-    return;
   } else {
     res.statusCode = 403;
     res.json({
