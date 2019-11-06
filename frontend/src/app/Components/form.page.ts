@@ -1,5 +1,5 @@
-import { UsernameValidator } from './Validators/username.validator';
-import { PasswordValidator } from './Validators/password.validator';
+import { UsernameValidator } from './registration/registration.component';
+import { PasswordValidator } from './registration/registration.component';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 export class FormPage {
