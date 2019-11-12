@@ -2,7 +2,7 @@
   <!--Toolbar and title-->
   <ion-toolbar>
     <ion-buttons slot="secondary">
-      <ion-button>
+      <ion-button [routerLink]="['/profilePage']">
         <ion-icon name="contact" slot="icon-only"></ion-icon>
       </ion-button>
       <ion-button>
@@ -32,12 +32,10 @@
       </ion-col>
     </ion-row>
     -->
-
-
     <router-outlet></router-outlet>
 
-
   </ion-content>
+  <alert></alert>
 </ion-app>
 
 

@@ -3,7 +3,7 @@
   <ion-content>
     <ion-row>
       <!--New Account Col-->
-      <ion-col size="5">
+      <ion-col>
         <ion-title>
           Create new Account
         </ion-title>
@@ -13,33 +13,41 @@
               <ion-label position="stacked">Username
                 <ion-text color="danger">*</ion-text>
               </ion-label>
-              <ion-input [(ngModel)]="userItem.username" name="username"></ion-input>
+              <ion-input name="username" [(ngModel)]="userItem.username" required></ion-input>
             </ion-item>
-            <ion-item>
-              <ion-label position="stacked">Email
-                <ion-text color="danger">*</ion-text>
-              </ion-label>
-              <ion-input [(ngModel)]="userItem.email" name="email" required="true" type="email"></ion-input>
-            </ion-item>
+
             <!-- TODO: confirm second password matches first one, pattern in input -->
             <ion-item>
               <ion-label position="stacked">Password
                 <ion-text color="danger">*</ion-text>
               </ion-label>
-              <ion-input [(ngModel)]="userItem.password" name="password" type="password"></ion-input>
+              <ion-input name="password" type="password" [(ngModel)]="userItem.password" required></ion-input>
             </ion-item>
             <ion-item>
               <!-- TODO: confirm second password matches first one -->
-              <ion-label position="stacked">Password
+              <ion-label position="stacked">Confirm password
                 <ion-text color="danger">*</ion-text>
               </ion-label>
-              <ion-input name="passwordConfirmation" type="password"></ion-input>
+              <ion-input name="passwordConfirmation" type="password" required></ion-input>
             </ion-item>
-
+            <ion-item>
+              <ion-label position="stacked">Email</ion-label>
+              <ion-input name="email" type="email" [(ngModel)]="userItem.email"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Address</ion-label>
+              <ion-input name="address" [(ngModel)]="userItem.address" placeholder="Address Line 1"></ion-input>
+              <ion-input name="zip" [(ngModel)]="userItem.zip" placeholder="Zip Code"></ion-input>
+              <ion-input name="city" [(ngModel)]="userItem.city" placeholder="City"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="stacked">Phone</ion-label>
+              <ion-input name="phoneNumber" [(ngModel)]="userItem.phoneNumber"></ion-input>
+            </ion-item>
             <!-- Checkbox for service Providers -->
             <ion-item>
-              <ion-checkbox [(ngModel)]="userItem.isServiceProvider" color="dark" name="isServiceProvider"
-                            slot="start"></ion-checkbox>
+              <ion-checkbox name="isServiceProvider" [(ngModel)]="userItem.isServiceProvider" slot="start"
+                            color="dark"></ion-checkbox>
               <ion-label>Register as service provider</ion-label>
             </ion-item>
             <!--Description of Service-->
@@ -47,21 +55,11 @@
               <ion-label position="stacked">Description of service</ion-label>
               <ion-textarea></ion-textarea>
             </ion-item>
-            <ion-item>
-              <ion-label position="stacked">Address</ion-label>
-              <ion-input [(ngModel)]="userItem.address" name="address" placeholder="Address Line 1"></ion-input>
-              <ion-input [(ngModel)]="userItem.zip" name="zip" placeholder="Zip Code"></ion-input>
-              <ion-input [(ngModel)]="userItem.city" name="city" placeholder="City"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label position="stacked">Phone</ion-label>
-              <ion-input [(ngModel)]="userItem.phoneNumber" name="phoneNumber"></ion-input>
-            </ion-item>
           </ion-col>
         </ion-row>
         <!--Button-->
         <ion-col size="2">
-          <ion-button (click)="clickRegistration()" [routerLink]="['/home']" color="dark">Create Account</ion-button>
+          <ion-button (click)="clickRegistration()" color="dark">Create Account</ion-button>
         </ion-col>
 
       </ion-col>

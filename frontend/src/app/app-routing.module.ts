@@ -4,6 +4,9 @@ import {LoginComponent} from './Components/login/login.component';
 import {RegistrationComponent} from './Components/registration/registration.component';
 import {ServiceRegPageComponent} from './Components/serviceRegPage/serviceRegPage.component';
 import {HomePageComponent} from './Components/home-page/home-page.component';
+import {ProfilePageComponent} from './Components/profile-page/profile-page.component';
+
+
 
 
 const routes: Routes = [
@@ -11,7 +14,8 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'registration', component: RegistrationComponent},
   {path: 'home', component: HomePageComponent},
-  {path: 'serviceRegistration', component: ServiceRegPageComponent}
+  {path: 'serviceRegistration', component: ServiceRegPageComponent},
+  {path: 'profilePage', component: ProfilePageComponent}
 ];
 
 @NgModule({

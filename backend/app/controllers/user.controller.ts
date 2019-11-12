@@ -1,4 +1,4 @@
-import {Request, Response, Router} from 'express';
+import {Router, Request, Response} from 'express';
 import {User} from '../models/user.model';
 
 const router: Router = Router();
@@ -54,7 +54,7 @@ router.get('/login', async (req: Request, res: Response) => {
 /*
 Verify a JWT
  */
-function verify(token: string) {
+export function verify(token: string) {
   let verification = false;
   try {
     verification = jwt.verify(token, PRIVATE_KEY);
@@ -66,7 +66,7 @@ function verify(token: string) {
 /*
 Get the user from a JWT
  */
-async function decodeUser(token: string) {
+export async function decodeUser(token: string) {
   const payload = jwt.decode(token);
   const username = payload.username;
   return await User.findByPrimary(username);
@@ -75,7 +75,7 @@ async function decodeUser(token: string) {
 /*
 Send "not logged in" message to frontend
  */
-function userNotLoggedIn(res: any) {
+export function userNotLoggedIn(res: any) {
   res.statusCode = 403;
   res.json({
     'message': 'not logged in'
@@ -85,7 +85,7 @@ function userNotLoggedIn(res: any) {
 /*
 Send "user not found" message to frontend
  */
-function userNotFound(res: any) {
+export function userNotFound(res: any) {
   res.statusCode = 404;
   res.json({
     'message': 'user not found'
@@ -158,6 +158,7 @@ router.post('/', async (req: Request, res: Response) => {
   }
   const instance = new User();
   simpleUser.password = await bcrypt.hash(req.body.password, saltRounds);
+
   instance.fromSimplification(simpleUser);
   await instance.save();
   res.statusCode = 201;
