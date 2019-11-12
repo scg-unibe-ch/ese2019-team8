@@ -1,4 +1,4 @@
-import {Request, Response, Router} from 'express';
+import {Router, Request, Response} from 'express';
 import {User} from '../models/user.model';
 
 const router: Router = Router();
@@ -158,6 +158,7 @@ router.post('/', async (req: Request, res: Response) => {
   }
   const instance = new User();
   simpleUser.password = await bcrypt.hash(req.body.password, saltRounds);
+
   instance.fromSimplification(simpleUser);
   await instance.save();
   res.statusCode = 201;
