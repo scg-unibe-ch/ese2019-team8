@@ -13,6 +13,16 @@ function sendService(res: any, service: Service) {
 }
 
 /*
+send service to frontend
+ */
+function forbidden(res: any) {
+  res.statusCode = 403;
+  res.json({
+    'message': 'forbidden'
+  });
+}
+
+/*
 Get all Services
  */
 router.get('/', async (req: Request, res: Response) => {
@@ -68,6 +78,10 @@ router.put('/', async (req: Request, res: Response) => {
         serviceNotFound(res);
         return;
       }
+      if (service.username !== user.username) {
+        forbidden(res);
+        return;
+      }
       req.body.username = service.username;
       service.fromSimplification(req.body);
       await service.save();
@@ -78,6 +92,38 @@ router.put('/', async (req: Request, res: Response) => {
   } else {
     userNotLoggedIn(res);
   }
+});
+
+/*
+delete existing service
+ */
+router.delete('/', async (req: Request, res: Response) => {
+  const token = req.body.token;
+  const verification = verify(token);
+  if (verification) {
+    const user = await decodeUser(token);
+    if (user) {
+      const service = await Service.findByPrimary(req.body.id);
+      if (!service) {
+        serviceNotFound(res);
+        return;
+      }
+      if (service.username !== user.username) {
+        forbidden(res);
+        return;
+      }
+      await service.destroy();
+      res.statusCode = 204;
+      res.json({
+        'message': 'service successfully deleted'
+      });
+    } else {
+      userNotFound(res);
+    }
+  } else {
+    userNotLoggedIn(res);
+  }
+
 });
 
 export const ServiceController: Router = router;
