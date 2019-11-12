@@ -11,7 +11,8 @@ export class UserItem {
     public zip: number,
     public city: string,
     public phoneNumber: number,
-  ) {}
+  ) {
+  }
 
 
 }

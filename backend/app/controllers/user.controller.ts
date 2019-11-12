@@ -21,13 +21,9 @@ Login
 router.get('/login', async (req: Request, res: Response) => {
   const user = await User.findByPrimary(req.body.username);
   if (!user) {
-    res.statusCode = 403;
-    res.json({
-      'message': 'user not found'
-    });
+    userNotFound(res);
     return;
   }
-
   if (bcrypt.compareSync(req.body.password, user.passwordHash)) {
     res.statusCode = 200;
     const payload = {
@@ -53,42 +49,103 @@ router.get('/login', async (req: Request, res: Response) => {
     });
     return;
   }
-
 });
+
+/*
+Verify a JWT
+ */
+function verify(token: string) {
+  let verification = false;
+  try {
+    verification = jwt.verify(token, PRIVATE_KEY);
+  } catch (err) {
+  }
+  return verification;
+}
+
+/*
+Get the user from a JWT
+ */
+async function decodeUser(token: string) {
+  const payload = jwt.decode(token);
+  const username = payload.username;
+  return await User.findByPrimary(username);
+}
+
+/*
+Send "not logged in" message to frontend
+ */
+function userNotLoggedIn(res: any) {
+  res.statusCode = 403;
+  res.json({
+    'message': 'not logged in'
+  });
+}
+
+/*
+Send "user not found" message to frontend
+ */
+function userNotFound(res: any) {
+  res.statusCode = 404;
+  res.json({
+    'message': 'user not found'
+  });
+}
+
+/*
+send user profile to frontend
+ */
+function userProfile(res: any, user: User) {
+  res.statusCode = 200;
+  res.send(user.toSimplification());
+}
 
 /*
 Get user information
  */
-router.get('/profilePage', async (req: Request, res: Response) => {
+router.get('/profile', async (req: Request, res: Response) => {
   const token = req.body.token;
-
-  let verification = false;
-  try {
-    verification = jwt.verify(token, PRIVATE_KEY);
-  } catch (err) {}
-
+  const verification = verify(token);
   if (verification) {
-    const payload = jwt.decode(token);
-    const username = payload.username;
-    const user = await User.findByPrimary(username);
+    const user = await decodeUser(token);
     if (user) {
-      res.statusCode = 200;
-      res.send(user.toSimplification());
+      userProfile(res, user);
     } else {
-      res.statusCode = 404;
-      res.json({
-        'message': 'user not found'
-      });
+      userNotFound(res);
     }
-
   } else {
-    res.statusCode = 403;
-    res.json({
-      'message': 'not logged in'
-    });
+    userNotLoggedIn(res);
   }
 });
 
+/*
+Change parameters of an existing User
+ */
+router.put('/profile', async (req: Request, res: Response) => {
+  const token = req.body.token;
+  const verification = verify(token);
+  if (verification) {
+    const user = await decodeUser(token);
+    if (user) {
+      if (req.body.password != null) {
+        req.body.password = await bcrypt.hash(req.body.password, saltRounds);
+      } else {
+        req.body.password = user.passwordHash;
+      }
+      user.fromSimplification(req.body);
+      await user.save();
+      userProfile(res, user);
+    } else {
+      userNotFound(res);
+    }
+  } else {
+    userNotLoggedIn(res);
+  }
+});
+
+/*
+Post a new User
+ */
 router.post('/', async (req: Request, res: Response) => {
   const simpleUser = req.body;
   const user = await User.findByPrimary(simpleUser.username);

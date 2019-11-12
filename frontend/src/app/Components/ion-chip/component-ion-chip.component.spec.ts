@@ -1,7 +1,7 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ComponentIonChipComponent } from './component-ion-chip.component';
+import {ComponentIonChipComponent} from './component-ion-chip.component';
 
 describe('ComponentIonChipComponent', () => {
   let component: ComponentIonChipComponent;
@@ -9,10 +9,10 @@ describe('ComponentIonChipComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ComponentIonChipComponent ],
+      declarations: [ComponentIonChipComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

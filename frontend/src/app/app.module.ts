@@ -19,6 +19,7 @@ import {LoginComponent} from './Components/login/login.component';
 import {ProfilePageComponent} from './Components/profile-page/profile-page.component';
 import {AppRoutingModule} from './app-routing.module';
 import {AlertComponent} from './Components';
+import {HomePageComponent} from './Components/homePage/homePage.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {AlertComponent} from './Components';
     RegistrationComponent,
     LoginComponent,
     ProfilePageComponent,
-    AlertComponent
+    AlertComponent,
+    HomePageComponent
   ],
   entryComponents: [],
   imports: [

@@ -18,11 +18,12 @@ export class TodoListComponent implements OnInit {
 
   constructor(
     private httpClient: HttpClient
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.httpClient.get('http://localhost:3000/todoitem', {
-      params:  new HttpParams().set('todoListId', '' + this.todoList.id)
+      params: new HttpParams().set('todoListId', '' + this.todoList.id)
     }).subscribe((instances: any) => {
       this.todoItems = instances.map((instance) => new TodoItem(instance.id, instance.todoListId, instance.name, instance.done));
     });

@@ -16,7 +16,8 @@ export class TodoItemComponent implements OnInit {
 
   constructor(
     private httpClient: HttpClient
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
   }
