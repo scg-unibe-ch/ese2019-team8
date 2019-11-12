@@ -20,7 +20,6 @@ export class ServiceRegPageComponent implements OnInit {
       params: new HttpParams().set('serviceItemId', '' + this.serviceItem.id)
     }).subscribe();
   }
-
   clickAddService() {
     this.httpClient.post('http://localhost:3000/service', {
       headers: undefined,
