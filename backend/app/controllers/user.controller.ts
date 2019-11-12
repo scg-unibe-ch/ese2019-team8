@@ -18,7 +18,7 @@ router.get('/', async (req: Request, res: Response) => {
 /*
 Login
  */
-router.get('/login', async (req: Request, res: Response) => {
+router.post('/login', async (req: Request, res: Response) => {
   const user = await User.findByPrimary(req.body.username);
   if (!user) {
     userNotFound(res);
@@ -38,9 +38,9 @@ router.get('/login', async (req: Request, res: Response) => {
     };
     // const token = jwt.sign(payload, PRIVATE_KEY);
     const token = jwt.sign(payload, PRIVATE_KEY, signOptions);
-    res.send(token);
     res.json({
-      'message': 'successfully logged in'
+      'message': 'successfully logged in',
+      'token': token
     });
   } else {
     res.statusCode = 403;
