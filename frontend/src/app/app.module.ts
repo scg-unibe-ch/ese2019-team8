@@ -18,8 +18,9 @@ import {RegistrationComponent} from './Components/registration/registration.comp
 import {LoginComponent} from './Components/login/login.component';
 import {ProfilePageComponent} from './Components/profile-page/profile-page.component';
 import {AppRoutingModule} from './app-routing.module';
+import {HomePageComponent} from './Components/home-page/home-page.component';
+import {ServiceRegPageComponent} from './Components/serviceRegPage/serviceRegPage.component';
 import {AlertComponent} from './Components';
-import {HomePageComponent} from './Components/homePage/homePage.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {HomePageComponent} from './Components/homePage/homePage.component';
     ComponentIonChipComponent,
     RegistrationComponent,
     LoginComponent,
+    ServiceRegPageComponent,
     ProfilePageComponent,
     AlertComponent,
     HomePageComponent
