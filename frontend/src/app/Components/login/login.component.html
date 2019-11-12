@@ -3,7 +3,7 @@
     <ion-grid>
       <ion-row>
         <!--Login Col-->
-        <ion-col>
+        <ion-col size="5">
           <ion-title>
             Login
           </ion-title>
@@ -21,13 +21,13 @@
           </ion-row>
           <!--Button-->
           <ion-col size="2">
-            <ion-button (click)="clickLogin()" color="dark">Login</ion-button>
+            <ion-button (click)="clickLogin()" [routerLink]="['/home']" color="dark">Login</ion-button>
           </ion-col>
         </ion-col>
 
       </ion-row>
     </ion-grid>
-    <ion-button [routerLink]="['/registration']">Register a new profile</ion-button>
+    <ion-button [routerLink]="['/registration']" color="dark">Register a new profile</ion-button>
   </ion-content>
 
 </ion-app>

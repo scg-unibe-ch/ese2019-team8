@@ -3,6 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {RouteReuseStrategy} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import {IonicModule, IonicRouteStrategy} from '@ionic/angular';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
@@ -17,6 +18,7 @@ import {ComponentIonChipComponent} from './Components/ion-chip/component-ion-chi
 import {RegistrationComponent} from './Components/registration/registration.component';
 import {LoginComponent} from './Components/login/login.component';
 import {AppRoutingModule} from './app-routing.module';
+import {HomePageComponent} from './Components/homePage/homePage.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import {AppRoutingModule} from './app-routing.module';
     TodoItemComponent,
     ComponentIonChipComponent,
     RegistrationComponent,
-    LoginComponent
+    LoginComponent,
+    HomePageComponent
   ],
   entryComponents: [],
   imports: [
