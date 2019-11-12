@@ -59,7 +59,7 @@ router.get('/login', async (req: Request, res: Response) => {
 /*
 Get user information
  */
-router.get('/profile', async (req: Request, res: Response) => {
+router.get('/profilePage', async (req: Request, res: Response) => {
   const token = req.body.token;
 
   let verification = false;

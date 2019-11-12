@@ -10,36 +10,29 @@
         <ion-row>
           <ion-col>
             <ion-item>
-              <ion-label position="stacked">Username<ion-text color="danger">*</ion-text>
+              <ion-label position="stacked">Username
+                <ion-text color="danger">*</ion-text>
               </ion-label>
-              <ion-input name="username" [(ngModel)]="userItem.username" ></ion-input>
+              <ion-input name="username" [(ngModel)]="userItem.username" required></ion-input>
             </ion-item>
-            <ion-item>
-              <ion-label position="stacked">Email<ion-text color="danger">*</ion-text></ion-label>
-              <ion-input name="email" type="email" required="true" [(ngModel)]="userItem.email"></ion-input>
-            </ion-item>
+
             <!-- TODO: confirm second password matches first one, pattern in input -->
             <ion-item>
-              <ion-label position="stacked">Password<ion-text color="danger">*</ion-text></ion-label>
-              <ion-input name="password" type="password" [(ngModel)]="userItem.password"></ion-input>
+              <ion-label position="stacked">Password
+                <ion-text color="danger">*</ion-text>
+              </ion-label>
+              <ion-input name="password" type="password" [(ngModel)]="userItem.password" required></ion-input>
             </ion-item>
             <ion-item>
               <!-- TODO: confirm second password matches first one -->
-              <ion-label position="stacked">Password<ion-text color="danger">*</ion-text>
+              <ion-label position="stacked">Confirm password
+                <ion-text color="danger">*</ion-text>
               </ion-label>
-              <ion-input name="passwordConfirmation" type="password"></ion-input>
+              <ion-input name="passwordConfirmation" type="password" required></ion-input>
             </ion-item>
-
-            <!-- Checkbox for service Providers -->
             <ion-item>
-              <ion-checkbox name="isServiceProvider" [(ngModel)]="userItem.isServiceProvider" slot="start"
-                            color="dark"></ion-checkbox>
-              <ion-label>Register as service provider</ion-label>
-            </ion-item>
-            <!--Description of Service-->
-            <ion-item>
-              <ion-label position="stacked">Description of service</ion-label>
-              <ion-textarea></ion-textarea>
+              <ion-label position="stacked">Email</ion-label>
+              <ion-input name="email" type="email" [(ngModel)]="userItem.email"></ion-input>
             </ion-item>
             <ion-item>
               <ion-label position="stacked">Address</ion-label>
@@ -50,6 +43,17 @@
             <ion-item>
               <ion-label position="stacked">Phone</ion-label>
               <ion-input name="phoneNumber" [(ngModel)]="userItem.phoneNumber"></ion-input>
+            </ion-item>
+            <!-- Checkbox for service Providers -->
+            <ion-item>
+              <ion-checkbox name="isServiceProvider" [(ngModel)]="userItem.isServiceProvider" slot="start"
+                            color="dark"></ion-checkbox>
+              <ion-label>Register as service provider</ion-label>
+            </ion-item>
+            <!--Description of Service-->
+            <ion-item>
+              <ion-label position="stacked">Description of service</ion-label>
+              <ion-textarea></ion-textarea>
             </ion-item>
           </ion-col>
         </ion-row>

@@ -16,7 +16,9 @@ import {TodoItemComponent} from './Components/todo-list/todo-item/todo-item.comp
 import {ComponentIonChipComponent} from './Components/ion-chip/component-ion-chip.component';
 import {RegistrationComponent} from './Components/registration/registration.component';
 import {LoginComponent} from './Components/login/login.component';
+import {ProfilePageComponent} from './Components/profile-page/profile-page.component';
 import {AppRoutingModule} from './app-routing.module';
+import {AlertComponent} from './Components';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import {AppRoutingModule} from './app-routing.module';
     TodoItemComponent,
     ComponentIonChipComponent,
     RegistrationComponent,
-    LoginComponent
+    LoginComponent,
+    ProfilePageComponent,
+    AlertComponent
   ],
   entryComponents: [],
   imports: [
