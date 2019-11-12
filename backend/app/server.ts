@@ -9,6 +9,8 @@ import {TodoItem} from './models/todoitem.model';
 
 import {UserController} from './controllers';
 import {User} from './models/user.model';
+import {ServiceController} from './controllers';
+import {Service} from './models/service.model';
 
 const sequelize = new Sequelize({
   database: 'development',
@@ -17,7 +19,7 @@ const sequelize = new Sequelize({
   password: '',
   storage: 'db.sqlite'
 });
-sequelize.addModels([TodoList, TodoItem, User]);
+sequelize.addModels([TodoList, TodoItem, User, Service]);
 
 // create a new express application instance
 const app: express.Application = express();
@@ -40,7 +42,7 @@ app.use('/todolist', TodoListController);
 app.use('/todoitem', TodoItemController);
 
 app.use('/user', UserController);
-
+app.use('/service', ServiceController);
 
 sequelize.sync().then(() => {
 // start serving the application on the given port
