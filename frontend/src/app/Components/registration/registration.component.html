@@ -21,13 +21,13 @@
             <!-- TODO: confirm second password matches first one, pattern in input -->
             <ion-item>
               <ion-label position="stacked">Password<ion-text color="danger">*</ion-text></ion-label>
-              <ion-input name="password" [(ngModel)]="userItem.password"></ion-input>
+              <ion-input name="password" type="password" [(ngModel)]="userItem.password"></ion-input>
             </ion-item>
             <ion-item>
               <!-- TODO: confirm second password matches first one -->
               <ion-label position="stacked">Password<ion-text color="danger">*</ion-text>
               </ion-label>
-              <ion-input name="passwordConfirmation"></ion-input>
+              <ion-input name="passwordConfirmation" type="password"></ion-input>
             </ion-item>
 
             <!-- Checkbox for service Providers -->
