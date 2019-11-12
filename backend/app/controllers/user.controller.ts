@@ -1,4 +1,4 @@
-import {Router, Request, Response} from 'express';
+import {Request, Response, Router} from 'express';
 import {User} from '../models/user.model';
 
 const router: Router = Router();
@@ -21,10 +21,7 @@ Login
 router.get('/login', async (req: Request, res: Response) => {
   const user = await User.findByPrimary(req.body.username);
   if (!user) {
-    res.statusCode = 403;
-    res.json({
-      'message': 'user not found'
-    });
+    userNotFound(res);
     return;
   }
 
@@ -56,36 +53,79 @@ router.get('/login', async (req: Request, res: Response) => {
 
 });
 
+function verify(token: string) {
+  let verification = false;
+  try {
+    verification = jwt.verify(token, PRIVATE_KEY);
+  } catch (err) {
+  }
+  return verification;
+}
+
+async function decodeUser(token: string) {
+  const payload = jwt.decode(token);
+  const username = payload.username;
+  return await User.findByPrimary(username);
+}
+
+function userNotLoggedIn(res: any) {
+  res.statusCode = 403;
+  res.json({
+    'message': 'not logged in'
+  });
+}
+
+function userNotFound(res: any) {
+  res.statusCode = 404;
+  res.json({
+    'message': 'user not found'
+  });
+}
+
+function userProfile(res: any, user: User) {
+  res.statusCode = 200;
+  res.send(user.toSimplification());
+}
+
 /*
 Get user information
  */
 router.get('/profile', async (req: Request, res: Response) => {
   const token = req.body.token;
-
-  let verification = false;
-  try {
-    verification = jwt.verify(token, PRIVATE_KEY);
-  } catch (err) {}
+  const verification = verify(token);
 
   if (verification) {
-    const payload = jwt.decode(token);
-    const username = payload.username;
-    const user = await User.findByPrimary(username);
+    const user = await decodeUser(token);
     if (user) {
-      res.statusCode = 200;
-      res.send(user.toSimplification());
+      userProfile(res, user);
     } else {
-      res.statusCode = 404;
-      res.json({
-        'message': 'user not found'
-      });
+      userNotFound(res);
     }
-
   } else {
-    res.statusCode = 403;
-    res.json({
-      'message': 'not logged in'
-    });
+    userNotLoggedIn(res);
+  }
+});
+
+
+router.put('/profile', async (req: Request, res: Response) => {
+  const token = req.body.token;
+  const verification = verify(token);
+  if (verification) {
+    const user = await decodeUser(token);
+    if (user) {
+      if (req.body.password != null) {
+        req.body.password = await bcrypt.hash(req.body.password, saltRounds);
+      } else {
+        req.body.password = user.passwordHash;
+      }
+      user.fromSimplification(req.body);
+      await user.save();
+      userProfile(res, user);
+    } else {
+      userNotFound(res);
+    }
+  } else {
+    userNotLoggedIn(res);
   }
 });
 
@@ -107,5 +147,6 @@ router.post('/', async (req: Request, res: Response) => {
   res.statusCode = 201;
   res.send(instance.toSimplification());
 });
+
 
 export const UserController: Router = router;
