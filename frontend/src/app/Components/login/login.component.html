@@ -11,23 +11,38 @@
             <ion-col>
               <ion-item>
                 <ion-label position="stacked">Username or Email</ion-label>
-                <ion-input name="username" [(ngModel)]="userItem.username"></ion-input>
+                <ion-input [(ngModel)]="userItem.username" name="username"></ion-input>
               </ion-item>
               <ion-item>
                 <ion-label position="stacked">Password</ion-label>
-                <ion-input name="password" type="password" [(ngModel)]="userItem.password"></ion-input>
+                <ion-input [(ngModel)]="userItem.password" name="password" type="password"></ion-input>
               </ion-item>
             </ion-col>
           </ion-row>
-          <!--Button-->
-          <ion-col size="2">
-            <ion-button (click)="clickLogin()" [routerLink]="['/home']" color="dark">Login</ion-button>
-          </ion-col>
-        </ion-col>
+          <!--Buttons-->
+          <!-- TODO: route to profile page (not homepage) -->
+          <ion-row>
+            <ion-col size="2">
+              <ion-button (click)="clickLogin()" [routerLink]="['/home']" color="dark">Login</ion-button>
+            </ion-col>
+          </ion-row>
 
+          <ion-row>
+            <ion-col size="2">
+              <ion-button [routerLink]="['/registration']" color="dark">Register a new profile</ion-button>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <ion-col size="2">
+              <ion-button [routerLink]="['/home']" color="medium">Register a new Service</ion-button>
+            </ion-col>
+          </ion-row>
+
+        </ion-col>
       </ion-row>
     </ion-grid>
-    <ion-button [routerLink]="['/registration']" color="dark">Register a new profile</ion-button>
+
   </ion-content>
 
 </ion-app>

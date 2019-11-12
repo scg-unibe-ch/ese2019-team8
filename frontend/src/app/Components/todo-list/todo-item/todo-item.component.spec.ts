@@ -1,7 +1,7 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { TodoItemComponent } from './todo-item.component';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {TodoItemComponent} from './todo-item.component';
 
 describe('TodoItemComponent', () => {
   let component: TodoItemComponent;
@@ -11,11 +11,11 @@ describe('TodoItemComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-    ],
-      declarations: [ TodoItemComponent ],
+      ],
+      declarations: [TodoItemComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 
-import { Platform } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import {Platform} from '@ionic/angular';
+import {SplashScreen} from '@ionic-native/splash-screen/ngx';
+import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {TodoList} from './Components/todo-list/todo-list';
 import {IonChip} from './Components/ion-chip/ionChip';
 import {UserItem} from './Components/user-item';

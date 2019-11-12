@@ -5,5 +5,6 @@ export class TodoItem {
     public todoListId: number,
     public name: string,
     public done: boolean
-) {}
+  ) {
+  }
 }

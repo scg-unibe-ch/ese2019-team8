@@ -1,3 +1,71 @@
-<p>
-  home works!
-</p>
+<ion-app>
+  <ion-content>
+    <ion-grid>
+
+      <ion-row>
+        <ion-col>
+          <ion-title color="Dark">
+            Register your Service:
+          </ion-title>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="height: 100%">
+        <ion-col>
+          <div>
+            <ion-item>
+              <ion-input [(ngModel)]="userItem.username" name="username" placeholder="Username" type="text"></ion-input>
+            </ion-item>
+          </div>
+        </ion-col>
+
+        <ion-col>
+          <div>
+            <ion-item>
+              <ion-input placeholder="Service Name" type="text"></ion-input>
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="height: 100%">
+        <ion-col>
+          <div>
+            <ion-item>
+              <ion-input placeholder="Category" type="text"></ion-input>
+            </ion-item>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div>
+            <ion-item>
+              <ion-input placeholder="Price" type="number"></ion-input>
+            </ion-item>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div>
+            <ion-item>
+              <ion-input placeholder="Location" type="text"></ion-input>
+            </ion-item>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row style="height: 100%">
+        <ion-col>
+          <ion-item>
+            <ion-label position="stacked">Description of service</ion-label>
+            <ion-textarea placeholder="Describe your service" rows="10"></ion-textarea>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="2">
+          <ion-button color="success">Add your Service</ion-button>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </ion-content>
+</ion-app>

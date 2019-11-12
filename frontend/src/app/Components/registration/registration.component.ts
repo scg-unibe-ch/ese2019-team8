@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserItem} from '../user-item';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import { FormControl, FormGroup } from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 
 
 @Component({
@@ -16,7 +16,8 @@ export class RegistrationComponent implements OnInit {
   validationMessage: FormGroup;
 
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+  }
 
   ngOnInit() {
     this.httpClient.get('http://localhost:3000/user/', {
@@ -38,16 +39,16 @@ export class RegistrationComponent implements OnInit {
 
   clickRegistration() {
     this.httpClient.post('http://localhost:3000/user', {
-        username: this.userItem.username,
-        password: this.userItem.password,
-        isServiceProvider: this.userItem.isServiceProvider,
-        email: this.userItem.email,
-        address: this.userItem.address,
-        zip: this.userItem.zip,
-        city: this.userItem.city,
-        phoneNumber: this.userItem.phoneNumber
-      }).subscribe((instance: any) => {
-        this.userItem.id = instance.id;
+      username: this.userItem.username,
+      password: this.userItem.password,
+      isServiceProvider: this.userItem.isServiceProvider,
+      email: this.userItem.email,
+      address: this.userItem.address,
+      zip: this.userItem.zip,
+      city: this.userItem.city,
+      phoneNumber: this.userItem.phoneNumber
+    }).subscribe((instance: any) => {
+      this.userItem.id = instance.id;
     });
   }
 }
