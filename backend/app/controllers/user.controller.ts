@@ -24,7 +24,6 @@ router.get('/login', async (req: Request, res: Response) => {
     userNotFound(res);
     return;
   }
-
   if (bcrypt.compareSync(req.body.password, user.passwordHash)) {
     res.statusCode = 200;
     const payload = {
@@ -50,9 +49,11 @@ router.get('/login', async (req: Request, res: Response) => {
     });
     return;
   }
-
 });
 
+/*
+Verify a JWT
+ */
 function verify(token: string) {
   let verification = false;
   try {
@@ -62,12 +63,18 @@ function verify(token: string) {
   return verification;
 }
 
+/*
+Get the user from a JWT
+ */
 async function decodeUser(token: string) {
   const payload = jwt.decode(token);
   const username = payload.username;
   return await User.findByPrimary(username);
 }
 
+/*
+Send "not logged in" message to frontend
+ */
 function userNotLoggedIn(res: any) {
   res.statusCode = 403;
   res.json({
@@ -75,6 +82,9 @@ function userNotLoggedIn(res: any) {
   });
 }
 
+/*
+Send "user not found" message to frontend
+ */
 function userNotFound(res: any) {
   res.statusCode = 404;
   res.json({
@@ -82,6 +92,9 @@ function userNotFound(res: any) {
   });
 }
 
+/*
+send user profile to frontend
+ */
 function userProfile(res: any, user: User) {
   res.statusCode = 200;
   res.send(user.toSimplification());
@@ -93,7 +106,6 @@ Get user information
 router.get('/profile', async (req: Request, res: Response) => {
   const token = req.body.token;
   const verification = verify(token);
-
   if (verification) {
     const user = await decodeUser(token);
     if (user) {
@@ -106,7 +118,9 @@ router.get('/profile', async (req: Request, res: Response) => {
   }
 });
 
-
+/*
+Change parameters of an existing User
+ */
 router.put('/profile', async (req: Request, res: Response) => {
   const token = req.body.token;
   const verification = verify(token);
@@ -129,6 +143,9 @@ router.put('/profile', async (req: Request, res: Response) => {
   }
 });
 
+/*
+Post a new User
+ */
 router.post('/', async (req: Request, res: Response) => {
   const simpleUser = req.body;
   const user = await User.findByPrimary(simpleUser.username);
@@ -141,12 +158,10 @@ router.post('/', async (req: Request, res: Response) => {
   }
   const instance = new User();
   simpleUser.password = await bcrypt.hash(req.body.password, saltRounds);
-
   instance.fromSimplification(simpleUser);
   await instance.save();
   res.statusCode = 201;
   res.send(instance.toSimplification());
 });
-
 
 export const UserController: Router = router;
