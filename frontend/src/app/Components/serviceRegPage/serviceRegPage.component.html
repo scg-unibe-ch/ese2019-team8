@@ -33,10 +33,19 @@
         <ion-col>
           <div>
             <ion-item>
-              <ion-input [(ngModel)]="serviceItem.category" placeholder="Category" type="text"></ion-input>
+              <ion-label color="medium">Category</ion-label>
+              <ion-select multiple="false" color="medium">
+                <ion-select-option [(ngModel)]="serviceItem.category" value="venue">Venue</ion-select-option>
+                <ion-select-option [(ngModel)]="serviceItem.category" value="photography">Photography</ion-select-option>
+                <ion-select-option [(ngModel)]="serviceItem.category" value="catering">Catering</ion-select-option>
+                <ion-select-option [(ngModel)]="serviceItem.category" value="music">Music</ion-select-option>
+                <ion-select-option [(ngModel)]="serviceItem.category" value="planner">Eventplanner</ion-select-option>
+              </ion-select>
             </ion-item>
           </div>
         </ion-col>
+      </ion-row>
+      <ion-row style="height: 100%">
         <ion-col>
           <div>
             <ion-item>
