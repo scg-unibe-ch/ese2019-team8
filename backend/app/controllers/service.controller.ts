@@ -1,6 +1,6 @@
 import {Request, Response, Router} from 'express';
 import {Service} from '../models/service.model';
-import {decodeUser, userNotFound, userNotLoggedIn, verify} from './user.controller';
+import {decodeUser, userNotFound, userNotLoggedIn, verify, forbidden} from './user.controller';
 
 const router: Router = Router();
 
@@ -10,16 +10,6 @@ send service to frontend
 function sendService(res: any, service: Service) {
   res.statusCode = 200;
   res.send(service.toSimplification());
-}
-
-/*
-send service to frontend
- */
-function forbidden(res: any) {
-  res.statusCode = 403;
-  res.json({
-    'message': 'forbidden'
-  });
 }
 
 /*
