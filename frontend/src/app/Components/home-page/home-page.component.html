@@ -1,12 +1,30 @@
 <!-- TODO: Everything-->
-  <ion-app>
-    <ion-content>
-  <ion-row>
-    <ion-col size="2">
-      <ion-button [routerLink]="['/serviceRegistration']" color="medium">Register a new Service</ion-button>
-    </ion-col>
-  </ion-row>
-    </ion-content>
+<ion-app>
+  <ion-content>
 
-  </ion-app>
+    <ion-row style="height: 15%">
+      <ion-col>
+        <div>
+            <ion-searchbar placeholder="What do you need? "></ion-searchbar>
+        </div>
+      </ion-col>
+      </ion-row>
+    <!-- TODO: Search for Categorys
+    <ion-row style="height: 30%">
+      <ion-col>
+        <div>
+          <ion-title>Categorys</ion-title>
+        </div>
+      </ion-col>
+    </ion-row>
+    -->
+        <ion-row style="height: 10%">
+          <ion-col size="2">
+            <div>
+              <ion-button [routerLink]="['/serviceRegistration']" color="medium">Register a new Service</ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+  </ion-content>
+</ion-app>
 
