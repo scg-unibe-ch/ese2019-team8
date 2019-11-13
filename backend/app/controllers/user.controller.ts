@@ -9,6 +9,9 @@ const jwt = require('jsonwebtoken');
 const PRIVATE_KEY = 'LirumLarumLoeffelstiel';
 const EXPIRATION_TIME = () => Math.floor(Date.now() / 1000) + (60 * 60);
 
+/*
+ temporary: to be deleted
+ */
 router.get('/', async (req: Request, res: Response) => {
   const instances = await User.findAll();
   res.statusCode = 200;
@@ -36,8 +39,7 @@ router.post('/login', async (req: Request, res: Response) => {
       'algorithm': 'RS256'
        */
     };
-    // const token = jwt.sign(payload, PRIVATE_KEY);
-    const token = jwt.sign(payload, PRIVATE_KEY, signOptions);
+   const token = jwt.sign(payload, PRIVATE_KEY, signOptions);
     res.json({
       'message': 'successfully logged in',
       'token': token
@@ -89,6 +91,16 @@ export function userNotFound(res: any) {
   res.statusCode = 404;
   res.json({
     'message': 'user not found'
+  });
+}
+
+/*
+send forbidden to frontend
+ */
+export function forbidden(res: any) {
+  res.statusCode = 403;
+  res.json({
+    'message': 'forbidden'
   });
 }
 
@@ -163,6 +175,32 @@ router.post('/', async (req: Request, res: Response) => {
   await instance.save();
   res.statusCode = 201;
   res.send(instance.toSimplification());
+});
+
+/*
+set isApproved by admin
+ */
+/*
+Change parameters of an existing User
+ */
+router.put('/admin', async (req: Request, res: Response) => {
+  const token = req.body.token;
+  const verification = verify(token);
+  if (verification) {
+    const user = await decodeUser(token);
+    if (user) {
+      if (!user.isAdmin) {
+        forbidden(res);
+      }
+      user.isApproved = req.body.isApproved;
+      await user.save();
+      userProfile(res, user);
+    } else {
+      userNotFound(res);
+    }
+  } else {
+    userNotLoggedIn(res);
+  }
 });
 
 export const UserController: Router = router;

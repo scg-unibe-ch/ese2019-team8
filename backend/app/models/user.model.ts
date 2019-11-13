@@ -34,6 +34,10 @@ export class User extends Model<User> {
   @Column
   phoneNumber!: string;
 
+  @Default(false)
+  @Column
+  isAdmin!: boolean;
+
   fromSimplification(simplification: any): void {
     this.username = simplification['username'];
     this.isServiceProvider = simplification['isServiceProvider'];
@@ -55,9 +59,9 @@ export class User extends Model<User> {
       'zip': this.zip,
       'city': this.city,
       'phoneNumber': this.phoneNumber,
-      'isApproved': this.isApproved
+      'isApproved': this.isApproved,
+      'isAdmin': this.isAdmin
     };
   }
-
 
 }
