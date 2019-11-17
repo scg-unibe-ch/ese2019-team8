@@ -25,4 +25,4 @@ TODO
 - Username: `admin1`
 - Password: `admin1`
 
-### [Documentation](./Docs)
+### [Documentation](./docs)
