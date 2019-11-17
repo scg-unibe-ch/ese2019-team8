@@ -22,7 +22,6 @@ router.get('/', async (req: Request, res: Response) => {
 /*
 Login
  */
-
 router.post('/login', async (req: Request, res: Response) => {
   const user = await User.findByPk(req.body.username);
   if (!user) {
@@ -97,7 +96,7 @@ export function userNotFound(res: any) {
 }
 
 /*
-send forbidden to frontend
+send "forbidden" message to frontend
  */
 export function forbidden(res: any) {
   res.statusCode = 403;
@@ -207,22 +206,34 @@ router.post('/', async (req: Request, res: Response) => {
 /*
 set isApproved by admin
  */
-/*
-Change parameters of an existing User
- */
 router.put('/admin', async (req: Request, res: Response) => {
   const token = req.body.token;
   const verification = verify(token);
   if (verification) {
     const user = await decodeUser(token);
     if (user) {
-
       if (!user.isAdmin) {
         forbidden(res);
+        return;
       }
-      user.isApproved = req.body.isApproved;
-      await user.save();
-      userProfile(res, user);
+      const objectUser = await User.findByPk(req.body.username);
+      if (objectUser) {
+        objectUser.isApproved = req.body.isApproved;
+        await objectUser.save();
+        res.statusCode = 200;
+        if (objectUser.isApproved) {
+          res.json({
+            'message': 'user successfully approved'
+          });
+        } else {
+          res.json({
+            'message': 'user successfully disapproved'
+          });
+        }
+      } else {
+        userNotFound(res);
+        return;
+      }
     } else {
       userNotFound(res);
     }
@@ -230,5 +241,40 @@ router.put('/admin', async (req: Request, res: Response) => {
     userNotLoggedIn(res);
   }
 });
+
+/*
+delete user by admin
+ */
+router.delete('/', async (req: Request, res: Response) => {
+  const token = req.body.token;
+  const verification = verify(token);
+  if (verification) {
+    const user = await decodeUser(token);
+    if (user) {
+      if (!user.isAdmin) {
+        forbidden(res);
+        return;
+      }
+      const objectUser = await User.findByPk(req.body.username);
+      if (objectUser) {
+        await objectUser.destroy();
+        res.statusCode = 200;
+        res.json({
+          'message': 'user successfully deleted'
+        });
+      } else {
+        userNotFound(res);
+        return;
+      }
+    } else {
+      userNotFound(res);
+    }
+  } else {
+    userNotLoggedIn(res);
+  }
+});
+
+
+
 
 export const UserController: Router = router;

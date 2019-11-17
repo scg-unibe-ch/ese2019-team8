@@ -85,7 +85,7 @@ router.put('/', async (req: Request, res: Response) => {
 });
 
 /*
-delete existing service
+delete existing service by owner
  */
 router.delete('/', async (req: Request, res: Response) => {
   const token = req.body.token;
@@ -103,7 +103,7 @@ router.delete('/', async (req: Request, res: Response) => {
         return;
       }
       await service.destroy();
-      res.statusCode = 204;
+      res.statusCode = 200;
       res.json({
         'message': 'service successfully deleted'
       });
@@ -113,7 +113,37 @@ router.delete('/', async (req: Request, res: Response) => {
   } else {
     userNotLoggedIn(res);
   }
+});
 
+/*
+delete existing service by owner
+ */
+router.delete('/admin', async (req: Request, res: Response) => {
+  const token = req.body.token;
+  const verification = verify(token);
+  if (verification) {
+    const user = await decodeUser(token);
+    if (user) {
+      if (!user.isAdmin) {
+        forbidden(res);
+        return;
+      }
+      const service = await Service.findByPrimary(req.body.id);
+      if (!service) {
+        serviceNotFound(res);
+        return;
+      }
+      await service.destroy();
+      res.statusCode = 200;
+      res.json({
+        'message': 'service successfully deleted'
+      });
+    } else {
+      userNotFound(res);
+    }
+  } else {
+    userNotLoggedIn(res);
+  }
 });
 
 export const ServiceController: Router = router;
