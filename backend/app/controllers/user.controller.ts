@@ -22,7 +22,7 @@ router.get('/', async (req: Request, res: Response) => {
 Login
  */
 router.post('/login', async (req: Request, res: Response) => {
-  const user = await User.findByPrimary(req.body.username);
+  const user = await User.findByPk(req.body.username);
   if (!user) {
     userNotFound(res);
     return;
@@ -39,7 +39,7 @@ router.post('/login', async (req: Request, res: Response) => {
       'algorithm': 'RS256'
        */
     };
-   const token = jwt.sign(payload, PRIVATE_KEY, signOptions);
+    const token = jwt.sign(payload, PRIVATE_KEY, signOptions);
     res.json({
       'message': 'successfully logged in',
       'token': token
@@ -71,7 +71,7 @@ Get the user from a JWT
 export async function decodeUser(token: string) {
   const payload = jwt.decode(token);
   const username = payload.username;
-  return await User.findByPrimary(username);
+  return await User.findByPk(username);
 }
 
 /*
@@ -160,7 +160,7 @@ Post a new User
  */
 router.post('/', async (req: Request, res: Response) => {
   const simpleUser = req.body;
-  const user = await User.findByPrimary(simpleUser.username);
+  const user = await User.findByPk(simpleUser.username);
   if (user) {
     res.statusCode = 403;
     res.json({
@@ -189,6 +189,7 @@ router.put('/admin', async (req: Request, res: Response) => {
   if (verification) {
     const user = await decodeUser(token);
     if (user) {
+
       if (!user.isAdmin) {
         forbidden(res);
       }

@@ -1,4 +1,5 @@
-import {PasswordValidator, UsernameValidator} from './registration/registration.component';
+import {PasswordValidator} from '../validators/password.validator';
+import {UsernameValidator} from '../validators/username.validator';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 export class FormPage {
@@ -8,15 +9,6 @@ export class FormPage {
   private formBuilder: any;
 
   constructor() {
-    this.validationsForm = this.formBuilder.group({
-      username: new FormControl('', Validators.compose([
-        UsernameValidator.validUsername,
-        Validators.maxLength(25),
-        Validators.minLength(5),
-        Validators.pattern('^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]+$'),
-        Validators.required
-      ])),
-    });
     this.matchingPasswordsGroup = new FormGroup({
       password: new FormControl('', Validators.compose([
         Validators.minLength(5),
@@ -41,7 +33,7 @@ export class FormPage {
         {type: 'minlength', message: 'Password must be at least 5 characters long.'},
         {type: 'pattern', message: 'Your Password must contain only numbers and letters.'},
       ],
-      confirm_password: [
+      passwordConfirmation: [
         {type: 'required', message: 'Confirm password is required.'},
         {type: 'areEqual', message: 'Password mismatch'}
       ],

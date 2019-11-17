@@ -1,68 +1,136 @@
 <ion-app>
 
-  <ion-content>
-    <ion-row>
-      <!--New Account Col-->
-      <ion-col>
-        <ion-title>
-          Create new Account
-        </ion-title>
-        <ion-row>
-          <ion-col>
-            <ion-item>
-              <ion-label position="stacked">Username
-                <ion-text color="danger">*</ion-text>
-              </ion-label>
-              <ion-input name="username" [(ngModel)]="userItem.username" required></ion-input>
-            </ion-item>
+  <ion-content class="ion-padding">
+    <ion-title color="primary">
+      Registration
+    </ion-title>
 
-            <!-- TODO: confirm second password matches first one, pattern in input -->
-            <ion-item>
-              <ion-label position="stacked">Password
-                <ion-text color="danger">*</ion-text>
-              </ion-label>
-              <ion-input name="password" type="password" [(ngModel)]="userItem.password" required></ion-input>
-            </ion-item>
-            <ion-item>
-              <!-- TODO: confirm second password matches first one -->
-              <ion-label position="stacked">Confirm password
-                <ion-text color="danger">*</ion-text>
-              </ion-label>
-              <ion-input name="passwordConfirmation" type="password" required></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label position="stacked">Email</ion-label>
-              <ion-input name="email" type="email" [(ngModel)]="userItem.email"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label position="stacked">Address</ion-label>
-              <ion-input name="address" [(ngModel)]="userItem.address" placeholder="Address Line 1"></ion-input>
-              <ion-input name="zip" [(ngModel)]="userItem.zip" placeholder="Zip Code"></ion-input>
-              <ion-input name="city" [(ngModel)]="userItem.city" placeholder="City"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label position="stacked">Phone</ion-label>
-              <ion-input name="phoneNumber" [(ngModel)]="userItem.phoneNumber"></ion-input>
-            </ion-item>
-            <!-- Checkbox for service Providers -->
-            <ion-item>
-              <ion-checkbox name="isServiceProvider" [(ngModel)]="userItem.isServiceProvider" slot="start"
-                            color="dark"></ion-checkbox>
-              <ion-label>Register as service provider</ion-label>
-            </ion-item>
-            <!--Description of Service-->
-            <ion-item>
-              <ion-label position="stacked">Description of service</ion-label>
-              <ion-textarea></ion-textarea>
-            </ion-item>
+    <ion-card>
+      <ion-card-content>
+        <ion-row>
+          <!--New Account Col-->
+          <ion-col>
+            <ion-card-subtitle>General Information</ion-card-subtitle>
+            <div class="'registrationForm">
+              <form [formGroup]="registrationForm">
+                <ion-col>
+
+                  <ion-item>
+                    <ion-label position="stacked">Username
+                      <ion-text color="danger">*</ion-text>
+                    </ion-label>
+                    <ion-input name="username" formControlName="username" required></ion-input>
+                  </ion-item>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validationMessages.username">
+                      <div class="error-message"
+                           *ngIf="registrationForm.get('username').hasError(validation.type) && (registrationForm.get('username').dirty || registrationForm.get('username').touched)">
+                        <ion-icon name="information-circle"></ion-icon>
+                        {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+                  <div formGroupName="passwordChecker">
+                    <ion-item>
+                      <ion-label position="stacked">Password
+                        <ion-text color="danger">*</ion-text>
+                      </ion-label>
+                      <ion-input name="password" type="password" formControlName="password" required></ion-input>
+                    </ion-item>
+                    <div class="validation-errors">
+                      <ng-container *ngFor="let validation of validationMessages.password">
+                        <div class="error-message"
+                             *ngIf="registrationForm.get('passwordChecker').get('password').hasError(validation.type) && (registrationForm.get('passwordChecker').get('password').dirty || registrationForm.get('passwordChecker').get('password').touched)">
+                          <ion-icon name="information-circle"></ion-icon>
+                          {{ validation.message }}
+                        </div>
+                      </ng-container>
+                    </div>
+
+                    <ion-item>
+                      <ion-label position="stacked">Confirm password
+                      </ion-label>
+                      <ion-input name="passwordConfirmation" type="password" formControlName="passwordConfirmation"
+                                 required></ion-input>
+                    </ion-item>
+                    <div class="validation-errors">
+                      <ng-container *ngFor="let validation of validationMessages.passwordConfirmation">
+                        <div class="error-message"
+                             *ngIf="registrationForm.get('passwordChecker').get('passwordConfirmation').hasError(validation.type) && (registrationForm.get('passwordChecker').get('passwordConfirmation').dirty || registrationForm.get('passwordChecker').get('passwordConfirmation').touched)">
+                          <ion-icon name="information-circle"></ion-icon>
+                          {{ validation.message }}
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validationMessages.passwordConfirmation">
+                      <div class="error-message"
+                           *ngIf="registrationForm.get('passwordChecker').hasError(validation.type) && (registrationForm.get('passwordChecker').get('passwordConfirmation').dirty || registrationForm.get('passwordChecker').get('passwordConfirmation').touched)">
+                        <ion-icon name="information-circle"></ion-icon>
+                        {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+                  <ion-item-divider class="ion-margin-top" color="secondary" sticky="true">
+                    <ion-label>
+                      <ion-icon class="form-icon" slot="start" name="people"></ion-icon>
+
+                    </ion-label>
+                  </ion-item-divider>
+                  <ion-card-subtitle>Proprietary Information</ion-card-subtitle>
+
+                  <ion-item>
+                    <ion-label position="stacked">Email</ion-label>
+                    <ion-input name="email" type="email" formControlName="email"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label position="stacked">Address</ion-label>
+                    <ion-input name="address" formControlName="address" placeholder="Address Line 1"></ion-input>
+                    <ion-input name="zip" formControlName="zip" placeholder="Zip Code"></ion-input>
+                    <ion-input name="city" formControlName="city" placeholder="City"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label position="stacked">Phone</ion-label>
+                    <ion-input name="phoneNumber" formControlName="phoneNumber"></ion-input>
+                  </ion-item>
+                  <!-- Checkbox for service Providers -->
+                  <ion-item>
+                    <ion-checkbox name="isServiceProvider" formControlName="isServiceProvider" slot="start"
+                                  color="dark"></ion-checkbox>
+                    <ion-label>Register as service provider</ion-label>
+                  </ion-item>
+                  <!--Description of Service-->
+                  <ion-item>
+                    <ion-label position="stacked">Description of service</ion-label>
+                    <ion-textarea></ion-textarea>
+                  </ion-item>
+                </ion-col>
+              </form>
+            </div>
+
+            <!--Button-->
+            <ion-col>
+              <ion-button class="submit-btn" (click)="register()" [disabled]="!registrationForm.valid" color="tertiary">
+                <ion-icon slot="start" name="person-add"></ion-icon>
+                Create Account
+              </ion-button>
+              <ion-button [routerLink]="['/login']">
+                <ion-icon slot="start" name="close"></ion-icon>
+                Cancel
+              </ion-button>
+              <ion-button (click)="reset()">
+                <ion-icon slot="start" name="refresh"></ion-icon>
+                Cancel
+              </ion-button>
+            </ion-col>
+
           </ion-col>
         </ion-row>
-        <!--Button-->
-        <ion-col size="2">
-          <ion-button (click)="clickRegistration()" color="dark">Create Account</ion-button>
-        </ion-col>
-
-      </ion-col>
-    </ion-row>
+      </ion-card-content>
+    </ion-card>
   </ion-content>
 </ion-app>

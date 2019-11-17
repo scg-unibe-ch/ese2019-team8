@@ -11,6 +11,7 @@ export class User extends Model<User> {
   @Column
   passwordHash!: String;
 
+  @Default(false)
   @Column
   isServiceProvider!: boolean;
 
