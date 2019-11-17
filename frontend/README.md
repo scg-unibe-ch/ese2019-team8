@@ -1,4 +1,4 @@
-# Front-End Scaffolding
+# Front-End
 
 ## Initial Setup
 1. Install [Node.js](https://nodejs.org/en/) (must be done already, as it is a part of prerequisite!)

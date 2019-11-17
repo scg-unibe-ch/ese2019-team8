@@ -5,7 +5,7 @@ import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {TodoList} from './Components/todo-list/todo-list';
 import {IonChip} from './Components/ion-chip/ionChip';
-import {UserItem} from './Components/user-item';
+import {UserItem} from './_models/user-item';
 import {HttpClient} from '@angular/common/http';
 
 @Component({

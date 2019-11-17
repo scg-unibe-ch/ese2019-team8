@@ -1,6 +1,4 @@
 export class UserItem {
-  userItemsId: number;
-  id: number;
 
   constructor(
     public password: string,

@@ -1,8 +1,8 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouteReuseStrategy} from '@angular/router';
-import {HttpClientModule} from '@angular/common/http';
-import {FormsModule} from '@angular/forms';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {IonicModule, IonicRouteStrategy} from '@ionic/angular';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
@@ -20,7 +20,11 @@ import {ProfilePageComponent} from './Components/profile-page/profile-page.compo
 import {AppRoutingModule} from './app-routing.module';
 import {HomePageComponent} from './Components/home-page/home-page.component';
 import {ServiceRegPageComponent} from './Components/serviceRegPage/serviceRegPage.component';
-import {AlertComponent} from './Components';
+import {AlertModule} from './_alert';
+
+import {AuthGuard} from './_guards';
+import { JwtInterceptor} from './_helpers';
+import {AuthenticationService, UserService} from './_services';
 
 @NgModule({
   declarations: [
@@ -32,7 +36,6 @@ import {AlertComponent} from './Components';
     LoginComponent,
     ServiceRegPageComponent,
     ProfilePageComponent,
-    AlertComponent,
     HomePageComponent
   ],
   entryComponents: [],
@@ -41,9 +44,19 @@ import {AlertComponent} from './Components';
     IonicModule.forRoot(),
     HttpClientModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    AlertModule
   ],
   providers: [
+    AuthGuard,
+    AuthenticationService,
+    UserService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
     StatusBar,
     SplashScreen,
     {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}

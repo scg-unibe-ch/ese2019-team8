@@ -1,8 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {UserItem} from '../user-item';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {AlertService} from '../../helpers';
+import {UserItem} from '../../_models/user-item';
+import {HttpClient} from '@angular/common/http';
+import {AlertService} from '../../_alert';
 import {Router} from '@angular/router';
+
+import {first} from 'rxjs/operators';
+
+import {User} from '../../../../../backend/app/models/user.model';
+import {UserService} from '../../_services';
+import {AuthenticationService} from '../../_services';
 
 @Component({
   selector: 'app-login',
@@ -11,17 +17,51 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   userItem: UserItem = new UserItem(null, '', false, '', '', null, '', null);
+  users: UserItem[] = [];
+  loading = false;
+
 
   constructor(private httpClient: HttpClient,
               private alertService: AlertService,
-              private router: Router
+              private router: Router,
+              private userService: UserService,
+              private authenticationService: AuthenticationService
   ) {
   }
 
   ngOnInit() {
+    // TODO: fix get method
+    // get users from secure api end point
+    this.userService.getAll()
+      .pipe(first())
+      .subscribe(users => {
+        this.users = users;
+      });
+    // reset login status
+    this.authenticationService.logout();
   }
 
 
+  clickLogin() {
+    // reset alerts on submit
+    this.alertService.clear();
+    this.loading = true;
+    this.authenticationService.login(this.userItem.username, this.userItem.password)
+      .pipe(first())
+      .subscribe(
+        data => {
+          console.log(data.message);
+          alert(data.message);
+          this.router.navigate(['/home'], {queryParams: {login: true}});
+        },
+        error => {
+          alert(error.error.message);
+          this.loading = false;
+        });
+  }
+
+
+  /*
   clickLogin() {
     // reset alerts on submit
     this.alertService.clear();
@@ -29,13 +69,15 @@ export class LoginComponent implements OnInit {
       username: this.userItem.username,
       password: this.userItem.password
     }).subscribe(data => {
-        this.alertService.success('Login successful', true);
+        this.alertService.success('Login successful');
         this.router.navigate(['/home'], {queryParams: {login: true}});
       },
       error => {
-        this.alertService.error(error);
+        // console.log(error),
+        alert(error.error.message);
       }
     );
   }
+  */
 
 }

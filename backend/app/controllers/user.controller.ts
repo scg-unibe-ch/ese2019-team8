@@ -1,6 +1,7 @@
 import {Router, Request, Response} from 'express';
 import {User} from '../models/user.model';
 
+
 const router: Router = Router();
 
 const bcrypt = require('bcrypt');
@@ -22,7 +23,7 @@ router.get('/', async (req: Request, res: Response) => {
 Login
  */
 router.post('/login', async (req: Request, res: Response) => {
-  const user = await User.findByPrimary(req.body.username);
+  const user = await User.findByPk(req.body.username);
   if (!user) {
     userNotFound(res);
     return;
@@ -39,7 +40,7 @@ router.post('/login', async (req: Request, res: Response) => {
       'algorithm': 'RS256'
        */
     };
-   const token = jwt.sign(payload, PRIVATE_KEY, signOptions);
+    const token = jwt.sign(payload, PRIVATE_KEY, signOptions);
     res.json({
       'message': 'successfully logged in',
       'token': token
@@ -71,7 +72,7 @@ Get the user from a JWT
 export async function decodeUser(token: string) {
   const payload = jwt.decode(token);
   const username = payload.username;
-  return await User.findByPrimary(username);
+  return await User.findByPk(username);
 }
 
 /*
@@ -95,7 +96,7 @@ export function userNotFound(res: any) {
 }
 
 /*
-send forbidden to frontend
+send "forbidden" message to frontend
  */
 export function forbidden(res: any) {
   res.statusCode = 403;
@@ -115,8 +116,8 @@ function userProfile(res: any, user: User) {
 /*
 Get user information
  */
-router.get('/profile', async (req: Request, res: Response) => {
-  const token = req.body.token;
+router.get('/profile/:token', async (req: Request, res: Response) => {
+  const token = req.params.token;
   const verification = verify(token);
   if (verification) {
     const user = await decodeUser(token);
@@ -129,6 +130,27 @@ router.get('/profile', async (req: Request, res: Response) => {
     userNotLoggedIn(res);
   }
 });
+
+/*
+// TODO Get aller users, damit token retourned werden kann
+
+router.get('/users/', async (req: Request, res: Response) => {
+  // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
+  if (req.headers.authorization === token) {
+    res.statusCode = 200;
+    res.json({
+      'user': req.body.username
+    });
+    return;
+  } else {
+    // return 401 not authorised if token is null or invalid
+    res.statusCode = 401;
+    return;
+  }
+});
+
+ */
+
 
 /*
 Change parameters of an existing User
@@ -160,7 +182,7 @@ Post a new User
  */
 router.post('/', async (req: Request, res: Response) => {
   const simpleUser = req.body;
-  const user = await User.findByPrimary(simpleUser.username);
+  const user = await User.findByPk(simpleUser.username);
   if (user) {
     res.statusCode = 403;
     res.json({
@@ -174,14 +196,15 @@ router.post('/', async (req: Request, res: Response) => {
   instance.fromSimplification(simpleUser);
   await instance.save();
   res.statusCode = 201;
+  res.json({
+    'message': 'Registration complete'
+  });
   res.send(instance.toSimplification());
+  return;
 });
 
 /*
 set isApproved by admin
- */
-/*
-Change parameters of an existing User
  */
 router.put('/admin', async (req: Request, res: Response) => {
   const token = req.body.token;
@@ -191,10 +214,26 @@ router.put('/admin', async (req: Request, res: Response) => {
     if (user) {
       if (!user.isAdmin) {
         forbidden(res);
+        return;
       }
-      user.isApproved = req.body.isApproved;
-      await user.save();
-      userProfile(res, user);
+      const objectUser = await User.findByPk(req.body.username);
+      if (objectUser) {
+        objectUser.isApproved = req.body.isApproved;
+        await objectUser.save();
+        res.statusCode = 200;
+        if (objectUser.isApproved) {
+          res.json({
+            'message': 'user successfully approved'
+          });
+        } else {
+          res.json({
+            'message': 'user successfully disapproved'
+          });
+        }
+      } else {
+        userNotFound(res);
+        return;
+      }
     } else {
       userNotFound(res);
     }
@@ -202,5 +241,40 @@ router.put('/admin', async (req: Request, res: Response) => {
     userNotLoggedIn(res);
   }
 });
+
+/*
+delete user by admin
+ */
+router.delete('/', async (req: Request, res: Response) => {
+  const token = req.body.token;
+  const verification = verify(token);
+  if (verification) {
+    const user = await decodeUser(token);
+    if (user) {
+      if (!user.isAdmin) {
+        forbidden(res);
+        return;
+      }
+      const objectUser = await User.findByPk(req.body.username);
+      if (objectUser) {
+        await objectUser.destroy();
+        res.statusCode = 200;
+        res.json({
+          'message': 'user successfully deleted'
+        });
+      } else {
+        userNotFound(res);
+        return;
+      }
+    } else {
+      userNotFound(res);
+    }
+  } else {
+    userNotLoggedIn(res);
+  }
+});
+
+
+
 
 export const UserController: Router = router;
