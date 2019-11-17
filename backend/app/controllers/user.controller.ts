@@ -116,8 +116,8 @@ function userProfile(res: any, user: User) {
 /*
 Get user information
  */
-router.get('/profile', async (req: Request, res: Response) => {
-  const token = req.body.token;
+router.get('/profile/:token', async (req: Request, res: Response) => {
+  const token = req.params.token;
   const verification = verify(token);
   if (verification) {
     const user = await decodeUser(token);
