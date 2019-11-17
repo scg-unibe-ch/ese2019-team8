@@ -5,7 +5,7 @@ import {AlertService} from '../../_alert';
 import {Router} from '@angular/router';
 import {UsernameValidator} from '../../validators/username.validator';
 import {PasswordValidator} from '../../validators/password.validator';
-import {UserItem} from '../user-item';
+import {UserItem} from '../../_models/user-item';
 
 @Component({
   selector: 'app-registration',
@@ -101,7 +101,7 @@ export class RegistrationComponent implements OnInit {
 
     // console.log(usernameForm, passwordForm, isServiceProviderForm, emailForm, addressForm, zipForm, cityForm, phoneNumberForm);
     if (this.registrationForm.valid) {
-      console.log('form submitted');
+      console.log('form valid');
     } else {
       console.log('not valid');
     }
@@ -116,6 +116,7 @@ export class RegistrationComponent implements OnInit {
       phoneNumber: phoneNumberForm,
 
     }).subscribe(data => {
+        console.log(data);
         this.alertService.success('Registration successful');
         this.router.navigate(['/login'], {queryParams: {registered: true}});
       },

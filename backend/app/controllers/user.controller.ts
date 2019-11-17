@@ -1,6 +1,7 @@
 import {Router, Request, Response} from 'express';
 import {User} from '../models/user.model';
 
+
 const router: Router = Router();
 
 const bcrypt = require('bcrypt');
@@ -21,6 +22,7 @@ router.get('/', async (req: Request, res: Response) => {
 /*
 Login
  */
+
 router.post('/login', async (req: Request, res: Response) => {
   const user = await User.findByPk(req.body.username);
   if (!user) {
@@ -131,6 +133,27 @@ router.get('/profile', async (req: Request, res: Response) => {
 });
 
 /*
+// TODO Get aller users, damit token retourned werden kann
+
+router.get('/users/', async (req: Request, res: Response) => {
+  // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
+  if (req.headers.authorization === token) {
+    res.statusCode = 200;
+    res.json({
+      'user': req.body.username
+    });
+    return;
+  } else {
+    // return 401 not authorised if token is null or invalid
+    res.statusCode = 401;
+    return;
+  }
+});
+
+ */
+
+
+/*
 Change parameters of an existing User
  */
 router.put('/profile', async (req: Request, res: Response) => {
@@ -174,7 +197,11 @@ router.post('/', async (req: Request, res: Response) => {
   instance.fromSimplification(simpleUser);
   await instance.save();
   res.statusCode = 201;
+  res.json({
+    'message': 'Registration complete'
+  });
   res.send(instance.toSimplification());
+  return;
 });
 
 /*

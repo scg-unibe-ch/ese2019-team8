@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ServiceItem} from '../service-item';
+import {ServiceItem} from '../../_models/service-item';
 import {HttpClient} from '@angular/common/http';
 
 @Component({
