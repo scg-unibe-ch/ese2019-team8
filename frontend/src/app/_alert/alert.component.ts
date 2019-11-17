@@ -44,6 +44,7 @@ export class AlertComponent implements OnInit, OnDestroy {
     }
 
     // return css class based on alert type
+    // TODO: Not applied correctly
     switch (alert.type) {
       case AlertType.Success:
         return 'alert alert-success';
