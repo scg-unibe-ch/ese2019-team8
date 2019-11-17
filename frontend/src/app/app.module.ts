@@ -25,6 +25,7 @@ import {AlertModule} from './_alert';
 import {AuthGuard} from './_guards';
 import { JwtInterceptor} from './_helpers';
 import {AuthenticationService, UserService} from './_services';
+import {SearcherComponent} from './Components/searcher/searcher.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {AuthenticationService, UserService} from './_services';
     LoginComponent,
     ServiceRegPageComponent,
     ProfilePageComponent,
-    HomePageComponent
+    HomePageComponent,
+    SearcherComponent
   ],
   entryComponents: [],
   imports: [

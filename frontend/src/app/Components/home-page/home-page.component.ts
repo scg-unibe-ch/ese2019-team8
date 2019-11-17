@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ServiceItem} from '../../_models/service-item';
 import {HttpClient} from '@angular/common/http';
+import {SearcherComponent} from '../searcher/searcher.component';
+import {clickSearch} from '../searcher/searcher.component';
 
 @Component({
   selector: 'app-home-page',
@@ -14,6 +16,11 @@ export class HomePageComponent implements OnInit {
   constructor() {
   }
 
+
   ngOnInit() {
   }
+  clickSearch() {}
+
 }
+
+

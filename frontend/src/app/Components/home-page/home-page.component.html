@@ -2,14 +2,14 @@
 <ion-app>
   <ion-content>
 
-    <ion-row style="height: 15%">
-      <ion-col>
-        <div>
-            <ion-searchbar placeholder="What do you need? "></ion-searchbar>
-        </div>
-      </ion-col>
-      </ion-row>
-    <!-- TODO: Search for Categorys
+      <ion-toolbar>
+        <ion-searchbar placeholder="What do you need?" slot="start"></ion-searchbar>
+        <ion-button slot="end" [routerLink]="['/search']" (click)="clickSearch()" color="medium">
+          <ion-icon  name="search" slot="icon-only" ></ion-icon>
+        </ion-button>
+      </ion-toolbar>
+
+    <!-- TODO: Search for Categorys, with direct link f.e.  search/venue
     <ion-row style="height: 30%">
       <ion-col>
         <div>
@@ -25,6 +25,12 @@
             </div>
           </ion-col>
         </ion-row>
+
+
+
+
+
+
   </ion-content>
 </ion-app>
 
