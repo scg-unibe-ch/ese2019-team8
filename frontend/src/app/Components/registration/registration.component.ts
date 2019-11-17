@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import {FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AlertService} from '../../helpers';
+import {AlertService} from '../../_alert';
 import {Router} from '@angular/router';
 import {UsernameValidator} from '../../validators/username.validator';
 import {PasswordValidator} from '../../validators/password.validator';
@@ -116,11 +116,11 @@ export class RegistrationComponent implements OnInit {
       phoneNumber: phoneNumberForm,
 
     }).subscribe(data => {
-        this.alertService.success('Registration successful', true);
+        this.alertService.success('Registration successful');
         this.router.navigate(['/login'], {queryParams: {registered: true}});
       },
       error => {
-        this.alertService.error(error);
+        alert(error.error.message);
       });
   }
 

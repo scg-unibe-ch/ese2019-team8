@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserItem} from '../user-item';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import {AlertService} from '../../helpers';
+import {HttpClient} from '@angular/common/http';
+import {AlertService} from '../../_alert';
 import {Router} from '@angular/router';
 
 @Component({
@@ -29,11 +29,12 @@ export class LoginComponent implements OnInit {
       username: this.userItem.username,
       password: this.userItem.password
     }).subscribe(data => {
-        this.alertService.success('Login successful', true);
+        this.alertService.success('Login successful');
         this.router.navigate(['/home'], {queryParams: {login: true}});
       },
       error => {
-        this.alertService.error(error);
+        // console.log(error),
+        alert(error.error.message);
       }
     );
   }

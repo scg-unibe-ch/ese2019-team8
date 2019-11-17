@@ -20,7 +20,7 @@ import {ProfilePageComponent} from './Components/profile-page/profile-page.compo
 import {AppRoutingModule} from './app-routing.module';
 import {HomePageComponent} from './Components/home-page/home-page.component';
 import {ServiceRegPageComponent} from './Components/serviceRegPage/serviceRegPage.component';
-import {AlertComponent} from './Components';
+import {AlertModule} from './_alert';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,6 @@ import {AlertComponent} from './Components';
     LoginComponent,
     ServiceRegPageComponent,
     ProfilePageComponent,
-    AlertComponent,
     HomePageComponent
   ],
   entryComponents: [],
@@ -42,7 +41,8 @@ import {AlertComponent} from './Components';
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AlertModule
   ],
   providers: [
     StatusBar,
