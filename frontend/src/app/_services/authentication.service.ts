@@ -5,7 +5,9 @@ import {map} from 'rxjs/operators';
 
 @Injectable()
 export class AuthenticationService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
+
   isLoggedin = false;
 
   login(username: string, password: string) {
@@ -22,13 +24,13 @@ export class AuthenticationService {
       }));
   }
 
-getUserData() {
-  // get current user Token
-  localStorage.getItem('currentUser');
-}
+  getUserData() {
+    // get current user Token
+    localStorage.getItem('currentUser');
+  }
 
 
-    isLoggedIn() {
+  isLoggedIn() {
     if (localStorage.getItem('currentUser') == null) {
       this.isLoggedin = false;
       return this.isLoggedin;
@@ -37,9 +39,12 @@ getUserData() {
     }
 
   }
+
+  logout() {
+    // remove user from local storage to log user out
+    localStorage.removeItem('currentUser');
+    this.isLoggedin = false;
+  }
 }
-export function logout() {
-  // remove user from local storage to log user out
-  localStorage.removeItem('currentUser');
-  this.isLoggedin = false;
-}
+
+

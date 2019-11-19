@@ -8,6 +8,8 @@ import {IonChip} from './Components/ion-chip/ionChip';
 import {UserItem} from './_models/user-item';
 import {HttpClient} from '@angular/common/http';
 
+import {AuthenticationService, UserService} from './_services';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -24,7 +26,8 @@ export class AppComponent implements OnInit {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private authService: AuthenticationService
   ) {
     this.initializeApp();
   }
@@ -41,6 +44,14 @@ export class AppComponent implements OnInit {
       this.todoLists = instances.map((instance) => new TodoList(instance.id, instance.name));
       this.userItem = instances.map((instances));
     });
+  }
+
+  loggedIn() {
+    return this.authService.isLoggedIn();
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
   onTodoListCreate() {

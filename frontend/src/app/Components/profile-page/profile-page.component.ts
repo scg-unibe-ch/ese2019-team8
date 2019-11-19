@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserItem} from '../../_models/user-item';
 import {AuthenticationService} from '../../_services';
-import {logout} from '../../_services';
 
 @Component({
   selector: 'app-profile-page',
@@ -10,7 +9,9 @@ import {logout} from '../../_services';
 })
 export class ProfilePageComponent implements OnInit {
 
-  constructor() {
+  constructor(
+    private authService: AuthenticationService
+  ) {
   }
 
   save() {
@@ -18,7 +19,9 @@ export class ProfilePageComponent implements OnInit {
 
   ngOnInit() {
   }
+
   logout() {
+    this.authService.logout();
   }
 
 
