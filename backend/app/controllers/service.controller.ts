@@ -13,6 +13,16 @@ function sendService(res: any, service: Service) {
 }
 
 /*
+send "not approved" message to frontend
+ */
+export function notApproved(res: any) {
+  res.statusCode = 403;
+  res.json({
+    'message': 'User not approved by admin'
+  });
+}
+
+/*
 Get all Services
  */
 router.get('/', async (req: Request, res: Response) => {
@@ -30,12 +40,16 @@ router.post('/', async (req: Request, res: Response) => {
   if (verification) {
     const user = await decodeUser(token);
     if (user) {
-      const instance = new Service();
-      req.body.username = user.username;
-      instance.fromSimplification(req.body);
-      await instance.save();
-      res.statusCode = 201;
-      res.send(instance.toSimplification());
+      if (user.isApproved) {
+        const instance = new Service();
+        req.body.username = user.username;
+        instance.fromSimplification(req.body);
+        await instance.save();
+        res.statusCode = 201;
+        res.send(instance.toSimplification());
+      } else {
+        notApproved(res);
+      }
     } else {
       userNotFound(res);
     }
@@ -74,7 +88,10 @@ router.put('/', async (req: Request, res: Response) => {
       }
       req.body.username = service.username;
       service.fromSimplification(req.body);
-      await service.save();
+      try {
+        await service.save();
+      } catch (err) {
+      }
       sendService(res, service);
     } else {
       userNotFound(res);

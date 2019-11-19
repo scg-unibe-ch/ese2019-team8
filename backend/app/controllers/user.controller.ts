@@ -191,7 +191,10 @@ router.put('/profile', async (req: Request, res: Response) => {
         req.body.password = user.passwordHash;
       }
       user.fromSimplification(req.body);
-      await user.save();
+      try {
+        await user.save();
+      } catch (err) {
+      }
       userProfile(res, user);
     } else {
       userNotFound(res);
@@ -243,7 +246,10 @@ router.put('/admin', async (req: Request, res: Response) => {
       const objectUser = await User.findByPk(req.body.username);
       if (objectUser) {
         objectUser.isApproved = req.body.isApproved;
-        await objectUser.save();
+        try {
+          await objectUser.save();
+        } catch (err) {
+        }
         res.statusCode = 200;
         if (objectUser.isApproved) {
           res.json({
@@ -297,8 +303,6 @@ router.delete('/', async (req: Request, res: Response) => {
     userNotLoggedIn(res);
   }
 });
-
-
 
 
 export const UserController: Router = router;
