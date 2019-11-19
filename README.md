@@ -17,7 +17,7 @@ Run the following commands in a console of your choosing
 ### In Frontend-Folder:
 Run the following commands in a console of your choosing
 - `npm install`
-- `ionic serve`
+- `ng serve`
 
 Afterwards you can either register as a normal user or login as a Administrator with the following data:
 
