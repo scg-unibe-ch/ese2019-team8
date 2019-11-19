@@ -10,6 +10,20 @@ const jwt = require('jsonwebtoken');
 const PRIVATE_KEY = 'LirumLarumLoeffelstiel';
 const EXPIRATION_TIME = () => Math.floor(Date.now() / 1000) + (60 * 60);
 
+router.post('/createAdmin', async (req: Request, res: Response) => {
+  const admin = new User();
+  admin.fromSimplification({username: 'admin1'});
+  admin.passwordHash = await bcrypt.hash('admin1', saltRounds);
+  await admin.save();
+    res.statusCode = 201;
+    res.json({
+      'message': 'admin created'
+    });
+    res.send(admin.toSimplification());
+    return;
+  });
+
+
 /*
  temporary: to be deleted
  */
