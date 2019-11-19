@@ -22,15 +22,12 @@ export class ServiceRegPageComponent implements OnInit {
   }
   clickAddService() {
     this.httpClient.post('http://localhost:3000/service', {
-      headers: undefined,
-      observe: 'body',
-      params: new HttpParams().set('serviceItemId', '' + this.serviceItem.user + this.serviceItem.serviceName
-        + this.serviceItem.category + this.serviceItem.price + this.serviceItem.location
-        + this.serviceItem.description
-      ),
-      reportProgress: true,
-      responseType: 'json',
-      withCredentials: false
+      token: localStorage.getItem('currentUser').replace('"', '').replace('"', ''),
+      serviceName: this.serviceItem.serviceName,
+      category: this.serviceItem.category,
+      price: this.serviceItem.price,
+      location: this.serviceItem.location,
+      description: this.serviceItem.description,
     }).subscribe((instance: any) => {
       this.serviceItem.user = instance.user;
       this.serviceItem.serviceName = instance.serviceName;
