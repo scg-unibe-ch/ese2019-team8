@@ -10,9 +10,6 @@ import {StatusBar} from '@ionic-native/status-bar/ngx';
 
 import {AppComponent} from './app.component';
 
-import {TodoListComponent} from './Components/todo-list/todo-list.component';
-import {TodoItemComponent} from './Components/todo-list/todo-item/todo-item.component';
-
 import {ComponentIonChipComponent} from './Components/ion-chip/component-ion-chip.component';
 import {RegistrationComponent} from './Components/registration/registration.component';
 import {LoginComponent} from './Components/login/login.component';
@@ -30,8 +27,6 @@ import {SearcherComponent} from './Components/searcher/searcher.component';
 @NgModule({
   declarations: [
     AppComponent,
-    TodoListComponent,
-    TodoItemComponent,
     ComponentIonChipComponent,
     RegistrationComponent,
     LoginComponent,

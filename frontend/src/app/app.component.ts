@@ -3,7 +3,6 @@ import {Component, OnInit} from '@angular/core';
 import {Platform} from '@ionic/angular';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
-import {TodoList} from './Components/todo-list/todo-list';
 import {IonChip} from './Components/ion-chip/ionChip';
 import {UserItem} from './_models/user-item';
 import {HttpClient} from '@angular/common/http';
@@ -17,8 +16,6 @@ import {AuthenticationService, UserService} from './_services';
 })
 
 export class AppComponent implements OnInit {
-  todoList: TodoList = new TodoList(null, '');
-  todoLists: TodoList[] = [];
   ionChip: IonChip = new IonChip(null, '');
   userItem: UserItem = new UserItem(null, '', false, '', '', null, '', null);
 
@@ -40,10 +37,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.httpClient.get('http://localhost:3000/todolist').subscribe((instances: any) => {
-      this.todoLists = instances.map((instance) => new TodoList(instance.id, instance.name));
-      this.userItem = instances.map((instances));
-    });
   }
 
   loggedIn() {
@@ -54,17 +47,4 @@ export class AppComponent implements OnInit {
     this.authService.logout();
   }
 
-  onTodoListCreate() {
-    this.httpClient.post('http://localhost:3000/todolist', {
-      name: this.todoList.name
-    }).subscribe((instance: any) => {
-      this.todoList.id = instance.id;
-      this.todoLists.push(this.todoList);
-      this.todoList = new TodoList(null, '');
-    });
-  }
-
-  onTodoListDestroy(todoList: TodoList) {
-    this.todoLists.splice(this.todoLists.indexOf(todoList), 1);
-  }
 }
