@@ -5,10 +5,9 @@ import {map} from 'rxjs/operators';
 
 @Injectable()
 export class AuthenticationService {
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
-  login(username: string, password: string) {
+login(username: string, password: string) {
     return this.http.post<any>('http://localhost:3000/user/login', {username, password})
       .pipe(map(user => {
         // login successful if there's a jwt token in the response
@@ -21,8 +20,12 @@ export class AuthenticationService {
       }));
   }
 
-  logout() {
-    // remove user from local storage to log user out
-    localStorage.removeItem('currentUser');
+getUserData() {
+    // get current user Token
+    localStorage.getItem('currentUser');
   }
+}
+export function logout() {
+  // remove user from local storage to log user out
+  localStorage.removeItem('currentUser');
 }

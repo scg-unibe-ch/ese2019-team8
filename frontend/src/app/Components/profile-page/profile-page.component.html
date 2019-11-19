@@ -39,6 +39,9 @@
           <ion-button class="submit-btn" type="submit" [disabled]="!saveForm.form.valid">Save</ion-button>
         </ion-col>
       </ion-row>
+      <ion-col>
+        <ion-button color="danger" (click)="logout()">Logout</ion-button>
+      </ion-col>
 
     </form>
   </div>
