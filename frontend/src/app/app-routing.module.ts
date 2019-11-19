@@ -6,8 +6,7 @@ import {ServiceRegPageComponent} from './Components/serviceRegPage/serviceRegPag
 import {HomePageComponent} from './Components/home-page/home-page.component';
 import {ProfilePageComponent} from './Components/profile-page/profile-page.component';
 import {SearcherComponent} from './Components/searcher/searcher.component';
-
-
+import {EventServiceComponent} from './Components/event-service/event-service.component';
 
 
 const routes: Routes = [
@@ -17,7 +16,8 @@ const routes: Routes = [
   {path: 'home', component: HomePageComponent},
   {path: 'serviceRegistration', component: ServiceRegPageComponent},
   {path: 'profilePage', component: ProfilePageComponent},
-  {path: 'search', component: SearcherComponent}
+  {path: 'search', component: SearcherComponent},
+  {path: 'service', component: EventServiceComponent}
 ];
 
 @NgModule({
