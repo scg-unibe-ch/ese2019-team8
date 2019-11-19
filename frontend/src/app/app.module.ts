@@ -10,7 +10,6 @@ import {StatusBar} from '@ionic-native/status-bar/ngx';
 
 import {AppComponent} from './app.component';
 
-import {ComponentIonChipComponent} from './Components/ion-chip/component-ion-chip.component';
 import {RegistrationComponent} from './Components/registration/registration.component';
 import {LoginComponent} from './Components/login/login.component';
 import {ProfilePageComponent} from './Components/profile-page/profile-page.component';
@@ -27,7 +26,6 @@ import {SearcherComponent} from './Components/searcher/searcher.component';
 @NgModule({
   declarations: [
     AppComponent,
-    ComponentIonChipComponent,
     RegistrationComponent,
     LoginComponent,
     ServiceRegPageComponent,

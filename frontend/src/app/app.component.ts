@@ -3,7 +3,6 @@ import {Component, OnInit} from '@angular/core';
 import {Platform} from '@ionic/angular';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
-import {IonChip} from './Components/ion-chip/ionChip';
 import {UserItem} from './_models/user-item';
 import {HttpClient} from '@angular/common/http';
 
@@ -16,7 +15,6 @@ import {AuthenticationService, UserService} from './_services';
 })
 
 export class AppComponent implements OnInit {
-  ionChip: IonChip = new IonChip(null, '');
   userItem: UserItem = new UserItem(null, '', false, '', '', null, '', null);
 
   constructor(
