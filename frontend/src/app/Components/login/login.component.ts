@@ -53,6 +53,7 @@ export class LoginComponent implements OnInit {
           console.log(data.message);
           alert(data.message);
           this.router.navigate(['/home'], {queryParams: {login: true}});
+          console.log(JSON.parse(localStorage.getItem('currentUser')));
         },
         error => {
           alert(error.error.message);

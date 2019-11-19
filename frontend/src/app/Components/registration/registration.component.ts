@@ -60,7 +60,7 @@ export class RegistrationComponent implements OnInit {
     }, (formGroup: FormGroup) => {
       return PasswordValidator.areEqual(formGroup);
     });
-
+// as
     this.registrationForm = this.formBuilder.group({
       username: new FormControl('', Validators.compose([
         UsernameValidator.validUsername,
