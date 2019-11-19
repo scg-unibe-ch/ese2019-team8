@@ -1,0 +1,385 @@
+{
+	"info": {
+		"_postman_id": "21b0977f-b2a3-4fce-90d6-4b4b029601bb",
+		"name": "Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"jonas\",\n    \"password\": \"Test1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/user/login",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET own Profile",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:3000/user/profile/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvbmFzIiwiZXhwIjoxNTc0MTY5MjY3LCJpYXQiOjE1NzQxNjU2Njd9.k4saIjelcfThJpqcVD3GreNiGqH5E0xOyLDxxyAZQ0A",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"profile",
+						"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvbmFzIiwiZXhwIjoxNTc0MTY5MjY3LCJpYXQiOjE1NzQxNjU2Njd9.k4saIjelcfThJpqcVD3GreNiGqH5E0xOyLDxxyAZQ0A"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change existing User Profile",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvbmFzIiwiZXhwIjoxNTc0MTY5MjY3LCJpYXQiOjE1NzQxNjU2Njd9.k4saIjelcfThJpqcVD3GreNiGqH5E0xOyLDxxyAZQ0A\",\r\n   \"address\": \"Testweg\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/user/profile",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register new User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"username\": \"5\",\r\n   \"password\": \"pw123\",\r\n   \"email\": \"mail@mail.mal\",\r\n   \"isServiceProvider\": false,\r\n   \"address\": \"abweg 123\",\r\n   \"zip\": \"1234\",\r\n   \"city\": \"bern\",\r\n   \"phoneNumber\": \"asfsaf\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/user",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Service",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvbmFzIiwiZXhwIjoxNTc0MTY5MjY3LCJpYXQiOjE1NzQxNjU2Njd9.k4saIjelcfThJpqcVD3GreNiGqH5E0xOyLDxxyAZQ0A\",\r\n   \"serviceName\": \"name\",\r\n   \"category\": \"cat\",\r\n   \"price\": 12.34,\r\n   \"location\": \"loco\",\r\n   \"description\": \"desc\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/service",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"service"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET all Services",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/service",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"service"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Change existing Service",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjUiLCJleHAiOjE1NzQwMjEyNTIsImlhdCI6MTU3NDAxNzY1Mn0.Ju3pMjZU1fMfNPVbPQJGrMvGHjba6IR3mx6WtFPeh34\",\r\n   \"id\": 1,\r\n   \"serviceName\": \"anotherName\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/service",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"service"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Service by owner",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNTc0MDIzMDA3LCJpYXQiOjE1NzQwMTk0MDd9.dM1Uf7PFRmCUXbGS4J1_KFctK-0qoVrG4iZcnoe06rU\",\r\n   \"id\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/service",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"service"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Dis-/approve existing User by admin",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNTc0MDIyMjY5LCJpYXQiOjE1NzQwMTg2Njl9.yn6J08dqI3GemsUBIwR6JGozziDlgg3A05GWJAampQA\",\r\n   \"username\": \"5\",\r\n   \"isApproved\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/user/admin",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE existing User by admin",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNTc0MDIzMDA3LCJpYXQiOjE1NzQwMTk0MDd9.dM1Uf7PFRmCUXbGS4J1_KFctK-0qoVrG4iZcnoe06rU\",\r\n   \"username\": \"5\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/user/",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Service by admin",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNTc0MDIzMDA3LCJpYXQiOjE1NzQwMTk0MDd9.dM1Uf7PFRmCUXbGS4J1_KFctK-0qoVrG4iZcnoe06rU\",\r\n   \"id\": 4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/service/admin",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"service",
+						"admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create Admin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/user/createAdmin",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"createAdmin"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
