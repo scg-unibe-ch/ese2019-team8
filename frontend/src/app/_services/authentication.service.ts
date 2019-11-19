@@ -5,6 +5,8 @@ import {map} from 'rxjs/operators';
 
 @Injectable()
 export class AuthenticationService {
+  isLoggedin = false;
+
   constructor(private http: HttpClient) {
   }
 
@@ -15,6 +17,7 @@ export class AuthenticationService {
         if (user && user.token) {
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           localStorage.setItem('currentUser', JSON.stringify(user.token));
+          this.isLoggedin = true;
         }
 
         return user;
@@ -24,5 +27,15 @@ export class AuthenticationService {
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
+    this.isLoggedin = false;
+  }
+
+  isLoggedIn() {
+    if (localStorage.getItem('currentUser') == null) {
+      this.isLoggedin = false;
+      return this.isLoggedin;
+    } else {
+      return true;
+    }
   }
 }
