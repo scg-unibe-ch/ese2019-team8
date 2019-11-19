@@ -11,17 +11,27 @@ const PRIVATE_KEY = 'LirumLarumLoeffelstiel';
 const EXPIRATION_TIME = () => Math.floor(Date.now() / 1000) + (60 * 60);
 
 router.post('/createAdmin', async (req: Request, res: Response) => {
-  const admin = new User();
-  admin.fromSimplification({username: 'admin1'});
-  admin.passwordHash = await bcrypt.hash('admin1', saltRounds);
-  await admin.save();
+  const user = await User.findByPk('admin1');
+  if (user) {
+    res.statusCode = 200;
+    res.json({
+      'message': 'admin already exists'
+    });
+  } else {
+    const admin = new User();
+    admin.username = 'admin1';
+    admin.passwordHash = await bcrypt.hash('admin1', saltRounds);
+    admin.isApproved = true;
+    admin.isAdmin = true;
+    await admin.save();
     res.statusCode = 201;
     res.json({
       'message': 'admin created'
     });
     res.send(admin.toSimplification());
     return;
-  });
+  }
+});
 
 
 /*
