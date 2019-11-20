@@ -1,5 +1,6 @@
 import {Router, Request, Response} from 'express';
 import {User} from '../models/user.model';
+import {deleteAllServicesOfUser} from './service.controller';
 
 const router: Router = Router();
 
@@ -287,7 +288,6 @@ router.put('/admin', async (req: Request, res: Response) => {
  * delete user by admin
  * @param req should contain token (of admin) and username (of objectUser)
  * @returns message
- * // TODO delete all services of objectUser first before deleting objectUser
  */
 router.delete('/', async (req: Request, res: Response) => {
   const token = req.body.token;
@@ -301,11 +301,15 @@ router.delete('/', async (req: Request, res: Response) => {
       }
       const objectUser = await User.findByPk(req.body.username);
       if (objectUser) {
-        await objectUser.destroy();
+        await deleteAllServicesOfUser(objectUser);
+        setTimeout(async function () {
+          await objectUser.destroy();
+        }, 100);
         res.statusCode = 200;
         res.json({
           'message': 'user successfully deleted'
         });
+        return;
       } else {
         userNotFound(res);
         return;

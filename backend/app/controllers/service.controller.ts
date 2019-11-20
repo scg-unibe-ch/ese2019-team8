@@ -1,6 +1,7 @@
 import {Request, Response, Router} from 'express';
 import {Service} from '../models/service.model';
 import {decodeUser, userNotFound, userNotLoggedIn, verify, forbidden, preconditionFailed} from './user.controller';
+import {User} from '../models/user.model';
 
 const router: Router = Router();
 
@@ -220,5 +221,23 @@ router.get('/search/' +
   res.statusCode = 200;
   res.send(instances.map(e => e.toSimplification()));
 });
+
+/**
+ * Deletes all Services of User
+ * @param userObject User of which all Services will be deleted
+ * When deleting a User, first all of the Services created by that User have to be deleted.
+ * (Otherwise the Foreign Key constraint of the Service Model would fail.)
+ */
+export async function deleteAllServicesOfUser(userObject: User) {
+  let instances: Array<Service> = await Service.findAll();
+  instances = instances.filter(function search(element: Service) {
+    if (element.username === userObject.username) {
+      return element;
+    }
+  });
+  instances.forEach(function (service) {
+    service.destroy();
+  });
+}
 
 export const ServiceController: Router = router;
