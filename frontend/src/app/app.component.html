@@ -9,7 +9,7 @@
     </ion-buttons>
 
     <ion-buttons slot="secondary">
-      <ion-button *ngIf="loggedIn()" [routerLink]="['/login']" color="secondary" (click)="logout()">
+      <ion-button *ngIf="loggedIn()" [routerLink]="['/login']" color="danger" (click)="logout()">
         Sign Out
       </ion-button>
       <ion-button *ngIf="!loggedIn()" [routerLink]="['/login']" color="secondary">

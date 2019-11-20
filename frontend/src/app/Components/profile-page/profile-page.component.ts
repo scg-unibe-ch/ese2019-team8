@@ -17,7 +17,8 @@ export class ProfilePageComponent implements OnInit {
     private httpClient: HttpClient,
     private router: Router,
     private formBuilder: FormBuilder
-  ) {}
+  ) {
+  }
   profilePageForm: FormGroup;
 
   ngOnInit() {

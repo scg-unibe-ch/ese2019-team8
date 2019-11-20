@@ -1,15 +1,25 @@
-﻿import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
+﻿import {Component, Injectable} from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import {Observable, PartialObserver} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {UserItem} from '../_models/user-item';
 
-@Injectable()
+
+
+@Injectable({providedIn: 'root'})
 export class AuthenticationService {
-  private httpClient: HttpClient;
-  constructor(private http: HttpClient) {
+  isLoggedin = false;
+  userItem: UserItem;
+
+  constructor(
+    private http: HttpClient,
+    private httpClient: HttpClient
+    ) {
+    this.userItem = new UserItem('', '', false, '',
+      '', null, '', null);
   }
 
-  isLoggedin = false;
+
 
   login(username: string, password: string) {
     return this.http.post<any>('http://localhost:3000/user/login', {username, password})
@@ -24,13 +34,18 @@ export class AuthenticationService {
         return user;
       }));
   }
-
   // ToDo: get user information
   getUserData() {
-    // this.httpClient.get('http://localhost:3000/profile/' + localStorage.getItem('currentUser'))
-
-    // get current user Token
-    localStorage.getItem('currentUser');
+   return this.httpClient.get('http://localhost:3000/user/profile/' + localStorage.getItem('currentUser').toString(
+    ).replace('\"', '').replace('\"', ''), {
+    }).subscribe(data => {
+      this.userItem = new UserItem(this.userItem.password, this.userItem.username,
+      this.userItem.isServiceProvider, this.userItem.email, this.userItem.address, this.userItem.zip,
+      this.userItem.city, this.userItem.phoneNumber);
+      },
+      error => {
+        alert(error.error.message);
+      });
   }
 
 
