@@ -5,6 +5,7 @@ import {map} from 'rxjs/operators';
 
 @Injectable()
 export class AuthenticationService {
+  private httpClient: HttpClient;
   constructor(private http: HttpClient) {
   }
 
@@ -24,7 +25,10 @@ export class AuthenticationService {
       }));
   }
 
+  // ToDo: get user information
   getUserData() {
+    // this.httpClient.get('http://localhost:3000/profile/' + localStorage.getItem('currentUser'))
+
     // get current user Token
     localStorage.getItem('currentUser');
   }

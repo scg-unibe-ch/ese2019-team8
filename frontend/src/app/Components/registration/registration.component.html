@@ -1,7 +1,7 @@
 <ion-app>
 
   <ion-content class="ion-padding">
-    <ion-title color="primary">
+    <ion-title color="secondary">
       Registration
     </ion-title>
 
@@ -120,12 +120,12 @@
                 <ion-icon slot="start" name="person-add"></ion-icon>
                 Create Account
               </ion-button>
-              <ion-button [routerLink]="['/ProfilePage']">
+              <ion-button [routerLink]="['/ProfilePage']" color="danger">
                 <ion-icon slot="start" name="close"></ion-icon>
                 Cancel
               </ion-button>
-              <ion-button (click)="reset()">
-                <ion-icon slot="start" name="refresh"></ion-icon>
+              <ion-button (click)="reset()" color="light">
+                <ion-icon slot="start" name="refresh" ></ion-icon>
                 Reset
               </ion-button>
             </ion-col>

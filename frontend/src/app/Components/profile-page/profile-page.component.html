@@ -17,19 +17,22 @@
               </ion-toolbar>
             </ion-header>
 
+            <div class="'registrationForm">
+              <form [formGroup]="profilePageForm">
             <ion-item>
-              <ion-input type="text" placeholder="Name" name="name" required></ion-input>
+              <ion-input type="text" placeholder="Name" name="username" formControlName="username" required></ion-input>
             </ion-item>
 
             <ion-item>
-              <ion-input type="text" placeholder="Email" name="email" required></ion-input>
+              <ion-input type="email" placeholder="Email" name="email" formControlName="email" required></ion-input>
             </ion-item>
 
             <ion-item>
-              <ion-input type="password" placeholder="Password" name="password"></ion-input>
+              <ion-input type="password" placeholder="Password" name="password" formControlName="password"></ion-input>
               <small>Blank field don't modify password</small>
             </ion-item>
-
+              </form>
+            </div>
           </ion-list>
         </ion-col>
       </ion-row>
