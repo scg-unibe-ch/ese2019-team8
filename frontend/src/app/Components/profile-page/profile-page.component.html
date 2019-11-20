@@ -3,7 +3,7 @@
   <div class="login-box">
 
     <form (ngSubmit)="save()" #saveForm="ngForm">
-      <ion-title slot="start">Hello UserXY!</ion-title>
+      <ion-title slot="start">Hello {{userItem.username}}</ion-title>
       <ion-row>
         <ion-col>
           <ion-list inset>
