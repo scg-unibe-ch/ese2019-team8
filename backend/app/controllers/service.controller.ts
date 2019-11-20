@@ -1,19 +1,19 @@
 import {Request, Response, Router} from 'express';
 import {Service} from '../models/service.model';
-import {decodeUser, userNotFound, userNotLoggedIn, verify, forbidden} from './user.controller';
+import {decodeUser, userNotFound, userNotLoggedIn, verify, forbidden, preconditionFailed} from './user.controller';
 
 const router: Router = Router();
 
-/*
-send service to frontend
+/**
+ * send service to frontend
  */
 function sendService(res: any, service: Service) {
   res.statusCode = 200;
   res.send(service.toSimplification());
 }
 
-/*
-send "not approved" message to frontend
+/**
+ * send "not approved" message to frontend
  */
 export function notApproved(res: any) {
   res.statusCode = 403;
@@ -22,8 +22,9 @@ export function notApproved(res: any) {
   });
 }
 
-/*
-Get all Services
+/**
+ * Get all Services
+ * @returns Array of all Services
  */
 router.get('/', async (req: Request, res: Response) => {
   const instances = await Service.findAll();
@@ -31,24 +32,34 @@ router.get('/', async (req: Request, res: Response) => {
   res.send(instances.map(e => e.toSimplification()));
 });
 
-/*
-Post new Service
+/**
+ * Create new Service
+ * @param req MUST contain serviceName and token, can contain category, price, location, description
+ * User has to be a service provider (isServiceProvider) and approved by admin (isApproved).
+ * @returns message and, if created, service
  */
 router.post('/', async (req: Request, res: Response) => {
+  if (!req.body.serviceName) {
+    preconditionFailed(res);
+  }
   const token = req.body.token;
   const verification = verify(token);
   if (verification) {
     const user = await decodeUser(token);
     if (user) {
-      if (user.isApproved) {
-        const instance = new Service();
-        req.body.username = user.username;
-        instance.fromSimplification(req.body);
-        await instance.save();
-        res.statusCode = 201;
-        res.send(instance.toSimplification());
+      if (user.isServiceProvider) {
+        if (user.isApproved) {
+          const instance = new Service();
+          req.body.username = user.username;
+          instance.fromSimplification(req.body);
+          await instance.save();
+          res.statusCode = 201;
+          res.send(instance.toSimplification());
+        } else {
+          notApproved(res);
+        }
       } else {
-        notApproved(res);
+        forbidden(res);
       }
     } else {
       userNotFound(res);
@@ -58,8 +69,8 @@ router.post('/', async (req: Request, res: Response) => {
   }
 });
 
-/*
-Send "service not found" message to frontend
+/**
+ * Send "service not found" message to frontend
  */
 export function serviceNotFound(res: any) {
   res.statusCode = 404;
@@ -68,8 +79,11 @@ export function serviceNotFound(res: any) {
   });
 }
 
-/*
-Change parameters of an existing Service
+/**
+ * Change parameters of an existing Service
+ * @param req should contain token, id (of Service) and the parameters that should be changed.
+ * (Parameters that aren't changed can be omitted.)
+ * @returns message and, if successful, service
  */
 router.put('/', async (req: Request, res: Response) => {
   const token = req.body.token;
@@ -101,8 +115,10 @@ router.put('/', async (req: Request, res: Response) => {
   }
 });
 
-/*
-delete existing service by owner
+/**
+ * delete existing service by owner
+ * @param req should contain token and id (of service)
+ * @returns message
  */
 router.delete('/', async (req: Request, res: Response) => {
   const token = req.body.token;
@@ -132,8 +148,10 @@ router.delete('/', async (req: Request, res: Response) => {
   }
 });
 
-/*
-delete existing service by owner
+/**
+ * delete existing service by admin
+ * @param req should contain token and id (of service)
+ * @returns message
  */
 router.delete('/admin', async (req: Request, res: Response) => {
   const token = req.body.token;
@@ -163,11 +181,13 @@ router.delete('/admin', async (req: Request, res: Response) => {
   }
 });
 
-/*
-Search within Services
+/**
+ * Search within Services
+ * @param req //TODO
+ * @returns Array of corresponding services (may be empty)
  */
-router.get('/search' +
-  '/any=?:any' +
+router.get('/search/' +
+  'any=?:any' +
   '&username=?:username' +
   '&serviceName=?:serviceName' +
   '&category=?:category' +

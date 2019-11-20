@@ -1,7 +1,6 @@
 import {Router, Request, Response} from 'express';
 import {User} from '../models/user.model';
 
-
 const router: Router = Router();
 
 const bcrypt = require('bcrypt');
@@ -10,6 +9,10 @@ const jwt = require('jsonwebtoken');
 const PRIVATE_KEY = 'LirumLarumLoeffelstiel';
 const EXPIRATION_TIME = () => Math.floor(Date.now() / 1000) + (60 * 60);
 
+/**
+ * Creates a hard-coded admin the first time it is called.
+ * The admin has the username 'admin1' and the password 'admin1'.
+ */
 router.post('/createAdmin', async (req: Request, res: Response) => {
   const user = await User.findByPk('admin1');
   if (user) {
@@ -22,6 +25,7 @@ router.post('/createAdmin', async (req: Request, res: Response) => {
     admin.username = 'admin1';
     admin.passwordHash = await bcrypt.hash('admin1', saltRounds);
     admin.isApproved = true;
+    admin.isServiceProvider = true;
     admin.isAdmin = true;
     await admin.save();
     res.statusCode = 201;
@@ -33,7 +37,6 @@ router.post('/createAdmin', async (req: Request, res: Response) => {
   }
 });
 
-
 /*
  temporary: to be deleted
  */
@@ -43,8 +46,11 @@ router.get('/', async (req: Request, res: Response) => {
   res.send(instances.map(e => e.toSimplification()));
 });
 
-/*
-Login
+/**
+ * Login
+ * @param req body should contain username and password.
+ * @returns a message and, if login is successful, a JWT (token).
+ * Frontend should save token in the local storage of the user.
  */
 router.post('/login', async (req: Request, res: Response) => {
   const user = await User.findByPk(req.body.username);
@@ -78,8 +84,10 @@ router.post('/login', async (req: Request, res: Response) => {
   }
 });
 
-/*
-Verify a JWT
+/**
+ * Verifies a JWT
+ * @param token JWT string
+ * @returns true, if token is verified; false otherwise
  */
 export function verify(token: string) {
   let verification = false;
@@ -90,8 +98,11 @@ export function verify(token: string) {
   return verification;
 }
 
-/*
-Get the user from a JWT
+/**
+ * Get the user from a JWT
+ * internal function
+ * @param token jWT string of a verified user
+ * @returns corresponding User object
  */
 export async function decodeUser(token: string) {
   const payload = jwt.decode(token);
@@ -99,13 +110,23 @@ export async function decodeUser(token: string) {
   return await User.findByPk(username);
 }
 
-/*
-Send "not logged in" message to frontend
+/**
+ * Send "not logged in" message to frontend
  */
 export function userNotLoggedIn(res: any) {
   res.statusCode = 403;
   res.json({
     'message': 'not logged in'
+  });
+}
+
+/**
+ * Send "precondition failed" message to frontend
+ */
+export function preconditionFailed(res: any) {
+  res.statusCode = 412;
+  res.json({
+    'message': 'precondition failed'
   });
 }
 
@@ -119,8 +140,8 @@ export function userNotFound(res: any) {
   });
 }
 
-/*
-send "forbidden" message to frontend
+/**
+ * send "forbidden" message to frontend
  */
 export function forbidden(res: any) {
   res.statusCode = 403;
@@ -129,16 +150,18 @@ export function forbidden(res: any) {
   });
 }
 
-/*
-send user profile to frontend
+/**
+ * send user profile to frontend
  */
 function userProfile(res: any, user: User) {
   res.statusCode = 200;
   res.send(user.toSimplification());
 }
 
-/*
-Get user information
+/**
+ * Get user information
+ * @param token JWT string as HTTP parameters
+ * @returns message and, if logged in, profile of user
  */
 router.get('/profile/:token', async (req: Request, res: Response) => {
   const token = req.params.token;
@@ -155,29 +178,11 @@ router.get('/profile/:token', async (req: Request, res: Response) => {
   }
 });
 
-/*
-// TODO Get aller users, damit token retourned werden kann
-
-router.get('/users/', async (req: Request, res: Response) => {
-  // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
-  if (req.headers.authorization === token) {
-    res.statusCode = 200;
-    res.json({
-      'user': req.body.username
-    });
-    return;
-  } else {
-    // return 401 not authorised if token is null or invalid
-    res.statusCode = 401;
-    return;
-  }
-});
-
- */
-
-
-/*
-Change parameters of an existing User
+/**
+ * Change parameters of an existing User
+ * @param req should contain token and the parameters that should be changed.
+ * (Parameters that aren't changed can be omitted.)
+ * @returns message and, if successful, user
  */
 router.put('/profile', async (req: Request, res: Response) => {
   const token = req.body.token;
@@ -204,10 +209,15 @@ router.put('/profile', async (req: Request, res: Response) => {
   }
 });
 
-/*
-Post a new User
+/**
+ * Create a new User
+ * @param req body MUST contain username and password, can contain isServiceProvider (boolean), email, address, zip, city, phoneNumber
+ * @returns message and, if registration successful, User
  */
 router.post('/', async (req: Request, res: Response) => {
+  if (!req.body.username || !req.body.password) {
+    preconditionFailed(res);
+  }
   const simpleUser = req.body;
   const user = await User.findByPk(simpleUser.username);
   if (user) {
@@ -219,7 +229,6 @@ router.post('/', async (req: Request, res: Response) => {
   }
   const instance = new User();
   simpleUser.password = await bcrypt.hash(req.body.password, saltRounds);
-
   instance.fromSimplification(simpleUser);
   await instance.save();
   res.statusCode = 201;
@@ -230,8 +239,10 @@ router.post('/', async (req: Request, res: Response) => {
   return;
 });
 
-/*
-set isApproved by admin
+/**
+ * Set isApproved by admin
+ * @param req should contain token (of admin), username (of objectUser) and isApproved (boolean)
+ * @returns message
  */
 router.put('/admin', async (req: Request, res: Response) => {
   const token = req.body.token;
@@ -272,8 +283,11 @@ router.put('/admin', async (req: Request, res: Response) => {
   }
 });
 
-/*
-delete user by admin
+/**
+ * delete user by admin
+ * @param req should contain token (of admin) and username (of objectUser)
+ * @returns message
+ * // TODO delete all services of objectUser first before deleting objectUser
  */
 router.delete('/', async (req: Request, res: Response) => {
   const token = req.body.token;
@@ -303,6 +317,5 @@ router.delete('/', async (req: Request, res: Response) => {
     userNotLoggedIn(res);
   }
 });
-
 
 export const UserController: Router = router;

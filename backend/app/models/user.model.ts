@@ -28,7 +28,7 @@ export class User extends Model<User> {
   city!: string;
 
   // True if user is approved by admin (todo)
-  @Default(false)
+  @Default(true)      // changed for test session TODO change back to false after test session
   @Column
   isApproved!: boolean;
 
