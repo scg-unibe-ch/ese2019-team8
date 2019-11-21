@@ -27,16 +27,11 @@ export class ProfilePageComponent implements OnInit {
   userItem: UserItem = new UserItem(null, '', false, '', '', null, '', null);
 
   ngOnInit() {
-    this.profilePageForm = this.formBuilder.group({
-      username: new FormControl(this.getUserData()),
-      email: new FormControl('email@gmail.com'),
-      password: new FormControl('pw1234'),
-    });
+
     // console.log('hoi');
     this.httpClient.get(this.url1 + localStorage.getItem('currentUser').replace('"', '').replace('"', ''))
       .subscribe((instance: any) => {
         // this.user = instances.map((instance) => new userItem(instance.username, instance.email, instance.zip));
-        // this.userItem.username = instance.username;
         this.userItem.username = instance.username;
         this.userItem.address = instance.address;
         this.userItem.email = instance.email;
@@ -46,6 +41,10 @@ export class ProfilePageComponent implements OnInit {
         // console.log(instance);
       });
     // console.log(this.userItem);
+    this.profilePageForm = this.formBuilder.group({
+      email: new FormControl(''),
+      password: new FormControl('pw1234'),
+    });
   }
 
 

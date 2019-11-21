@@ -19,12 +19,10 @@
 
             <div class="'registrationForm">
               <form [formGroup]="profilePageForm">
-            <ion-item>
-              <ion-input type="text" placeholder="Name" name="username" formControlName="username" required></ion-input>
-            </ion-item>
+
 
             <ion-item>
-              <ion-input type="email" placeholder="Email" name="email" formControlName="email" required></ion-input>
+              <ion-input type="email" placeholder="Email" value="{{userItem.email}}" name="email" formControlName="email" required></ion-input>
             </ion-item>
 
             <ion-item>
