@@ -90,31 +90,20 @@ export class RegistrationComponent implements OnInit {
   register() {
     // reset alerts on submit
     this.alertService.clear();
-
-    const usernameForm = this.registrationForm.value.username;
-    const passwordForm = this.registrationForm.value.passwordChecker.password;
-    const isServiceProviderForm = this.registrationForm.value.isServiceProvider;
-    const emailForm = this.registrationForm.value.email;
-    const addressForm = this.registrationForm.value.address;
-    const zipForm = this.registrationForm.value.zip;
-    const cityForm = this.registrationForm.value.city;
-    const phoneNumberForm = this.registrationForm.value.phoneNumber;
-
-    // console.log(usernameForm, passwordForm, isServiceProviderForm, emailForm, addressForm, zipForm, cityForm, phoneNumberForm);
     if (this.registrationForm.valid) {
       console.log('form valid');
     } else {
       console.log('not valid');
     }
     this.httpClient.post('http://localhost:3000/user', {
-      username: usernameForm,
-      password: passwordForm,
-      isServiceProvider: isServiceProviderForm,
-      email: emailForm,
-      address: addressForm,
-      zip: zipForm,
-      city: cityForm,
-      phoneNumber: phoneNumberForm,
+      username: this.registrationForm.value.username,
+      password: this.registrationForm.value.passwordChecker.password,
+      isServiceProvider: this.registrationForm.value.isServiceProvider,
+      email: this.registrationForm.value.email,
+      address: this.registrationForm.value.address,
+      zip: this.registrationForm.value.zip,
+      city: this.registrationForm.value.city,
+      phoneNumber: this.registrationForm.value.phoneNumber,
 
     }).subscribe(data => {
         console.log(data);
