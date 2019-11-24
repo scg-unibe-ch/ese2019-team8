@@ -241,6 +241,34 @@ router.post('/', async (req: Request, res: Response) => {
 });
 
 /**
+ * delete user by user him-/herself
+ * @param req should contain token
+ * @returns message
+ */
+router.delete('/profile', async (req: Request, res: Response) => {
+  const token = req.body.token;
+  const verification = verify(token);
+  if (verification) {
+    const user = await decodeUser(token);
+    if (user) {
+      await deleteAllServicesOfUser(user);
+      setTimeout(async function () {
+        await user.destroy();
+      }, 100);
+      res.statusCode = 200;
+      res.json({
+        'message': 'user successfully deleted'
+      });
+      return;
+    } else {
+      userNotFound(res);
+    }
+  } else {
+    userNotLoggedIn(res);
+  }
+});
+
+/**
  * Set isApproved by admin
  * @param req should contain token (of admin), username (of objectUser) and isApproved (boolean)
  * @returns message
@@ -289,7 +317,7 @@ router.put('/admin', async (req: Request, res: Response) => {
  * @param req should contain token (of admin) and username (of objectUser)
  * @returns message
  */
-router.delete('/', async (req: Request, res: Response) => {
+router.delete('/admin', async (req: Request, res: Response) => {
   const token = req.body.token;
   const verification = verify(token);
   if (verification) {
