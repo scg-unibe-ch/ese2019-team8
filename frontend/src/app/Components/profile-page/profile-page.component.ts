@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {AlertService} from '../../_alert';
+import {AlertController} from '@ionic/angular';
 
 @Component({
   selector: 'app-profile-page',
@@ -18,7 +19,8 @@ export class ProfilePageComponent implements OnInit {
     private httpClient: HttpClient,
     private router: Router,
     private formBuilder: FormBuilder,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private alertController: AlertController
   ) {
   }
 
@@ -94,10 +96,43 @@ export class ProfilePageComponent implements OnInit {
     this.authService.logout();
   }
 
+  /*
+  // TODO: flesh out delete method
+  deleteProfile() {
+    this.httpClient.delete('http://localhost:3000/user/', {
+      token: this.token,
+      username: this.userItem.username
+    }).subscribe()
+  }
+   */
+
   getUserData() {
     // console.log(this.authService.getUserData());
     // return this.authService.getUserData();
   }
 
+  async presentAlertConfirm() {
+    const alert = await this.alertController.create({
+      header: 'Do you really want to delete your profile? This action can not be undone!',
+      message: '<strong>Yes</strong>, I am sure!!!',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            // console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Delete my profile',
+          handler: () => {
+            console.log('Confirm Okay');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
 
 }
