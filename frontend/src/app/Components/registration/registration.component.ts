@@ -32,7 +32,7 @@ export class RegistrationComponent implements OnInit {
       {type: 'required', message: 'Username is required.'},
       {type: 'minlength', message: 'Username must be at least 5 characters long.'},
       {type: 'maxlength', message: 'Username cannot be more than 25 characters long.'},
-      {type: 'pattern', message: 'Your username must contain only numbers and letters.'},
+      {type: 'pattern', message: 'Your username must contain at least one upper case and one lower case character and one number.'},
       {type: 'validUsername', message: 'Your username has already been taken.'}
     ],
     // TODO: PW Messages
