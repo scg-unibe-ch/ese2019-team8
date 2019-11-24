@@ -1,4 +1,4 @@
-<ion-content padding>
+<ion-content class="ion-padding">
 
   <div class="login-box">
 
@@ -13,22 +13,46 @@
                 <ion-thumbnail slot="start">
                   <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
                 </ion-thumbnail>
-                <ion-title slot="start">Your Profile</ion-title>
+                <ion-title slot="start">{{userItem.username}}'s Profile</ion-title>
               </ion-toolbar>
             </ion-header>
 
-            <div class="'registrationForm" >
+            <div class="registrationForm">
               <form [formGroup]="profilePageForm">
-
-
-            <ion-item>
-              <ion-input type="email" placeholder="Email" value="{{userItem.email}}" name="email" formControlName="email" required></ion-input>
-            </ion-item>
-
-            <ion-item>
-              <ion-input type="password" value="{{userItem.password}}" placeholder="Password" name="password" formControlName="password" required></ion-input>
-              <small>Blank field don't modify password</small>
-            </ion-item>
+                <!--
+                <ion-item>
+                  <ion-input type="password" value="" placeholder="Password" name="password"
+                             formControlName="password" required></ion-input>
+                  <small>Blank field don't modify password</small>
+                </ion-item>
+                -->
+                <ion-item>
+                  <ion-input type="text" placeholder="Address" value="{{userItem.address}}" name="address"
+                             formControlName="address" required></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input type="text" placeholder="Email" value="{{userItem.email}}" name="email"
+                             formControlName="email" required></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input type="text" placeholder="ZIP Code" value="{{userItem.zip}}" name="zip"
+                             formControlName="zip" required></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input type="text" placeholder="City" value="{{userItem.city}}" name="city"
+                             formControlName="city" required></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input type="phoneNumber" placeholder="Phone Number" value="{{userItem.phoneNumber}}"
+                             name="phoneNumber"
+                             formControlName="phoneNumber" required></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-checkbox name="isServiceProvider" formControlName="isServiceProvider"
+                                value="{{userItem.isServiceProvider}}" slot="start"
+                                color="dark"></ion-checkbox>
+                  <ion-label>Service Provider</ion-label>
+                </ion-item>
               </form>
             </div>
           </ion-list>
@@ -37,7 +61,10 @@
 
       <ion-row>
         <ion-col class="signup-col">
-          <ion-button class="submit-btn" type="submit" [disabled]="!saveForm.form.valid">Save</ion-button>
+          <!--
+          <ion-button class="submit-btn" (click)="save()"  [disabled]="!saveForm.form.valid">Save</ion-button>
+          -->
+          <ion-button class="submit-btn" (click)="save()">Save</ion-button>
         </ion-col>
       </ion-row>
       <ion-col>

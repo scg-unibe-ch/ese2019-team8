@@ -107,7 +107,8 @@ export class RegistrationComponent implements OnInit {
 
     }).subscribe(data => {
         console.log(data);
-        this.alertService.success('Registration successful');
+        // this.alertService.success('Registration successful');
+        alert('Registration successful');
         this.router.navigate(['/login'], {queryParams: {registered: true}});
       },
       error => {
