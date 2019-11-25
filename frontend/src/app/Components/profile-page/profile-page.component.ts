@@ -73,7 +73,7 @@ export class ProfilePageComponent implements OnInit {
     this.httpClient.put('http://localhost:3000/user/profile', {
       token: this.token,
       // password: this.profilePageForm.value.password,
-      isServiceProvider: this.profilePageForm.value.isServiceProvider,
+      // isServiceProvider: this.profilePageForm.value.isServiceProvider,
       email: this.profilePageForm.value.email,
       address: this.profilePageForm.value.address,
       zip: this.profilePageForm.value.zip,
@@ -97,7 +97,6 @@ export class ProfilePageComponent implements OnInit {
   }
 
 
-  // TODO: flesh out delete method
   deleteProfile() {
     const options = {
       headers: new HttpHeaders({
