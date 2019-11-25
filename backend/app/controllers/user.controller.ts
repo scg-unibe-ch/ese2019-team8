@@ -38,13 +38,30 @@ router.post('/createAdmin', async (req: Request, res: Response) => {
   }
 });
 
-/*
- temporary: to be deleted
+/**
+ * Get Array of all Users with all informations (admin only)
+ * @param token JWT string as HTTP parameters
+ * @returns message or, if logged in admin, profile of all users
  */
-router.get('/', async (req: Request, res: Response) => {
-  const instances = await User.findAll();
-  res.statusCode = 200;
-  res.send(instances.map(e => e.toSimplification()));
+router.get('/allUsers/:token', async (req: Request, res: Response) => {
+  const token = req.params.token;
+  const verification = verify(token);
+  if (verification) {
+    const user = await decodeUser(token);
+    if (user) {
+      if (!user.isAdmin) {
+        forbidden(res);
+        return;
+      }
+      const instances = await User.findAll();
+      res.statusCode = 200;
+      res.send(instances.map(e => e.toSimplification()));
+    } else {
+      userNotFound(res);
+    }
+  } else {
+    userNotLoggedIn(res);
+  }
 });
 
 /**
