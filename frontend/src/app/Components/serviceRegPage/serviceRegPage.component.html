@@ -10,71 +10,96 @@
           </ion-title>
         </ion-col>
       </ion-row>
+      <form [formGroup]="serviceForm">
 
-      <ion-row style="height: 100%">
-        <!--
-        <ion-col>
-          <div>
-            <ion-item>
-              <ion-input [(ngModel)]="serviceItem.user" name="username" placeholder="Username" type="text"></ion-input>
-            </ion-item>
-          </div>
-        </ion-col>
-        -->
+        <ion-row style="height: 100%">
+          <!--
+          <ion-col>
+            <div>
+              <ion-item>
+                <ion-input [(ngModel)]="serviceItem.user" name="username" placeholder="Username" type="text"></ion-input>
+              </ion-item>
+            </div>
+          </ion-col>
+          -->
 
-        <ion-col>
-          <div>
-            <ion-item>
-              <ion-input [(ngModel)]="serviceItem.serviceName" placeholder="Service Name" type="text"></ion-input>
-            </ion-item>
-          </div>
-        </ion-col>
-      </ion-row>
+          <ion-col>
+            <div>
+              <ion-item>
+                <ion-input name="serviceName" [(ngModel)]="serviceItem.serviceName" placeholder="Service Name"
+                           type="text"
+                           formControlName="serviceName" required></ion-input>
+              </ion-item>
+            </div>
+            <div class="validation-errors">
+              <ng-container *ngFor="let validation of validationMessages.serviceName">
+                <div class="error-message"
+                     *ngIf="serviceForm.get('serviceName').hasError(validation.type) && (serviceForm.get('serviceName').dirty || serviceForm.get('serviceName').touched)">
+                  <ion-icon name="information-circle"></ion-icon>
+                  {{ validation.message }}
+                </div>
+              </ng-container>
+            </div>
+          </ion-col>
+        </ion-row>
 
-      <ion-row style="height: 100%">
-        <ion-col>
-          <div>
+        <ion-row style="height: 100%">
+          <ion-col>
+            <div>
+              <ion-item>
+                <ion-label color="medium">Category</ion-label>
+                <ion-select name="serviceCategory" [(ngModel)]="serviceItem.category" multiple="false" color="medium"
+                            formControlName="serviceCategory" required>
+                  <ion-select-option value="venue">Venue</ion-select-option>
+                  <ion-select-option value="photography">Photography</ion-select-option>
+                  <ion-select-option value="catering">Catering</ion-select-option>
+                  <ion-select-option value="music">Music</ion-select-option>
+                  <ion-select-option value="planner">Event planning</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row style="height: 100%">
+          <ion-col>
+            <div>
+              <ion-item>
+                <ion-input name="price" [(ngModel)]="serviceItem.price" placeholder="Price (CHF)" type="number"
+                           formControlName="price" required></ion-input>
+              </ion-item>
+            </div>
+          </ion-col>
+          <ion-col>
+            <div>
+              <ion-item>
+                <ion-input name="location" [(ngModel)]="serviceItem.location" placeholder="Location" type="text"
+                           formControlName="location" required></ion-input>
+              </ion-item>
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row style="height: 100%">
+          <ion-col>
             <ion-item>
-              <ion-label color="medium">Category</ion-label>
-              <ion-select [(ngModel)]="serviceItem.category" multiple="false" color="medium">
-                <ion-select-option value="venue">Venue</ion-select-option>
-                <ion-select-option value="photography">Photography</ion-select-option>
-                <ion-select-option value="catering">Catering</ion-select-option>
-                <ion-select-option value="music">Music</ion-select-option>
-                <ion-select-option value="planner">Eventplanner</ion-select-option>
-              </ion-select>
+              <ion-label position="stacked">Description of service</ion-label>
+              <ion-textarea name="serviceDescription" [(ngModel)]="serviceItem.description"
+                            placeholder="Describe your service"
+                            rows="10" formControlName="description"></ion-textarea>
             </ion-item>
-          </div>
-        </ion-col>
-      </ion-row>
-      <ion-row style="height: 100%">
-        <ion-col>
-          <div>
-            <ion-item>
-              <ion-input [(ngModel)]="serviceItem.price" placeholder="Price (CHF)" type="number"></ion-input>
-            </ion-item>
-          </div>
-        </ion-col>
-        <ion-col>
-          <div>
-            <ion-item>
-              <ion-input [(ngModel)]="serviceItem.location" placeholder="Location" type="text"></ion-input>
-            </ion-item>
-          </div>
-        </ion-col>
-      </ion-row>
-      <ion-row style="height: 100%">
-        <ion-col>
-          <ion-item>
-            <ion-label position="stacked">Description of service</ion-label>
-            <ion-textarea [(ngModel)]="serviceItem.description" placeholder="Describe your service" rows="10"></ion-textarea>
-          </ion-item>
-        </ion-col>
-      </ion-row>
+          </ion-col>
+        </ion-row>
+      </form>
 
       <ion-row>
         <ion-col size="2">
-          <ion-button (click)="clickAddService()" [routerLink]="['/service']" color="success">Add your Service</ion-button>
+          <!--
+          <ion-button (click)="clickAddService()" [routerLink]="['/service']" color="success">Add your Service
+          </ion-button>
+          -->
+          <ion-button (click)="clickAddService2()" [routerLink]="['/service']" color="success"
+                      [disabled]="!serviceForm.valid">Add your Service
+          </ion-button>
+
         </ion-col>
       </ion-row>
 
