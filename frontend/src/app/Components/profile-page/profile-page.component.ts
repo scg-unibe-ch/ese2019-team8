@@ -1,7 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {UserItem} from '../../_models/user-item';
 import {AuthenticationService} from '../../_services';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {AlertService} from '../../_alert';
@@ -96,15 +96,26 @@ export class ProfilePageComponent implements OnInit {
     this.authService.logout();
   }
 
-  /*
+
   // TODO: flesh out delete method
   deleteProfile() {
-    this.httpClient.delete('http://localhost:3000/user/', {
-      token: this.token,
-      username: this.userItem.username
-    }).subscribe()
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      body: {
+        token: this.token
+      }
+    };
+    this.httpClient.delete('http://localhost:3000/user/profile', options).subscribe(data => {
+      console.log('User deleted');
+      this.logout();
+      alert('User profile successfully deleted');
+      this.router.navigate(['/login'], {queryParams: {userDeleted: true}});
+    }, error => {
+      alert(error.message);
+    });
   }
-   */
 
   getUserData() {
     // console.log(this.authService.getUserData());
@@ -121,12 +132,13 @@ export class ProfilePageComponent implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            // console.log('Confirm Cancel');
+            console.log('Delete: Profile: CANCELED');
           }
         }, {
           text: 'Delete my profile',
           handler: () => {
-            console.log('Confirm Okay');
+            console.log('Delete Profile: Confirmed');
+            this.deleteProfile();
           }
         }
       ]
