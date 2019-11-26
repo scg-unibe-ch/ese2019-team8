@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {ServiceItem} from '../../_models/service-item';
+import {EventServiceComponent} from '../event-service/event-service.component';
 
 @Component({
   selector: 'app-home',
@@ -12,14 +13,16 @@ export class ServiceRegPageComponent implements OnInit {
   serviceItem: ServiceItem = new ServiceItem('', '', '', null, '', '');
 
 
-  constructor(private httpClient: HttpClient) {
-  }
+  constructor(
+    private httpClient: HttpClient,
+    private eventService: EventServiceComponent) {}
 
   ngOnInit() {
     this.httpClient.get('http://localhost:3000/service', {
       params: new HttpParams().set('serviceItemId', '' + this.serviceItem.id)
     }).subscribe();
   }
+  // ToDo: User wird noch nicht mitgegeben?
   clickAddService() {
     this.httpClient.post('http://localhost:3000/service', {
       token: localStorage.getItem('currentUser').replace('"', '').replace('"', ''),

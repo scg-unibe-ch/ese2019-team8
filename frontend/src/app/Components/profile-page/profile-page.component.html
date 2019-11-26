@@ -71,6 +71,11 @@
         <ion-button color="danger" (click)="logout()">Logout</ion-button>
       </ion-col>
 
+      <ion-col>
+        <ion-button color="secondary"  [routerLink]="['/service']"(click)="clickMyServices()">My Services</ion-button>
+      </ion-col>
+
+
       <!-- TODO
       <ion-col>
         <ion-button color="warning" (click)="presentAlertConfirm()">Delete Profile</ion-button>

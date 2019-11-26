@@ -3,6 +3,7 @@ import {ServiceItem} from '../../_models/service-item';
 import {HttpClient} from '@angular/common/http';
 import {SearcherComponent} from '../searcher/searcher.component';
 import {clickSearch} from '../searcher/searcher.component';
+import {EventServiceComponent} from '../event-service/event-service.component';
 
 @Component({
   selector: 'app-home-page',
@@ -13,13 +14,15 @@ export class HomePageComponent implements OnInit {
   serviceItem: ServiceItem = new ServiceItem('', '', '', null, '', '');
 
 
-  constructor() {
+  constructor(private eventService: EventServiceComponent) {
   }
 
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
   clickSearch() {}
+
+  clickAllServices() {
+  }
 
 }
 

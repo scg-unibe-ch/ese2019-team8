@@ -1,13 +1,60 @@
 <ion-app>
 
   <ion-content class="ion-padding">
-    <ion-title color="secondary">
-      Sevice Title
-    </ion-title>
-    <ion-card>
-      <ion-card-content>
-          <!--TODO: Display Service-->
-      </ion-card-content>
-    </ion-card>
+    <div *ngIf="currentUserServices.length==0 ">
+      <ion-title color="secondary">All Services</ion-title>
+    <div *ngFor="let item of services">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle color="medium">{{item.category}}</ion-card-subtitle>
+          <ion-card-title color="dark">{{item.serviceName}}</ion-card-title>
+        </ion-card-header>
+        <ion-chip color="dark" outline>
+          <ion-icon name="cash"></ion-icon>
+          <ion-label>{{item.price}} CHF</ion-label>
+        </ion-chip>
+        <ion-chip color="dark" outline>
+          <ion-icon name="pin"></ion-icon>
+          <ion-label>{{item.location}}</ion-label>
+        </ion-chip>
+        <ion-card-content>
+          {{item.description}}
+        </ion-card-content>
+      </ion-card>
+    </div>
+    </div>
+
+    <div *ngIf="currentUserServices.length > 0">
+      <ion-title color="secondary">Your Services</ion-title>
+      <div *ngFor="let item of currentUserServices">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle color="medium">{{item.category}}</ion-card-subtitle>
+            <ion-card-title color="dark">{{item.serviceName}}</ion-card-title>
+          </ion-card-header>
+          <ion-chip color="dark" outline>
+            <ion-icon name="cash"></ion-icon>
+            <ion-label>{{item.price}} CHF</ion-label>
+          </ion-chip>
+          <ion-chip color="dark" outline>
+            <ion-icon name="pin"></ion-icon>
+            <ion-label>{{item.location}}</ion-label>
+          </ion-chip>
+          <ion-card-content>
+            {{item.description}}
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+
+    <!--- <div *ngIf="currentUserServices.length == 0">
+      <ion-card>
+        <ion-card-header>No services yet, do you want to add a new Service?</ion-card-header>
+        <ion-card-content><ion-button [routerLink]="['/serviceRegistration']" color="medium">Register a new Service</ion-button>
+        </ion-card-content>
+      </ion-card>
+
+       </div>--->
+
   </ion-content>
 </ion-app>

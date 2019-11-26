@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ServiceItem} from '../../_models/service-item';
 import {HttpClient} from '@angular/common/http';
-import {AlertService} from '../../_alert';
-import {Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {UserItem} from '../../_models/user-item';
+
 
 @Component({
   selector: 'app-event-service',
@@ -12,24 +12,42 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class EventServiceComponent implements OnInit {
 
-  constructor( private httpClient: HttpClient,
-               private alertService: AlertService,
-               private router: Router,
-               private formBuilder: FormBuilder) {
+  constructor(private httpClient: HttpClient) {
   }
-  eventServiceForm: FormGroup;
+
+  @Input()
+  profilePageForm: FormGroup;
+  services: ServiceItem[] = [];
+  currentUserServices: ServiceItem[] = [];
+  serviceURL = 'http://localhost:3000/service';
+  profileURL = 'http://localhost:3000/user/profile/';
+  userItem: UserItem = new UserItem(null, '', false, '', '', null, '', null);
+  token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
   serviceItem: ServiceItem = new ServiceItem('', '', '', null, '', '');
+  showUserServices: boolean;
 
-
-// ToDo: get real user info is hardcoded for now
   ngOnInit() {
-    this.eventServiceForm = this.formBuilder.group({
-      username: new FormControl('UsernameXY'),
-      serviceName: new FormControl('Service Name'),
-      category: new FormControl('Category'),
-      price: new FormControl('Price'),
-      location: new FormControl('location'),
-      description: new FormControl('Long Description of your service.')
-  });
+    this.httpClient.get(this.serviceURL).subscribe((instances: any) => {
+      this.services.push.apply(this.services, instances.map((instance) =>
+        new ServiceItem(instance.user, instance.serviceName, instance.category
+          , instance.price, instance.location, instance.description)));
+       });
+  }
+
+  getAllServices() {
+  }
+
+  getOnlyCurrentUserServices() {
+    this.httpClient.get(this.serviceURL).subscribe((instances: any) => {
+      this.services.push.apply(this.services, instances.map((instance) =>
+        new ServiceItem(instance.user, instance.serviceName, instance.category
+          , instance.price, instance.location, instance.description)));
+      this.currentUserServices.push.apply(this.currentUserServices, this.services);
+    });
+    this.httpClient.get(this.profileURL + this.token)
+      .subscribe((instance: any) => {
+        this.userItem.username = instance.username;
+        this.currentUserServices.splice(this.services.findIndex(x => x.user === this.userItem.username));
+      });
   }
 }

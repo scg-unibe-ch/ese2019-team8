@@ -49,6 +49,7 @@ import {EventServiceComponent} from './Components/event-service/event-service.co
     AuthGuard,
     AuthenticationService,
     UserService,
+    EventServiceComponent,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

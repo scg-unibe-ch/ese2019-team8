@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {AlertService} from '../../_alert';
 import {AlertController} from '@ionic/angular';
+import {EventServiceComponent} from '../event-service/event-service.component';
 
 @Component({
   selector: 'app-profile-page',
@@ -20,7 +21,8 @@ export class ProfilePageComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private alertService: AlertService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private eventService: EventServiceComponent
   ) {
   }
 
@@ -95,6 +97,9 @@ export class ProfilePageComponent implements OnInit {
   logout() {
     this.authService.logout();
   }
+  clickMyServices() {
+    this.eventService.getOnlyCurrentUserServices();
+  }
 
   /*
   // TODO: flesh out delete method
@@ -106,10 +111,6 @@ export class ProfilePageComponent implements OnInit {
   }
    */
 
-  getUserData() {
-    // console.log(this.authService.getUserData());
-    // return this.authService.getUserData();
-  }
 
   async presentAlertConfirm() {
     const alert = await this.alertController.create({
