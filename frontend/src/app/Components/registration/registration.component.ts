@@ -35,7 +35,6 @@ export class RegistrationComponent implements OnInit {
       {type: 'pattern', message: 'Your username can only contain letters and numbers..'},
       {type: 'validUsername', message: 'Your username has already been taken.'}
     ],
-    // TODO: PW Messages
     password: [
       {type: 'required', message: 'Password is required.'},
       {type: 'minlength', message: 'Password must be at least 5 characters long.'},
