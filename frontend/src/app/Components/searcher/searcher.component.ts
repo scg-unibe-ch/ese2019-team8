@@ -8,7 +8,7 @@ import {ServiceItem} from '../../_models/service-item';
 
 
 @Component({
-  selector: 'app-searchbar',
+  selector: 'app-searcher',
   templateUrl: './searcher.component.html',
   styleUrls: ['./searcher.component.scss'],
 })

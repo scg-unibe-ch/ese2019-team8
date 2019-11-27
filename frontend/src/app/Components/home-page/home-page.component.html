@@ -1,38 +1,12 @@
 <ion-app>
+  <ion-row>
+    <ion-col >
+      <ion-button *ngIf="userItem.isServiceProvider" [routerLink]="['/serviceRegistration']" color="medium">Register a new Service</ion-button>
+      <ion-button [routerLink]="['/service']" color="medium">All Services</ion-button>
+    </ion-col>
+  </ion-row>
   <ion-content>
-
-      <ion-toolbar>
-    <ion-searchbar placeholder="What do you need?" slot="start" [(ngModel)]="searchValue"></ion-searchbar>
-    <ion-button slot="end" [routerLink]="['/search']"color="medium">
-      <ion-icon  name="search" slot="icon-only" ></ion-icon>
-    </ion-button>
-  </ion-toolbar>
-
-    <!-- TODO: Search for Categories, with direct link f.e.  search/venue
-    <ion-row style="height: 30%">
-      <ion-col>
-        <div>
-          <ion-title>Categorys</ion-title>
-        </div>
-      </ion-col>
-    </ion-row>
-    -->
-        <ion-row style="height: 10%">
-          <ion-col size="2">
-            <div *ngIf="userItem.isServiceProvider">
-              <ion-button [routerLink]="['/serviceRegistration']" color="medium">Register a new Service</ion-button>
-            </div>
-            <div>
-              <ion-button [routerLink]="['/service']" color="medium">All Services</ion-button>
-            </div>
-          </ion-col>
-        </ion-row>
-
-
-
-
-
-
+    <app-searcher></app-searcher>
   </ion-content>
 </ion-app>
 

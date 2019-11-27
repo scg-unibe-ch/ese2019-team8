@@ -1,6 +1,7 @@
 <ion-app>
   <ion-content>
 
+
     <ion-toolbar>
       <ion-searchbar placeholder="What do you need?" slot="start" [(ngModel)]="serviceItem.serviceName"></ion-searchbar>
       <ion-button slot="end" (click)="clickServiceNameSearch()" color="medium">
@@ -34,6 +35,16 @@
     <ion-col>
       <ion-button color="secondary" *ngIf="!userServiceView" (click)="getCurrentUserServices()">My Services</ion-button>
     </ion-col>
+
+    <!-- TODO: Search for Categories, with direct link f.e.  search/venue
+<ion-row style="height: 30%">
+  <ion-col>
+    <div>
+      <ion-title>Categorys</ion-title>
+    </div>
+  </ion-col>
+</ion-row>
+-->
 
   </ion-content>
 </ion-app>
