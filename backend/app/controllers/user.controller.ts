@@ -178,7 +178,7 @@ function userProfile(res: any, user: User) {
 
 /**
  * Get user information
- * @param token JWT string as HTTP parameters
+ * @param token JWT string as HTTP parameter
  * @returns message and, if logged in, profile of user
  */
 router.get('/profile/:token', async (req: Request, res: Response) => {

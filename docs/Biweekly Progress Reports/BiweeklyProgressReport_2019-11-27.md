@@ -5,13 +5,15 @@
 Done:
 * General:
     * User is now able to edit and delete own profile
+    * Services can be created and viewed.
+    * User can now change his/her password.
 * Backend:
     * 
 * Frontend:
     * 
 
 TODO:
-* 
+* Edit own services
 
 Issues:
 * 
