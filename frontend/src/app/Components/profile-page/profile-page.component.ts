@@ -126,7 +126,7 @@ export class ProfilePageComponent implements OnInit {
 
   async presentAlertConfirm() {
     const alert = await this.alertController.create({
-      header: 'Do you really want to delete your profile? This action can not be undone!',
+      header: 'Do you really want to delete your profile? All services connected to this profile will also be deleted. This action can not be undone!',
       message: '<strong>Yes</strong>, I am sure!!!',
       buttons: [
         {

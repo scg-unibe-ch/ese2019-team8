@@ -241,10 +241,12 @@ router.get('/search/' +
   '&username=?:username' +
   '&serviceName=?:serviceName' +
   '&category=?:category' +
+  '&priceMin=?:priceMin' +
+  '&priceMax=?:priceMax' +
   '&location=?:location' +
   '&description=?:description', async (req: Request, res: Response) => {
 
-  // TODO handling if every param is NULL
+  // TODO handling empty username, when checking for category (unknown cause for error)
 
   // const any: RegExp = new RegExp((req.params.any === '=' ? '.*' : req.params.any));
   const any: RegExp = new RegExp(req.params.any);
@@ -254,14 +256,25 @@ router.get('/search/' +
   const location: RegExp = new RegExp((req.params.location === '=' ? '.*' : req.params.location));
   const description = new RegExp((req.params.description === '=' ? '.*' : req.params.description));
 
-  // TODO price (min, max)
+  let priceMin = parseFloat(req.params.priceMin);
+  let priceMax = parseFloat(req.params.priceMax);
+
+  if (isNaN(priceMin)) {
+    priceMin = 0;
+  }
+  if (isNaN(priceMax)) {
+    priceMax = Number.MAX_VALUE;
+  }
+
   // TODO correct implementation of the "any" parameter
   function search(element: Service) {
     if ((element.username.match(username) || element.username.match(any))
       && (element.serviceName.match(serviceName) || element.serviceName.match(any))
-      && (element.category.match(category) || element.category.match(any))
+      // && (element.category.match(category) || element.category.match(any))
       && (element.location.match(location) || element.location.match(any))
       && (element.description.match(description) || element.description.match(any))
+      && (element.price >= priceMin.valueOf())
+      && (element.price <= priceMax.valueOf())
     ) {
       return element;
     }

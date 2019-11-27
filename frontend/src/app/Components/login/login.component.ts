@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
         data => {
           console.log(data.message);
           alert(data.message);
-          this.router.navigate(['/profilePage'], {queryParams: {login: true}});
+          this.router.navigate(['/home'], {queryParams: {login: true}});
           console.log(JSON.parse(localStorage.getItem('currentUser')));
         },
         error => {
