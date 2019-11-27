@@ -64,19 +64,24 @@
           <!--
           <ion-button class="submit-btn" (click)="save()"  [disabled]="!saveForm.form.valid">Save</ion-button>
           -->
-          <ion-button class="submit-btn" (click)="save()">Save</ion-button>
+          <ion-button class="submit-btn" (click)="save()">
+            <ion-icon slot="start" name="save"></ion-icon>
+            Save
+          </ion-button>
         </ion-col>
       </ion-row>
       <ion-col>
-        <ion-button color="danger" (click)="logout()">Logout</ion-button>
+        <ion-button color="warning" [routerLink]="['/changePW']">
+          Change Password
+        </ion-button>
       </ion-col>
 
       <ion-col>
-        <ion-button color="warning" (click)="presentAlertConfirm()">Delete Profile</ion-button>
+        <ion-button color="danger" (click)="presentAlertConfirm()">Delete Profile</ion-button>
       </ion-col>
 
       <ion-col>
-        <ion-button color="secondary"  [routerLink]="['/service']"(click)="clickMyServices()">My Services</ion-button>
+        <ion-button color="secondary" [routerLink]="['/service']" (click)="clickMyServices()">My Services</ion-button>
       </ion-col>
 
     </form>

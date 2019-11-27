@@ -7,6 +7,7 @@ import {HomePageComponent} from './Components/home-page/home-page.component';
 import {ProfilePageComponent} from './Components/profile-page/profile-page.component';
 import {SearcherComponent} from './Components/searcher/searcher.component';
 import {EventServiceComponent} from './Components/event-service/event-service.component';
+import {ChangePasswordPageComponent} from './Components/change-password-page/change-password-page.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,8 @@ const routes: Routes = [
   {path: 'serviceRegistration', component: ServiceRegPageComponent},
   {path: 'profilePage', component: ProfilePageComponent},
   {path: 'search', component: SearcherComponent},
-  {path: 'service', component: EventServiceComponent}
+  {path: 'service', component: EventServiceComponent},
+  {path: 'changePW', component: ChangePasswordPageComponent}
 ];
 
 @NgModule({

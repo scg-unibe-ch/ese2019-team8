@@ -38,7 +38,10 @@ export class RegistrationComponent implements OnInit {
     password: [
       {type: 'required', message: 'Password is required.'},
       {type: 'minlength', message: 'Password must be at least 5 characters long.'},
-      {type: 'pattern', message: 'Your username must contain at least one upper case letter, one lower case letter and one number.'},
+      {
+        type: 'pattern',
+        message: 'Your password must contain at least one upper case letter, one lower case letter and one number.'
+      },
     ],
     passwordConfirmation: [
       {type: 'required', message: 'Confirm password is required.'},
@@ -60,7 +63,6 @@ export class RegistrationComponent implements OnInit {
     }, (formGroup: FormGroup) => {
       return PasswordValidator.areEqual(formGroup);
     });
-// as
     this.registrationForm = this.formBuilder.group({
       username: new FormControl('', Validators.compose([
         UsernameValidator.validUsername,

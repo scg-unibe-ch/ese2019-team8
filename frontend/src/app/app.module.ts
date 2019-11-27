@@ -19,10 +19,11 @@ import {ServiceRegPageComponent} from './Components/serviceRegPage/serviceRegPag
 import {AlertModule} from './_alert';
 
 import {AuthGuard} from './_guards';
-import { JwtInterceptor} from './_helpers';
+import {JwtInterceptor} from './_helpers';
 import {AuthenticationService, UserService} from './_services';
 import {SearcherComponent} from './Components/searcher/searcher.component';
 import {EventServiceComponent} from './Components/event-service/event-service.component';
+import {ChangePasswordPageComponent} from './Components/change-password-page/change-password-page.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {EventServiceComponent} from './Components/event-service/event-service.co
     ProfilePageComponent,
     HomePageComponent,
     SearcherComponent,
-    EventServiceComponent
+    EventServiceComponent,
+    ChangePasswordPageComponent
   ],
   entryComponents: [],
   imports: [
