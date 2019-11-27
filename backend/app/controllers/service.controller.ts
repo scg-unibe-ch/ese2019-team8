@@ -34,6 +34,55 @@ router.get('/', async (req: Request, res: Response) => {
 });
 
 /**
+ * Get your own Services
+ * @param token JWT string as HTTP parameters
+ * @returns Array of your own Services, message if not logged in
+ */
+router.get('/myServices/:token', async (req: Request, res: Response) => {
+  const token = req.params.token;
+  const verification = verify(token);
+  if (verification) {
+    const user = await decodeUser(token);
+    if (user) {
+      let instances: Array<Service> = await Service.findAll();
+      instances = instances.filter(function search(element: Service) {
+        if (element.username === user.username) {
+          return element;
+        }
+      });
+      res.statusCode = 200;
+      res.send(instances.map(e => e.toSimplification()));
+    } else {
+      userNotFound(res);
+    }
+  } else {
+    userNotLoggedIn(res);
+  }
+});
+
+/**
+ * Get your all Services of a specific User
+ * @param username of specific User
+ * @returns Array of Services of specific User, message if User not found
+ */
+router.get('/servicesOf/:username', async (req: Request, res: Response) => {
+  const username = req.params.username;
+  const user = await User.findByPk(username);
+  if (user) {
+    let instances: Array<Service> = await Service.findAll();
+    instances = instances.filter(function search(element: Service) {
+      if (element.username === user.username) {
+        return element;
+      }
+    });
+    res.statusCode = 200;
+    res.send(instances.map(e => e.toSimplification()));
+  } else {
+    userNotFound(res);
+  }
+});
+
+/**
  * Create new Service
  * @param req MUST contain serviceName and token, can contain category, price, location, description
  * User has to be a service provider (isServiceProvider) and approved by admin (isApproved).
@@ -194,6 +243,8 @@ router.get('/search/' +
   '&category=?:category' +
   '&location=?:location' +
   '&description=?:description', async (req: Request, res: Response) => {
+
+  // TODO handling if every param is NULL
 
   // const any: RegExp = new RegExp((req.params.any === '=' ? '.*' : req.params.any));
   const any: RegExp = new RegExp(req.params.any);
