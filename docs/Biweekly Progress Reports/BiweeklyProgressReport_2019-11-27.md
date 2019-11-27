@@ -4,7 +4,7 @@
 ## Weeks #9-10
 Done:
 * General:
-    * 
+    * User is now able to edit and delete own profile
 * Backend:
     * 
 * Frontend:
