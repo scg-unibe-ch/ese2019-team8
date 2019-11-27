@@ -2,13 +2,13 @@
   <ion-content>
 
       <ion-toolbar>
-        <ion-searchbar placeholder="What do you need?" slot="start"></ion-searchbar>
-        <ion-button slot="end" [routerLink]="['/search']" (click)="clickSearch()" color="medium">
-          <ion-icon  name="search" slot="icon-only" ></ion-icon>
-        </ion-button>
-      </ion-toolbar>
+    <ion-searchbar placeholder="What do you need?" slot="start" [(ngModel)]="searchValue"></ion-searchbar>
+    <ion-button slot="end" [routerLink]="['/search']"color="medium">
+      <ion-icon  name="search" slot="icon-only" ></ion-icon>
+    </ion-button>
+  </ion-toolbar>
 
-    <!-- TODO: Search for Categorys, with direct link f.e.  search/venue
+    <!-- TODO: Search for Categories, with direct link f.e.  search/venue
     <ion-row style="height: 30%">
       <ion-col>
         <div>
@@ -19,11 +19,11 @@
     -->
         <ion-row style="height: 10%">
           <ion-col size="2">
-            <div>
+            <div *ngIf="userItem.isServiceProvider">
               <ion-button [routerLink]="['/serviceRegistration']" color="medium">Register a new Service</ion-button>
             </div>
             <div>
-              <ion-button [routerLink]="['/service']" (click)="clickAllServices()" color="medium">All Services</ion-button>
+              <ion-button [routerLink]="['/service']" color="medium">All Services</ion-button>
             </div>
           </ion-col>
         </ion-row>

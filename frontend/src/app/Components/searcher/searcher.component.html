@@ -1,5 +1,39 @@
 <ion-app>
   <ion-content>
-    Searcher works!
+
+    <ion-toolbar>
+      <ion-searchbar placeholder="What do you need?" slot="start" [(ngModel)]="serviceItem.serviceName"></ion-searchbar>
+      <ion-button slot="end" (click)="clickServiceNameSearch()" color="medium">
+        <ion-icon  name="search" slot="icon-only" ></ion-icon>
+      </ion-button>
+    </ion-toolbar>
+
+      <!--<ion-title *ngIf="!userServiceView" color="secondary">Your Search</ion-title>-->
+      <ion-title *ngIf="userServiceView" color="secondary">Your Services</ion-title>
+
+      <div *ngFor="let item of services">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle color="medium">{{item.category}}</ion-card-subtitle>
+            <ion-card-title color="dark">{{item.serviceName}}</ion-card-title>
+          </ion-card-header>
+          <ion-chip color="dark" outline>
+            <ion-icon name="cash"></ion-icon>
+            <ion-label>{{item.price}} CHF</ion-label>
+          </ion-chip>
+          <ion-chip color="dark" outline>
+            <ion-icon name="pin"></ion-icon>
+            <ion-label>{{item.location}}</ion-label>
+          </ion-chip>
+          <ion-card-content>
+            {{item.description}}
+          </ion-card-content>
+        </ion-card>
+      </div>
+
+    <ion-col>
+      <ion-button color="secondary" *ngIf="!userServiceView" (click)="getCurrentUserServices()">My Services</ion-button>
+    </ion-col>
+
   </ion-content>
 </ion-app>

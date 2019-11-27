@@ -1,7 +1,6 @@
 <ion-app>
 
   <ion-content class="ion-padding">
-    <div *ngIf="currentUserServices.length==0 ">
       <ion-title color="secondary">All Services</ion-title>
     <div *ngFor="let item of services">
       <ion-card>
@@ -22,30 +21,8 @@
         </ion-card-content>
       </ion-card>
     </div>
-    </div>
 
-    <div *ngIf="currentUserServices.length > 0">
-      <ion-title color="secondary">Your Services</ion-title>
-      <div *ngFor="let item of currentUserServices">
-        <ion-card>
-          <ion-card-header>
-            <ion-card-subtitle color="medium">{{item.category}}</ion-card-subtitle>
-            <ion-card-title color="dark">{{item.serviceName}}</ion-card-title>
-          </ion-card-header>
-          <ion-chip color="dark" outline>
-            <ion-icon name="cash"></ion-icon>
-            <ion-label>{{item.price}} CHF</ion-label>
-          </ion-chip>
-          <ion-chip color="dark" outline>
-            <ion-icon name="pin"></ion-icon>
-            <ion-label>{{item.location}}</ion-label>
-          </ion-chip>
-          <ion-card-content>
-            {{item.description}}
-          </ion-card-content>
-        </ion-card>
-      </div>
-    </div>
+
 
     <!--- <div *ngIf="currentUserServices.length == 0">
       <ion-card>

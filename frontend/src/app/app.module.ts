@@ -50,6 +50,7 @@ import {EventServiceComponent} from './Components/event-service/event-service.co
     AuthenticationService,
     UserService,
     EventServiceComponent,
+    SearcherComponent,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

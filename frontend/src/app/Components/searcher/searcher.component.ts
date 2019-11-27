@@ -18,13 +18,44 @@ export class SearcherComponent implements OnInit {
               private alertService: AlertService,
               private router: Router) {}
 
+  serviceSearchURL = 'http://localhost:3000/service/search';
+  profileURL = 'http://localhost:3000/user/profile/';
+  currentUSerServicesURL = 'http://localhost:3000/service/myServices/';
   userItem: UserItem = new UserItem(null, '', false,
     '', '', null, '', null);
   serviceItem: ServiceItem = new ServiceItem('', '', '', null, '', '');
-
+  services: ServiceItem[] = [];
+  token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
+  userServiceView: boolean;
 
   ngOnInit() {
   }
+
+// TODO: useful search
+  clickServiceNameSearch() {
+    // Searches for service in DB, with all parameters
+    this.httpClient.get(this.serviceSearchURL + ' ' + this.serviceItem.serviceName,
+    {}).subscribe((instances: any) => {
+      this.services.push.apply(this.services, instances.map((instance) =>
+        new ServiceItem(instance.user, instance.serviceName, instance.category
+          , instance.price, instance.location, instance.description)));
+    });
+  }
+
+  getCurrentUserServices() {
+    this.userServiceView = true;
+    this.httpClient.get(this.currentUSerServicesURL + this.token, {
+    }).subscribe((instances: any) => {
+      this.services.push.apply(this.services, instances.map((instance) =>
+        new ServiceItem(instance.user, instance.serviceName, instance.category
+          , instance.price, instance.location, instance.description)));
+    });
+
+
+
+  }
+
+
 
 
   /**
@@ -33,11 +64,4 @@ export class SearcherComponent implements OnInit {
    */
 
 }
-export function clickSearch() {
-  // Searches for service in DB, with all parameters
-  this.httpClient.get('http://localhost:3000/search', {
-    params: new HttpParams().set('serviceItemId', '' + this.serviceItem.id + this.serviceItem.user + this.serviceItem.serviceName
-      + this.serviceItem.category + this.serviceItem.price + this.serviceItem.location
-      + this.serviceItem.description)
-  }).subscribe();
-}
+

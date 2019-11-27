@@ -7,6 +7,7 @@ import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {AlertService} from '../../_alert';
 import {AlertController} from '@ionic/angular';
 import {EventServiceComponent} from '../event-service/event-service.component';
+import {SearcherComponent} from '../searcher/searcher.component';
 
 @Component({
   selector: 'app-profile-page',
@@ -22,7 +23,8 @@ export class ProfilePageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private alertService: AlertService,
     private alertController: AlertController,
-    private eventService: EventServiceComponent
+    private eventService: EventServiceComponent,
+    private searcher: SearcherComponent
   ) {
   }
 
@@ -98,7 +100,7 @@ export class ProfilePageComponent implements OnInit {
     this.authService.logout();
   }
   clickMyServices() {
-    this.eventService.getOnlyCurrentUserServices();
+    this.searcher.getCurrentUserServices();
   }
 
 

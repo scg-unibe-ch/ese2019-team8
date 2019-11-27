@@ -24,7 +24,7 @@ export class EventServiceComponent implements OnInit {
   userItem: UserItem = new UserItem(null, '', false, '', '', null, '', null);
   token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
   serviceItem: ServiceItem = new ServiceItem('', '', '', null, '', '');
-  showUserServices: boolean;
+
 
   ngOnInit() {
     this.httpClient.get(this.serviceURL).subscribe((instances: any) => {
@@ -32,22 +32,5 @@ export class EventServiceComponent implements OnInit {
         new ServiceItem(instance.user, instance.serviceName, instance.category
           , instance.price, instance.location, instance.description)));
        });
-  }
-
-  getAllServices() {
-  }
-
-  getOnlyCurrentUserServices() {
-    this.httpClient.get(this.serviceURL).subscribe((instances: any) => {
-      this.services.push.apply(this.services, instances.map((instance) =>
-        new ServiceItem(instance.user, instance.serviceName, instance.category
-          , instance.price, instance.location, instance.description)));
-      this.currentUserServices.push.apply(this.currentUserServices, this.services);
-    });
-    this.httpClient.get(this.profileURL + this.token)
-      .subscribe((instance: any) => {
-        this.userItem.username = instance.username;
-        this.currentUserServices.splice(this.services.findIndex(x => x.user === this.userItem.username));
-      });
   }
 }

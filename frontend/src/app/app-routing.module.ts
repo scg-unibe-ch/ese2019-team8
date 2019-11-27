@@ -17,7 +17,7 @@ const routes: Routes = [
   {path: 'serviceRegistration', component: ServiceRegPageComponent},
   {path: 'profilePage', component: ProfilePageComponent},
   {path: 'search', component: SearcherComponent},
-  {path: 'service', component: EventServiceComponent}
+  {path: 'service', component: EventServiceComponent},
 ];
 
 @NgModule({
