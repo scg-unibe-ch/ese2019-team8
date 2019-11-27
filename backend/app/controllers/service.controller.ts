@@ -246,6 +246,7 @@ router.get('/search/' +
   '&location=?:location' +
   '&description=?:description', async (req: Request, res: Response) => {
 
+  // TODO optional params not needed in HTTP
   // TODO handling empty username, when checking for category (unknown cause for error)
 
   // const any: RegExp = new RegExp((req.params.any === '=' ? '.*' : req.params.any));
@@ -285,6 +286,32 @@ router.get('/search/' +
   res.statusCode = 200;
   res.send(instances.map(e => e.toSimplification()));
 });
+
+/**
+ * Search within Services in any parameter
+ * @param searchString as HTTP param
+ * @returns Array of corresponding services (may be empty)
+ */
+router.get('/searchAny/:searchString', async (req: Request, res: Response) => {
+  // const searchString: RegExp = new RegExp((req.params.any === '=' ? '.*' : req.params.any));
+  const searchString: RegExp = new RegExp(req.params.searchString);
+
+  function search(element: Service) {
+    if (element.username.match(searchString)
+      || element.serviceName.match(searchString)
+      || element.category.match(searchString)
+      || element.location.match(searchString)
+      || element.description.match(searchString)) {
+      return element;
+    }
+  }
+
+  let instances: Array<Service> = await Service.findAll();
+  instances = instances.filter(search);
+  res.statusCode = 200;
+  res.send(instances.map(e => e.toSimplification()));
+});
+
 
 /**
  * Deletes all Services of User

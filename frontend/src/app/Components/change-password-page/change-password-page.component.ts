@@ -4,7 +4,6 @@ import {FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AlertService} from '../../_alert';
 import {Router} from '@angular/router';
 import {PasswordValidator} from '../../validators/password.validator';
-import {UserItem} from '../../_models/user-item';
 
 @Component({
   selector: 'app-change-password-page',
@@ -22,6 +21,7 @@ export class ChangePasswordPageComponent implements OnInit {
   }
 
   changePWForm: FormGroup;
+  passwordCheckerGroup: FormGroup;
   token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
 
   validationMessages = {
@@ -41,7 +41,7 @@ export class ChangePasswordPageComponent implements OnInit {
 
 
   ngOnInit() {
-    this.changePWForm = this.formBuilder.group({
+    this.passwordCheckerGroup = new FormGroup({
       password: new FormControl('', Validators.compose([
         Validators.minLength(5),
         Validators.maxLength(100),
@@ -52,14 +52,17 @@ export class ChangePasswordPageComponent implements OnInit {
     }, (formGroup: FormGroup) => {
       return PasswordValidator.areEqual(formGroup);
     });
+    this.changePWForm = this.formBuilder.group({
+      passwordChecker: this.passwordCheckerGroup
+    });
   }
 
 
   changePW() {
-    console.log(this.changePWForm.value.password);
+    console.log(this.changePWForm.value.passwordChecker.password);
     this.httpClient.put('http://localhost:3000/user/profile', {
       token: this.token,
-      password: this.changePWForm.value.password,
+      password: this.changePWForm.value.passwordChecker.password,
     }).subscribe(data => {
         console.log(data);
         // this.alertService.success('Profile data update successful');
