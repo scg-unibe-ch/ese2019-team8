@@ -18,7 +18,7 @@ export class SearcherComponent implements OnInit {
               private alertService: AlertService,
               private router: Router) {}
 
-  serviceSearchURL = 'http://localhost:3000/service/search';
+  serviceSearchAnyURL = 'http://localhost:3000/service/searchAny/';
   profileURL = 'http://localhost:3000/user/profile/';
   currentUSerServicesURL = 'http://localhost:3000/service/myServices/';
   userItem: UserItem = new UserItem(null, '', false,
@@ -27,14 +27,18 @@ export class SearcherComponent implements OnInit {
   services: ServiceItem[] = [];
   token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
   userServiceView: boolean;
+  inputValue: string;
+  categories: string[] = ['venue', 'photography', 'catering', 'music', 'planner'];
+  category: string;
 
   ngOnInit() {
   }
 
 // TODO: useful search
-  clickServiceNameSearch() {
+  clickSearch() {
+    this.services.splice(0, this.services.length - 1);
     // Searches for service in DB, with all parameters
-    this.httpClient.get(this.serviceSearchURL + ' ' + this.serviceItem.serviceName,
+    this.httpClient.get(this.serviceSearchAnyURL + this.inputValue,
     {}).subscribe((instances: any) => {
       this.services.push.apply(this.services, instances.map((instance) =>
         new ServiceItem(instance.user, instance.serviceName, instance.category
@@ -43,6 +47,7 @@ export class SearcherComponent implements OnInit {
   }
 
   getCurrentUserServices() {
+    this.services = [];
     this.userServiceView = true;
     this.httpClient.get(this.currentUSerServicesURL + this.token, {
     }).subscribe((instances: any) => {
@@ -50,18 +55,31 @@ export class SearcherComponent implements OnInit {
         new ServiceItem(instance.user, instance.serviceName, instance.category
           , instance.price, instance.location, instance.description)));
     });
-
-
-
+    console.log(this.services);
   }
 
+  closeServices() {
+    this.services = [];
+    this.userServiceView = false;
+  }
 
+  clickCategorySearch(categoryId) {
+    this.userServiceView = false;
+    this.services = [];
+    console.log(this.services);
+    console.log(categoryId);
+    this.category = this.categories[categoryId];
+    console.log(this.category);
+    console.log(this.serviceSearchAnyURL + this.category);
+    this.httpClient.get(this.serviceSearchAnyURL + this.category, {
+    }).subscribe((instances: any) => {
+      this.services.push.apply(this.services, instances.map((instance) =>
+        new ServiceItem(instance.user, instance.serviceName, instance.category
+          , instance.price, instance.location, instance.description)));
+      });
+    console.log(this.services);
 
-
-  /**
-   * TODO: Search with only one Parameter
-   * clickCategorySearch()
-   */
+  }
 
 }
 

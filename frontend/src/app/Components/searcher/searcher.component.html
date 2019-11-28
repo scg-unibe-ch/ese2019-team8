@@ -3,14 +3,13 @@
 
 
     <ion-toolbar>
-      <ion-searchbar placeholder="What do you need?" slot="start" [(ngModel)]="serviceItem.serviceName"></ion-searchbar>
-      <ion-button slot="end" (click)="clickServiceNameSearch()" color="medium">
+      <ion-searchbar placeholder="What do you need?" slot="start" [(ngModel)]="inputValue"></ion-searchbar>
+      <ion-button slot="end" (click)="clickSearch()" color="medium">
         <ion-icon  name="search" slot="icon-only" ></ion-icon>
       </ion-button>
     </ion-toolbar>
 
       <!--<ion-title *ngIf="!userServiceView" color="secondary">Your Search</ion-title>-->
-      <ion-title *ngIf="userServiceView" color="secondary">Your Services</ion-title>
 
       <div *ngFor="let item of services">
         <ion-card>
@@ -32,19 +31,45 @@
         </ion-card>
       </div>
 
-    <ion-col>
-      <ion-button color="secondary" *ngIf="!userServiceView" (click)="getCurrentUserServices()">My Services</ion-button>
-    </ion-col>
+    <!-- Search for Categories-->
 
-    <!-- TODO: Search for Categories, with direct link f.e.  search/venue
-<ion-row style="height: 30%">
-  <ion-col>
     <div>
-      <ion-title>Categorys</ion-title>
-    </div>
+  <ion-col>
+      <ion-button color="light" size="medium" (click)="clickCategorySearch(0)" >
+          <ion-icon color="dark" name="wine"></ion-icon> Venue
+      </ion-button>
+    <ion-button color="light" size="medium" (click)="clickCategorySearch(1)">
+      <ion-icon color="dark" slot="icon-only" name="camera"></ion-icon>
+       Photography
+    </ion-button>
+    <ion-button color="light" size="medium" (click)="clickCategorySearch(2)">
+      <ion-icon color="dark" slot="icon-only" name="restaurant"></ion-icon>
+       Catering
+    </ion-button>
+    <ion-button color="light" size="medium" (click)="clickCategorySearch(5)">
+      <ion-icon color="dark" slot="icon-only" name="bed"></ion-icon>
+      Hotels
+    </ion-button>
+    <ion-button color="light" size="medium" (click)="clickCategorySearch(3)">
+      <ion-icon color="dark" slot="icon-only" name="musical-notes"></ion-icon>
+       Music
+    </ion-button>
+    <ion-button color="light" size="medium" (click)="clickCategorySearch(3)">
+      <ion-icon color="dark" slot="icon-only" name="bowtie"></ion-icon>
+      Stylist
+    </ion-button>
+    <ion-button color="light" size="medium" (click)="clickCategorySearch(3)">
+      <ion-icon color="dark" slot="icon-only" name="rose"></ion-icon>
+      Decoration
+    </ion-button>
+    <ion-button color="light" size="medium" (click)="clickCategorySearch(5)">
+      <ion-icon color="dark" slot="icon-only" name="clipboard"></ion-icon>
+      Event Planner
+    </ion-button>
   </ion-col>
-</ion-row>
--->
+    </div>
+
+
 
   </ion-content>
 </ion-app>

@@ -8,6 +8,7 @@ import {AlertService} from '../../_alert';
 import {AlertController} from '@ionic/angular';
 import {EventServiceComponent} from '../event-service/event-service.component';
 import {SearcherComponent} from '../searcher/searcher.component';
+import {ServiceItem} from '../../_models/service-item';
 
 @Component({
   selector: 'app-profile-page',
@@ -23,18 +24,20 @@ export class ProfilePageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private alertService: AlertService,
     private alertController: AlertController,
-    private eventService: EventServiceComponent,
-    private searcher: SearcherComponent
-  ) {
+
+
+) {
   }
 
   @Input()
   profilePageForm: FormGroup;
   user: UserItem;
   profileURL = 'http://localhost:3000/user/profile/';
+  currentUSerServicesURL = 'http://localhost:3000/service/myServices/';
   token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
   userItem: UserItem = new UserItem(null, '', false, '', '', null, '', null);
-
+  services: ServiceItem[] = [];
+  userServiceView: boolean;
   ngOnInit() {
 
     // console.log('hoi');
@@ -99,8 +102,19 @@ export class ProfilePageComponent implements OnInit {
   logout() {
     this.authService.logout();
   }
-  clickMyServices() {
-    this.searcher.getCurrentUserServices();
+  getCurrentUserServices() {
+    this.services = [];
+    this.userServiceView = true;
+    this.httpClient.get(this.currentUSerServicesURL + this.token, {
+    }).subscribe((instances: any) => {
+      this.services.push.apply(this.services, instances.map((instance) =>
+        new ServiceItem(instance.user, instance.serviceName, instance.category
+          , instance.price, instance.location, instance.description)));
+    });
+  }
+  closeServices() {
+    this.services = [];
+    this.userServiceView = false;
   }
 
 

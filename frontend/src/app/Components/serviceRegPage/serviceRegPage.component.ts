@@ -19,7 +19,7 @@ export class ServiceRegPageComponent implements OnInit {
               private eventService: EventServiceComponent,
               private formBuilder: FormBuilder) {
   }
-
+  // ToDo: A Form to validate if The Price is a number
 
   serviceForm: FormGroup;
 
@@ -50,7 +50,7 @@ export class ServiceRegPageComponent implements OnInit {
   }
 
 
-  // ToDo: User wird noch nicht mitgegeben?
+
   clickAddService() {
     this.httpClient.post('http://localhost:3000/service', {
       token: localStorage.getItem('currentUser').replace('"', '').replace('"', ''),

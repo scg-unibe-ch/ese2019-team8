@@ -1,51 +1,23 @@
 <ion-app>
-  <ion-row>
-    <ion-col>
-      <ion-button *ngIf="userItem.isServiceProvider" [routerLink]="['/serviceRegistration']" color="medium">Register a
-        new Service
+
+
+<div>
+      <ion-button float-right *ngIf="userItem.isServiceProvider" [routerLink]="['/serviceRegistration']" color="medium">
+       <ion-icon name="add"></ion-icon> Add a new Service
       </ion-button>
-      <ion-button [routerLink]="['/service']" color="medium">All Services</ion-button>
-    </ion-col>
-  </ion-row>
+</div>
+
   <ion-content>
-
     <app-searcher></app-searcher>
-
-    <!--
-       <ion-toolbar>
-         <ion-searchbar placeholder="What do you need?" slot="start" [(ngModel)]="searchValue"></ion-searchbar>
-         <ion-button slot="end" [routerLink]="['/search']" color="medium">
-           <ion-icon name="search" slot="icon-only"></ion-icon>
-         </ion-button>
-       </ion-toolbar>
-       -->
-
-    <!-- TODO: Search for Categories, with direct link f.e.  search/venue -->
-    <!--
-       <ion-row style="height: 30%">
-         <ion-col>
-           <div>
-             <ion-title>Categorys</ion-title>
-           </div>
-         </ion-col>
-       </ion-row>
-
-    <div *ngIf="userItem.isServiceProvider">
-      <ion-col>
-
-        <ion-button [routerLink]="['/serviceRegistration']" color="medium">Register a new Service</ion-button>
-
-      </ion-col>
-    </div>
-    <ion-col>
-      <ion-button [routerLink]="['/service']" color="medium">All Services</ion-button>
-    </ion-col>
-    <ion-col>
-      <ion-button color="secondary" [routerLink]="['/search']">My Services</ion-button>
-    </ion-col>
-
-    -->
-
   </ion-content>
+  <!--TODO: real featured Services, currently all services-->
+  <div><ion-item>
+    <ion-title  color="secondary" align-self-center>Featured Services</ion-title>
+
+  </ion-item></div>
+  <ion-content>
+    <app-event-service></app-event-service>
+  </ion-content>
+
 </ion-app>
 

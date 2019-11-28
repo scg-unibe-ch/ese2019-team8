@@ -1,8 +1,11 @@
 <ion-content class="ion-padding">
-
   <div class="login-box">
-
     <form (ngSubmit)="save()" #saveForm="ngForm">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="9">
+
+
       <ion-title slot="start">Hello {{userItem.username}}</ion-title>
       <ion-row>
         <ion-col>
@@ -19,13 +22,6 @@
 
             <div class="registrationForm">
               <form [formGroup]="profilePageForm">
-                <!--
-                <ion-item>
-                  <ion-input type="password" value="" placeholder="Password" name="password"
-                             formControlName="password" required></ion-input>
-                  <small>Blank field don't modify password</small>
-                </ion-item>
-                -->
                 <ion-item>
                   <ion-input type="text" placeholder="Address" value="{{userItem.address}}" name="address"
                              formControlName="address" required></ion-input>
@@ -59,33 +55,60 @@
         </ion-col>
       </ion-row>
 
-      <ion-row>
-        <ion-col class="signup-col">
-          <!--
-          <ion-button class="submit-btn" (click)="save()"  [disabled]="!saveForm.form.valid">Save</ion-button>
-          -->
-          <ion-button class="submit-btn" (click)="save()">
+      <ion-row class="signup-col">
+          <ion-button color="secondary" class="submit-btn" (click)="save()">
             <ion-icon slot="start" name="save"></ion-icon>
             Save
           </ion-button>
-        </ion-col>
+          <ion-button color="medium" [routerLink]="['/changePW']">
+            Change Password
+          </ion-button>
       </ion-row>
-      <ion-col>
-        <ion-button color="warning" [routerLink]="['/changePW']">
-          Change Password
-        </ion-button>
       </ion-col>
 
+      <!--View for user Service-->
       <ion-col>
-        <ion-button color="danger" (click)="presentAlertConfirm()">Delete Profile</ion-button>
+        <div>
+      <div>
+        <ion-col>
+          <ion-button color="secondary" *ngIf="!userServiceView" (click)="getCurrentUserServices()">Show my Services</ion-button>
+        </ion-col>
+      </div>
+      <div>
+        <ion-col>
+          <ion-button color="danger" *ngIf="userServiceView" (click)="closeServices()">Close my Services</ion-button>
+        </ion-col>
+      </div>
+      <div *ngFor="let item of services">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle color="medium">{{item.category}}</ion-card-subtitle>
+            <ion-card-title color="dark">{{item.serviceName}}</ion-card-title>
+          </ion-card-header>
+          <ion-chip color="dark" outline>
+            <ion-icon name="cash"></ion-icon>
+            <ion-label>{{item.price}} CHF</ion-label>
+          </ion-chip>
+          <ion-chip color="dark" outline>
+            <ion-icon name="pin"></ion-icon>
+            <ion-label>{{item.location}}</ion-label>
+          </ion-chip>
+          <ion-card-content>
+            {{item.description}}
+          </ion-card-content>
+        </ion-card>
+      </div>
+        </div>
       </ion-col>
+    </ion-row>
+  </ion-grid>
 
-      <!--
-      <ion-col>
-        <ion-button color="secondary"  [routerLink]="['/search']"(click)="clickMyServices()">My Services</ion-button>
-      </ion-col>
-      -->
-    </form>
+      <ion-footer>
+        <ion-buttons slot="primary">
+          <ion-button color="danger" (click)="presentAlertConfirm()">Delete Profile</ion-button>
+        </ion-buttons>
+      </ion-footer>
+
+  </form>
   </div>
-
 </ion-content>
