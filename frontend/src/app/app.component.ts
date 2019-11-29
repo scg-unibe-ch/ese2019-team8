@@ -16,6 +16,8 @@ import {AuthenticationService, UserService} from './_services';
 
 export class AppComponent implements OnInit {
   userItem: UserItem = new UserItem(null, '', false, '', '', null, '', null);
+  profileURL = 'http://localhost:3000/user/profile/';
+  token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
 
   constructor(
     private platform: Platform,
@@ -35,6 +37,11 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.httpClient.get(this.profileURL + this.token)
+      .subscribe((instance: any) => {
+        // this.user = instances.map((instance) => new userItem(instance.username, instance.email, instance.zip));
+        this.userItem.username = instance.username;
+        this.userItem.isServiceProvider = instance.isServiceProvider; });
   }
 
   loggedIn() {
