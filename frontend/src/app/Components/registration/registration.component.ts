@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {UsernameValidator} from '../../validators/username.validator';
 import {PasswordValidator} from '../../validators/password.validator';
 import {UserItem} from '../../_models/user-item';
+import {ValidationMessages} from '../../validators/validationMessages';
 
 @Component({
   selector: 'app-registration',
@@ -26,52 +27,7 @@ export class RegistrationComponent implements OnInit {
     '', '', null, '', null);
   registrationForm: FormGroup;
   passwordCheckerGroup: FormGroup;
-
-  validationMessages = {
-    username: [
-      {type: 'required', message: 'Username is required.'},
-      {type: 'minlength', message: 'Username must be at least 5 characters long.'},
-      {type: 'maxlength', message: 'Username cannot be more than 25 characters long.'},
-      {type: 'pattern', message: 'Your username can only contain letters and numbers..'},
-      {type: 'validUsername', message: 'Your username has already been taken.'}
-    ],
-    password: [
-      {type: 'required', message: 'Password is required.'},
-      {type: 'minlength', message: 'Password must be at least 5 characters long.'},
-      {
-        type: 'pattern',
-        message: 'Your password must contain at least one upper case letter, one lower case letter and one number.'
-      },
-    ],
-    passwordConfirmation: [
-      {type: 'required', message: 'Confirm password is required.'},
-      {type: 'areEqual', message: 'Password mismatch'}
-    ],
-    email: [
-      {type: 'pattern', message: 'This is not a valid email address.'}
-    ],
-    address: [
-      {type: 'minlength', message: 'Address must be at least 3 characters long.'},
-      {type: 'maxlength', message: 'Address cannot be more than 150 characters long.'},
-      {type: 'pattern', message: 'Your Address can only contain letters and numbers..'}
-    ],
-    zip: [
-      {type: 'minlength', message: 'Your zip code must be at least 4 characters long.'},
-      {type: 'maxlength', message: 'Your zip code cannot be more than 6 characters long.'},
-      {type: 'pattern', message: 'Your zip code can only contain numbers..'}
-    ],
-    city: [
-      {type: 'minlength', message: 'City must be at least 2 characters long.'},
-      {type: 'maxlength', message: 'City cannot be more than 25 characters long.'},
-      {type: 'pattern', message: 'City can only contain letters.'}
-    ],
-    phoneNumber: [
-      {type: 'minlength', message: 'Phone number must be at least 10 characters long.'},
-      {type: 'maxlength', message: 'Phone number cannot be more than 12 characters long.'},
-      {type: 'pattern', message: 'Please enter your phone number using only numbers.'}
-    ],
-    // more messages
-  };
+  validationMessages = ValidationMessages.validationMessages;
 
   ngOnInit() {
     this.passwordCheckerGroup = new FormGroup({
@@ -101,7 +57,7 @@ export class RegistrationComponent implements OnInit {
       address: new FormControl('', Validators.compose([
           Validators.maxLength(150),
           Validators.minLength(3),
-          Validators.pattern('^[A-Za-z0-9]+$')
+          Validators.pattern('^[A-Za-z0-9\\s]+$')
         ]
       )),
       zip: new FormControl('', Validators.compose([
@@ -113,7 +69,7 @@ export class RegistrationComponent implements OnInit {
       city: new FormControl('', Validators.compose([
           Validators.maxLength(25),
           Validators.minLength(2),
-          Validators.pattern('^[A-Za-z]+$')
+          Validators.pattern('^[A-Za-z\\s]+$')
         ]
       )),
       phoneNumber: new FormControl('', Validators.compose([
