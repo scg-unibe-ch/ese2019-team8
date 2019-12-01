@@ -4,7 +4,7 @@
 
     <ion-toolbar>
       <ion-searchbar placeholder="What do you need?" slot="start" [(ngModel)]="inputValue"></ion-searchbar>
-      <ion-button slot="end" (click)="clickSearch()" color="medium">
+      <ion-button slot="end" (click)="clickSearch()" color="medium" [routerLink]="['/search']">
         <ion-icon  name="search" slot="icon-only" ></ion-icon>
       </ion-button>
     </ion-toolbar>
@@ -35,34 +35,34 @@
 
     <div>
   <ion-col>
-      <ion-button color="light" size="medium" (click)="clickCategorySearch(0)" >
+      <ion-button color="light" size="medium" (click)="clickCategorySearch(0)" [routerLink]="['/search']" >
           <ion-icon color="dark" name="wine"></ion-icon> Venue
       </ion-button>
-    <ion-button color="light" size="medium" (click)="clickCategorySearch(1)">
+    <ion-button color="light" size="medium" (click)="clickCategorySearch(1)" [routerLink]="['/search']">
       <ion-icon color="dark" slot="icon-only" name="camera"></ion-icon>
        Photography
     </ion-button>
-    <ion-button color="light" size="medium" (click)="clickCategorySearch(2)">
+    <ion-button color="light" size="medium" (click)="clickCategorySearch(2)" [routerLink]="['/search']">
       <ion-icon color="dark" slot="icon-only" name="restaurant"></ion-icon>
        Catering
     </ion-button>
-    <ion-button color="light" size="medium" (click)="clickCategorySearch(5)">
+    <ion-button color="light" size="medium" (click)="clickCategorySearch(3)" [routerLink]="['/search']">
       <ion-icon color="dark" slot="icon-only" name="bed"></ion-icon>
       Hotels
     </ion-button>
-    <ion-button color="light" size="medium" (click)="clickCategorySearch(3)">
+    <ion-button color="light" size="medium" (click)="clickCategorySearch(4)" [routerLink]="['/search']">
       <ion-icon color="dark" slot="icon-only" name="musical-notes"></ion-icon>
        Music
     </ion-button>
-    <ion-button color="light" size="medium" (click)="clickCategorySearch(3)">
+    <ion-button color="light" size="medium" (click)="clickCategorySearch(5)" [routerLink]="['/search']">
       <ion-icon color="dark" slot="icon-only" name="bowtie"></ion-icon>
       Stylist
     </ion-button>
-    <ion-button color="light" size="medium" (click)="clickCategorySearch(3)">
+    <ion-button color="light" size="medium" (click)="clickCategorySearch(6)" [routerLink]="['/search']">
       <ion-icon color="dark" slot="icon-only" name="rose"></ion-icon>
       Decoration
     </ion-button>
-    <ion-button color="light" size="medium" (click)="clickCategorySearch(5)">
+    <ion-button color="light" size="medium" (click)="clickCategorySearch(7)" [routerLink]="['/search']">
       <ion-icon color="dark" slot="icon-only" name="clipboard"></ion-icon>
       Event Planner
     </ion-button>

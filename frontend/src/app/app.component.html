@@ -4,19 +4,16 @@
     <ion-title>iWent – Your Event Management Platform!</ion-title>
 
     <ion-buttons slot="secondary">
-      <ion-button float-right *ngIf="userItem.isServiceProvider" [routerLink]="['/serviceRegistration']" color="dark">
-        <ion-icon name="add"></ion-icon> Add a new Service
-      </ion-button>
       <ion-button *ngIf="loggedIn()" [routerLink]="['/login']" color="danger" (click)="logout()">
         Sign Out
       </ion-button>
       <ion-button *ngIf="!loggedIn()" [routerLink]="['/login']" color="secondary">
         Sign in
       </ion-button>
-      <ion-button [routerLink]="['/home']">
-        <ion-icon name="home" slot="icon-only"></ion-icon>
+      <ion-button  *ngIf="loggedIn()" [routerLink]="['/home']">
+        <ion-icon name="search" slot="icon-only"></ion-icon>
       </ion-button>
-      <ion-button [routerLink]="['/profilePage']">
+      <ion-button  *ngIf="loggedIn()" [routerLink]="['/profilePage']">
         <ion-icon name="contact" slot="icon-only"></ion-icon>
       </ion-button>
 

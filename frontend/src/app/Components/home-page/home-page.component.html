@@ -1,4 +1,10 @@
 <ion-app>
+  <ion-buttons>
+  <ion-button *ngIf="userItem.isServiceProvider" [routerLink]="['/serviceRegistration']" color="success">
+    <ion-icon name="add"></ion-icon> Add a new Service
+  </ion-button>
+    </ion-buttons>
+
 
 
   <!--<ion-buttons slot="secondary">

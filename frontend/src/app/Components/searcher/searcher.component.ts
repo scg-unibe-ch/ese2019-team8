@@ -28,15 +28,15 @@ export class SearcherComponent implements OnInit {
   token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
   userServiceView: boolean;
   inputValue: string;
-  categories: string[] = ['venue', 'photography', 'catering', 'music', 'planner'];
+  categories: string[] = ['venue', 'photography', 'catering', 'hotels', 'music', 'planner', 'stylist', 'decoration', 'event planner'];
   category: string;
 
   ngOnInit() {
   }
 
-// TODO: useful search
+
   clickSearch() {
-    this.services.splice(0, this.services.length - 1);
+    this.services = [];
     // Searches for service in DB, with all parameters
     this.httpClient.get(this.serviceSearchAnyURL + this.inputValue,
     {}).subscribe((instances: any) => {
@@ -45,6 +45,8 @@ export class SearcherComponent implements OnInit {
           , instance.price, instance.location, instance.description)));
     });
   }
+
+  // TODO: Search for specific user
 
   getCurrentUserServices() {
     this.services = [];
