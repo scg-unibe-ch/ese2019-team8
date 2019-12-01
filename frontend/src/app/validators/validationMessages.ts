@@ -26,7 +26,7 @@ export class ValidationMessages {
     address: [
       {type: 'minlength', message: 'Address must be at least 3 characters long.'},
       {type: 'maxlength', message: 'Address cannot be more than 150 characters long.'},
-      {type: 'pattern', message: 'Your Address can only contain letters and numbers..'}
+      {type: 'pattern', message: 'Your Address can only contain letters, whitespaces and numbers..'}
     ],
     zip: [
       {type: 'minlength', message: 'Your zip code must be at least 4 characters long.'},
@@ -43,6 +43,20 @@ export class ValidationMessages {
       {type: 'maxlength', message: 'Phone number cannot be more than 12 characters long.'},
       {type: 'pattern', message: 'Please enter your phone number using only numbers.'}
     ],
+    serviceName: [
+      {type: 'required', message: 'Name of service is required.'},
+      {type: 'minlength', message: 'Name of Service must be at least 2 characters long.'},
+      {type: 'maxlength', message: 'Name of Service cannot be more than 25 characters long.'},
+    ],
+    price: [
+      {type: 'max', message: 'Price cannot exceed 999\'999\'999 CHF.'},
+    ],
+    location: [
+      {type: 'minlength', message: 'Location must be at least 2 characters long.'},
+      {type: 'maxlength', message: 'Location cannot be more than 50 characters long.'},
+      {type: 'pattern', message: 'Location can only contain letters, whitespaces and numbers..'}
+    ],
+
     // more messages
   };
 }

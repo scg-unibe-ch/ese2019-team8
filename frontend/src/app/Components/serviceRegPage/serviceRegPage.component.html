@@ -59,6 +59,15 @@
                 <ion-input name="price" [(ngModel)]="serviceItem.price" placeholder="Price (CHF)" type="number"
                            formControlName="price"></ion-input>
               </ion-item>
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of validationMessages.price">
+                  <div class="error-message"
+                       *ngIf="serviceForm.get('price').hasError(validation.type) && (serviceForm.get('price').dirty || serviceForm.get('price').touched)">
+                    <ion-icon name="information-circle"></ion-icon>
+                    {{ validation.message }}
+                  </div>
+                </ng-container>
+              </div>
             </div>
           </ion-col>
           <ion-col>
@@ -67,6 +76,16 @@
                 <ion-input name="location" [(ngModel)]="serviceItem.location" placeholder="Location" type="text"
                            formControlName="location"></ion-input>
               </ion-item>
+
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of validationMessages.location">
+                  <div class="error-message"
+                       *ngIf="serviceForm.get('location').hasError(validation.type) && (serviceForm.get('location').dirty || serviceForm.get('location').touched)">
+                    <ion-icon name="information-circle"></ion-icon>
+                    {{ validation.message }}
+                  </div>
+                </ng-container>
+              </div>
             </div>
           </ion-col>
         </ion-row>
