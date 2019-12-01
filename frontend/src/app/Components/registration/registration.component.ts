@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AlertService} from '../../_alert';
 import {Router} from '@angular/router';
 import {UsernameValidator} from '../../validators/username.validator';
 import {PasswordValidator} from '../../validators/password.validator';
 import {UserItem} from '../../_models/user-item';
+import {ValidationMessages} from '../../validators/validationMessages';
+import {ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-registration',
@@ -16,9 +17,9 @@ export class RegistrationComponent implements OnInit {
 
   constructor(
     private httpClient: HttpClient,
-    private alertService: AlertService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toastController: ToastController
   ) {
   }
 
@@ -26,32 +27,9 @@ export class RegistrationComponent implements OnInit {
     '', '', null, '', null);
   registrationForm: FormGroup;
   passwordCheckerGroup: FormGroup;
-
-  validationMessages = {
-    username: [
-      {type: 'required', message: 'Username is required.'},
-      {type: 'minlength', message: 'Username must be at least 5 characters long.'},
-      {type: 'maxlength', message: 'Username cannot be more than 25 characters long.'},
-      {type: 'pattern', message: 'Your username can only contain letters and numbers..'},
-      {type: 'validUsername', message: 'Your username has already been taken.'}
-    ],
-    password: [
-      {type: 'required', message: 'Password is required.'},
-      {type: 'minlength', message: 'Password must be at least 5 characters long.'},
-      {
-        type: 'pattern',
-        message: 'Your password must contain at least one upper case letter, one lower case letter and one number.'
-      },
-    ],
-    passwordConfirmation: [
-      {type: 'required', message: 'Confirm password is required.'},
-      {type: 'areEqual', message: 'Password mismatch'}
-    ],
-    // more messages
-  };
+  validationMessages = ValidationMessages.validationMessages;
 
   ngOnInit() {
-
     this.passwordCheckerGroup = new FormGroup({
       password: new FormControl('', Validators.compose([
         Validators.minLength(5),
@@ -72,11 +50,34 @@ export class RegistrationComponent implements OnInit {
         Validators.required
       ])),
       isServiceProvider: new FormControl(false),
-      email: new FormControl(''),
-      address: new FormControl(''),
-      zip: new FormControl(''),
-      city: new FormControl(''),
-      phoneNumber: new FormControl(''),
+      email: new FormControl('', Validators.compose([
+          Validators.pattern('^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$'),
+        ]
+      )),
+      address: new FormControl('', Validators.compose([
+          Validators.maxLength(150),
+          Validators.minLength(3),
+          Validators.pattern('^[A-Za-z0-9\\s]+$')
+        ]
+      )),
+      zip: new FormControl('', Validators.compose([
+          Validators.maxLength(6),
+          Validators.minLength(4),
+          Validators.pattern('^[0-9]+$')
+        ]
+      )),
+      city: new FormControl('', Validators.compose([
+          Validators.maxLength(25),
+          Validators.minLength(2),
+          Validators.pattern('^[A-Za-z\\s]+$')
+        ]
+      )),
+      phoneNumber: new FormControl('', Validators.compose([
+          Validators.pattern('^[0-9]+$'),
+          Validators.maxLength(12),
+          Validators.minLength(10),
+        ]
+      )),
       passwordChecker: this.passwordCheckerGroup
     });
 
@@ -89,8 +90,6 @@ export class RegistrationComponent implements OnInit {
   }
 
   register() {
-    // reset alerts on submit
-    this.alertService.clear();
     if (this.registrationForm.valid) {
       console.log('form valid');
     } else {
@@ -108,14 +107,22 @@ export class RegistrationComponent implements OnInit {
 
     }).subscribe(data => {
         console.log(data);
-        // this.alertService.success('Registration successful');
-        alert('Registration successful');
+        this.presentToast('Registration successful');
         this.router.navigate(['/login'], {queryParams: {registered: true}});
       },
       error => {
-        alert(error.error.message);
+        this.presentToast(error.error.message);
       });
   }
 
-
+  async presentToast(text) {
+    const toast = await this.toastController.create({
+      message: text,
+      duration: 4000,
+      position: 'top'
+    });
+    toast.present();
+  }
 }
+
+

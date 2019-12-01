@@ -3,12 +3,12 @@ import {UserItem} from '../../_models/user-item';
 import {AuthenticationService} from '../../_services';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {AlertService} from '../../_alert';
-import {AlertController} from '@ionic/angular';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AlertController, ToastController} from '@ionic/angular';
 import {EventServiceComponent} from '../event-service/event-service.component';
 import {SearcherComponent} from '../searcher/searcher.component';
 import {ServiceItem} from '../../_models/service-item';
+import {ValidationMessages} from '../../validators/validationMessages';
 
 @Component({
   selector: 'app-profile-page',
@@ -22,11 +22,9 @@ export class ProfilePageComponent implements OnInit {
     private httpClient: HttpClient,
     private router: Router,
     private formBuilder: FormBuilder,
-    private alertService: AlertService,
     private alertController: AlertController,
-
-
-) {
+    private toastController: ToastController
+  ) {
   }
 
   @Input()
@@ -38,48 +36,60 @@ export class ProfilePageComponent implements OnInit {
   userItem: UserItem = new UserItem(null, '', false, '', '', null, '', null);
   services: ServiceItem[] = [];
   userServiceView: boolean;
+  validationMessages = ValidationMessages.validationMessages;
+
+
   ngOnInit() {
 
-    // console.log('hoi');
     this.httpClient.get(this.profileURL + this.token)
       .subscribe((instance: any) => {
-        // this.user = instances.map((instance) => new userItem(instance.username, instance.email, instance.zip));
         this.userItem.username = instance.username;
-        // this.userItem.password = instance.password;
         this.userItem.address = instance.address;
         this.userItem.email = instance.email;
         this.userItem.city = instance.city;
         this.userItem.zip = instance.zip;
         this.userItem.phoneNumber = instance.phoneNumber;
         this.userItem.isServiceProvider = instance.isServiceProvider;
-        console.log(instance);
+        // console.log(instance);
       });
-    // console.log(this.userItem);
     this.profilePageForm = this.formBuilder.group({
-      email: new FormControl(''),
-      password: new FormControl(''),
-      address: new FormControl(''),
-      zip: new FormControl(''),
-      city: new FormControl(''),
-      phoneNumber: new FormControl(''),
-      isServiceProvider: new FormControl('')
+      email: new FormControl('', Validators.compose([
+          Validators.pattern('^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$'),
+        ]
+      )),
+      address: new FormControl('', Validators.compose([
+          Validators.maxLength(150),
+          Validators.minLength(3),
+          Validators.pattern('^[A-Za-z0-9\\s]+$')
+        ]
+      )),
+      zip: new FormControl('', Validators.compose([
+          Validators.maxLength(6),
+          Validators.minLength(4),
+          Validators.pattern('^[0-9]+$')
+        ]
+      )),
+      city: new FormControl('', Validators.compose([
+          Validators.maxLength(25),
+          Validators.minLength(2),
+          Validators.pattern('^[A-Za-z\\s]+$')
+        ]
+      )),
+      phoneNumber: new FormControl('', Validators.compose([
+          Validators.maxLength(12),
+          Validators.minLength(10),
+          Validators.pattern('^[0-9]+$'),
+        ]
+      )),
+      // disabled due to errors when changing checkbox state
+      // isServiceProvider: new FormControl('')
     });
   }
 
 
   save() {
-    // reset alerts on submit
-    this.alertService.clear();
-    /*
-    if (this.profilePageForm.valid) {
-      console.log('form valid');
-    } else {
-      console.log('not valid');
-    }
-     */
     this.httpClient.put('http://localhost:3000/user/profile', {
       token: this.token,
-      // password: this.profilePageForm.value.password,
       // isServiceProvider: this.profilePageForm.value.isServiceProvider,
       email: this.profilePageForm.value.email,
       address: this.profilePageForm.value.address,
@@ -89,12 +99,11 @@ export class ProfilePageComponent implements OnInit {
 
     }).subscribe(data => {
         console.log(data);
-        // this.alertService.success('Profile data update successful');
-        alert('Profile data update successful');
+        this.presentToast('Profile data update successful');
         this.router.navigate(['/profilePage'], {queryParams: {dataUpdated: true}});
       },
       error => {
-        alert(error.error.message);
+        this.presentToast(error.error.message);
       });
   }
 
@@ -102,16 +111,17 @@ export class ProfilePageComponent implements OnInit {
   logout() {
     this.authService.logout();
   }
+
   getCurrentUserServices() {
     this.services = [];
     this.userServiceView = true;
-    this.httpClient.get(this.currentUSerServicesURL + this.token, {
-    }).subscribe((instances: any) => {
+    this.httpClient.get(this.currentUSerServicesURL + this.token, {}).subscribe((instances: any) => {
       this.services.push.apply(this.services, instances.map((instance) =>
         new ServiceItem(instance.user, instance.serviceName, instance.category
           , instance.price, instance.location, instance.description)));
     });
   }
+
   closeServices() {
     this.services = [];
     this.userServiceView = false;
@@ -130,13 +140,21 @@ export class ProfilePageComponent implements OnInit {
     this.httpClient.delete('http://localhost:3000/user/profile', options).subscribe(data => {
       console.log('User deleted');
       this.logout();
-      alert('User profile successfully deleted');
+      this.presentToast('User profile successfully deleted');
       this.router.navigate(['/login'], {queryParams: {userDeleted: true}});
     }, error => {
-      alert(error.message);
+      this.presentToast(error.message);
     });
   }
 
+  async presentToast(text) {
+    const toast = await this.toastController.create({
+      message: text,
+      duration: 4000,
+      position: 'top'
+    });
+    toast.present();
+  }
 
   async presentAlertConfirm() {
     const alert = await this.alertController.create({

@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {AlertService} from '../../_alert';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {UserItem} from '../../_models/user-item';
@@ -15,8 +14,8 @@ import {ServiceItem} from '../../_models/service-item';
 export class SearcherComponent implements OnInit {
 
   constructor(private httpClient: HttpClient,
-              private alertService: AlertService,
-              private router: Router) {}
+              private router: Router) {
+  }
 
   serviceSearchAnyURL = 'http://localhost:3000/service/searchAny/';
   profileURL = 'http://localhost:3000/user/profile/';
@@ -39,7 +38,7 @@ export class SearcherComponent implements OnInit {
     this.services = [];
     // Searches for service in DB, with all parameters
     this.httpClient.get(this.serviceSearchAnyURL + this.inputValue,
-    {}).subscribe((instances: any) => {
+      {}).subscribe((instances: any) => {
       this.services.push.apply(this.services, instances.map((instance) =>
         new ServiceItem(instance.user, instance.serviceName, instance.category
           , instance.price, instance.location, instance.description)));
@@ -51,8 +50,7 @@ export class SearcherComponent implements OnInit {
   getCurrentUserServices() {
     this.services = [];
     this.userServiceView = true;
-    this.httpClient.get(this.currentUSerServicesURL + this.token, {
-    }).subscribe((instances: any) => {
+    this.httpClient.get(this.currentUSerServicesURL + this.token, {}).subscribe((instances: any) => {
       this.services.push.apply(this.services, instances.map((instance) =>
         new ServiceItem(instance.user, instance.serviceName, instance.category
           , instance.price, instance.location, instance.description)));
@@ -68,13 +66,11 @@ export class SearcherComponent implements OnInit {
     this.userServiceView = false;
     this.services = [];
     this.category = this.categories[categoryId];
-    this.httpClient.get(this.serviceSearchAnyURL + this.category, {
-    }).subscribe((instances: any) => {
+    this.httpClient.get(this.serviceSearchAnyURL + this.category, {}).subscribe((instances: any) => {
       this.services.push.apply(this.services, instances.map((instance) =>
         new ServiceItem(instance.user, instance.serviceName, instance.category
           , instance.price, instance.location, instance.description)));
-      });
-
+    });
   }
 
 }

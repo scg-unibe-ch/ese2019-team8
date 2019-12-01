@@ -1,4 +1,5 @@
-# ESE 2019 Team 8
+# iWent - Your Event Management Platform!
+## ESE 2019 Team 8
 Welcome to the project of Team 8 of the 2019 ESE course. It contains the following components:
 - [frontend](https://github.com/scg-unibe-ch/ese2019-team8/tree/master/frontend): an Ionic application
 - [backend](https://github.com/scg-unibe-ch/ese2019-team8/tree/master/backend): a Node.js application written in TypeScript, using the express.js web framework 
@@ -11,7 +12,7 @@ Welcome to the project of Team 8 of the 2019 ESE course. It contains the followi
 ### In Backend-Folder:
 Run the following commands in a console of your choosing
 - `npm install`
-- `npm run tsc`
+- `npm run tsc` or optionally when you want to see your changes live `npm run tsc -- --watch`
 - `node build/server.js`
 
 ### In Frontend-Folder:
@@ -25,3 +26,4 @@ Afterwards you can either register as a normal user or login as a Administrator 
 - Password: `admin1`
 
 ### [Documentation](./docs)
+Here you will find additional information regarding the project.
