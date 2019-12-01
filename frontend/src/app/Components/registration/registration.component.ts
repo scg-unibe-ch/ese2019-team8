@@ -47,11 +47,33 @@ export class RegistrationComponent implements OnInit {
       {type: 'required', message: 'Confirm password is required.'},
       {type: 'areEqual', message: 'Password mismatch'}
     ],
+    email: [
+      {type: 'pattern', message: 'This is not a valid email address.'}
+    ],
+    address: [
+      {type: 'minlength', message: 'Address must be at least 3 characters long.'},
+      {type: 'maxlength', message: 'Address cannot be more than 150 characters long.'},
+      {type: 'pattern', message: 'Your Address can only contain letters and numbers..'}
+    ],
+    zip: [
+      {type: 'minlength', message: 'Your zip code must be at least 4 characters long.'},
+      {type: 'maxlength', message: 'Your zip code cannot be more than 6 characters long.'},
+      {type: 'pattern', message: 'Your zip code can only contain numbers..'}
+    ],
+    city: [
+      {type: 'minlength', message: 'City must be at least 2 characters long.'},
+      {type: 'maxlength', message: 'City cannot be more than 25 characters long.'},
+      {type: 'pattern', message: 'City can only contain letters.'}
+    ],
+    phoneNumber: [
+      {type: 'minlength', message: 'Phone number must be at least 10 characters long.'},
+      {type: 'maxlength', message: 'Phone number cannot be more than 12 characters long.'},
+      {type: 'pattern', message: 'Please enter your phone number using only numbers.'}
+    ],
     // more messages
   };
 
   ngOnInit() {
-
     this.passwordCheckerGroup = new FormGroup({
       password: new FormControl('', Validators.compose([
         Validators.minLength(5),
@@ -72,11 +94,34 @@ export class RegistrationComponent implements OnInit {
         Validators.required
       ])),
       isServiceProvider: new FormControl(false),
-      email: new FormControl(''),
-      address: new FormControl(''),
-      zip: new FormControl(''),
-      city: new FormControl(''),
-      phoneNumber: new FormControl(''),
+      email: new FormControl('', Validators.compose([
+          Validators.pattern('^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$'),
+        ]
+      )),
+      address: new FormControl('', Validators.compose([
+          Validators.maxLength(150),
+          Validators.minLength(3),
+          Validators.pattern('^[A-Za-z0-9]+$')
+        ]
+      )),
+      zip: new FormControl('', Validators.compose([
+          Validators.maxLength(6),
+          Validators.minLength(4),
+          Validators.pattern('^[0-9]+$')
+        ]
+      )),
+      city: new FormControl('', Validators.compose([
+          Validators.maxLength(25),
+          Validators.minLength(2),
+          Validators.pattern('^[A-Za-z]+$')
+        ]
+      )),
+      phoneNumber: new FormControl('', Validators.compose([
+          Validators.pattern('^[0-9]+$'),
+          Validators.maxLength(12),
+          Validators.minLength(10),
+        ]
+      )),
       passwordChecker: this.passwordCheckerGroup
     });
 
