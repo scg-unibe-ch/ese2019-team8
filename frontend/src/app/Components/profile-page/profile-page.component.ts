@@ -82,7 +82,8 @@ export class ProfilePageComponent implements OnInit {
           Validators.pattern('^[0-9]+$'),
         ]
       )),
-      isServiceProvider: new FormControl('')
+      // disabled due to errors when changing checkbox state
+      // isServiceProvider: new FormControl('')
     });
   }
 
