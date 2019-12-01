@@ -12,7 +12,7 @@ Welcome to the project of Team 8 of the 2019 ESE course. It contains the followi
 ### In Backend-Folder:
 Run the following commands in a console of your choosing
 - `npm install`
-- `npm run tsc`
+- `npm run tsc` or optionally when you want to see your changes live `npm run tsc -- --watch`
 - `node build/server.js`
 
 ### In Frontend-Folder:
