@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AlertService} from '../../_alert';
 import {Router} from '@angular/router';
 import {PasswordValidator} from '../../validators/password.validator';
 import {ValidationMessages} from '../../validators/validationMessages';
@@ -16,7 +15,6 @@ export class ChangePasswordPageComponent implements OnInit {
 
   constructor(
     private httpClient: HttpClient,
-    private alertService: AlertService,
     private router: Router,
     private formBuilder: FormBuilder,
     private toastController: ToastController
