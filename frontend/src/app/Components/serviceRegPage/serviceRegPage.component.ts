@@ -4,7 +4,7 @@ import {ServiceItem} from '../../_models/service-item';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {EventServiceComponent} from '../event-service/event-service.component';
 import {ValidationMessages} from '../../validators/validationMessages';
-
+import {ToastController} from '@ionic/angular';
 
 
 @Component({
@@ -18,8 +18,11 @@ export class ServiceRegPageComponent implements OnInit {
 
   constructor(private httpClient: HttpClient,
               private eventService: EventServiceComponent,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private toastController: ToastController
+  ) {
   }
+
   // ToDo: A Form to validate if The Price is a number
 
   serviceForm: FormGroup;
@@ -53,7 +56,6 @@ export class ServiceRegPageComponent implements OnInit {
   }
 
 
-
   clickAddService() {
     this.httpClient.post('http://localhost:3000/service', {
       token: localStorage.getItem('currentUser').replace('"', '').replace('"', ''),
@@ -64,14 +66,21 @@ export class ServiceRegPageComponent implements OnInit {
       description: this.serviceForm.value.description,
     }).subscribe(data => {
         console.log(data);
-        // this.alertService.success('Registration successful');
-        // alert('Registration successful');
+        this.presentToast('Service created');
       },
       error => {
-        alert(error.error.message);
+        this.presentToast(error.error.message);
       });
   }
 
+  async presentToast(text) {
+    const toast = await this.toastController.create({
+      message: text,
+      duration: 4000,
+      position: 'top'
+    });
+    toast.present();
+  }
 }
 
 

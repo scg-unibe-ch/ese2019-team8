@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AlertService} from '../../_alert';
 import {Router} from '@angular/router';
 import {UsernameValidator} from '../../validators/username.validator';
 import {PasswordValidator} from '../../validators/password.validator';
 import {UserItem} from '../../_models/user-item';
 import {ValidationMessages} from '../../validators/validationMessages';
+import {ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-registration',
@@ -17,9 +17,9 @@ export class RegistrationComponent implements OnInit {
 
   constructor(
     private httpClient: HttpClient,
-    private alertService: AlertService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toastController: ToastController
   ) {
   }
 
@@ -90,8 +90,6 @@ export class RegistrationComponent implements OnInit {
   }
 
   register() {
-    // reset alerts on submit
-    this.alertService.clear();
     if (this.registrationForm.valid) {
       console.log('form valid');
     } else {
@@ -109,14 +107,22 @@ export class RegistrationComponent implements OnInit {
 
     }).subscribe(data => {
         console.log(data);
-        // this.alertService.success('Registration successful');
-        alert('Registration successful');
+        this.presentToast('Registration successful');
         this.router.navigate(['/login'], {queryParams: {registered: true}});
       },
       error => {
-        alert(error.error.message);
+        this.presentToast(error.error.message);
       });
   }
 
-
+  async presentToast(text) {
+    const toast = await this.toastController.create({
+      message: text,
+      duration: 4000,
+      position: 'top'
+    });
+    toast.present();
+  }
 }
+
+

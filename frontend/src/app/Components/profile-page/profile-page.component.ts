@@ -4,8 +4,7 @@ import {AuthenticationService} from '../../_services';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {AlertService} from '../../_alert';
-import {AlertController} from '@ionic/angular';
+import {AlertController, ToastController} from '@ionic/angular';
 import {EventServiceComponent} from '../event-service/event-service.component';
 import {SearcherComponent} from '../searcher/searcher.component';
 import {ServiceItem} from '../../_models/service-item';
@@ -23,8 +22,8 @@ export class ProfilePageComponent implements OnInit {
     private httpClient: HttpClient,
     private router: Router,
     private formBuilder: FormBuilder,
-    private alertService: AlertService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private toastController: ToastController
   ) {
   }
 
@@ -51,7 +50,7 @@ export class ProfilePageComponent implements OnInit {
         this.userItem.zip = instance.zip;
         this.userItem.phoneNumber = instance.phoneNumber;
         this.userItem.isServiceProvider = instance.isServiceProvider;
-        console.log(instance);
+        // console.log(instance);
       });
     this.profilePageForm = this.formBuilder.group({
       email: new FormControl('', Validators.compose([
@@ -89,8 +88,6 @@ export class ProfilePageComponent implements OnInit {
 
 
   save() {
-    // reset alerts on submit
-    this.alertService.clear();
     this.httpClient.put('http://localhost:3000/user/profile', {
       token: this.token,
       // isServiceProvider: this.profilePageForm.value.isServiceProvider,
@@ -102,12 +99,11 @@ export class ProfilePageComponent implements OnInit {
 
     }).subscribe(data => {
         console.log(data);
-        // this.alertService.success('Profile data update successful');
-        alert('Profile data update successful');
+        this.presentToast('Profile data update successful');
         this.router.navigate(['/profilePage'], {queryParams: {dataUpdated: true}});
       },
       error => {
-        alert(error.error.message);
+        this.presentToast(error.error.message);
       });
   }
 
@@ -144,13 +140,21 @@ export class ProfilePageComponent implements OnInit {
     this.httpClient.delete('http://localhost:3000/user/profile', options).subscribe(data => {
       console.log('User deleted');
       this.logout();
-      alert('User profile successfully deleted');
+      this.presentToast('User profile successfully deleted');
       this.router.navigate(['/login'], {queryParams: {userDeleted: true}});
     }, error => {
-      alert(error.message);
+      this.presentToast(error.message);
     });
   }
 
+  async presentToast(text) {
+    const toast = await this.toastController.create({
+      message: text,
+      duration: 4000,
+      position: 'top'
+    });
+    toast.present();
+  }
 
   async presentAlertConfirm() {
     const alert = await this.alertController.create({

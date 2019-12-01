@@ -4,6 +4,8 @@ import {FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AlertService} from '../../_alert';
 import {Router} from '@angular/router';
 import {PasswordValidator} from '../../validators/password.validator';
+import {ValidationMessages} from '../../validators/validationMessages';
+import {ToastController} from '@ionic/angular';
 
 @Component({
   selector: 'app-change-password-page',
@@ -16,28 +18,15 @@ export class ChangePasswordPageComponent implements OnInit {
     private httpClient: HttpClient,
     private alertService: AlertService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private toastController: ToastController
   ) {
   }
 
   changePWForm: FormGroup;
   passwordCheckerGroup: FormGroup;
   token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
-
-  validationMessages = {
-    password: [
-      {type: 'required', message: 'Password is required.'},
-      {type: 'minlength', message: 'Password must be at least 5 characters long.'},
-      {
-        type: 'pattern',
-        message: 'Your password must contain at least one upper case letter, one lower case letter and one number.'
-      },
-    ],
-    passwordConfirmation: [
-      {type: 'required', message: 'Confirm password is required.'},
-      {type: 'areEqual', message: 'Password mismatch'}
-    ],
-  };
+  validationMessages = ValidationMessages.validationMessages;
 
 
   ngOnInit() {
@@ -65,12 +54,20 @@ export class ChangePasswordPageComponent implements OnInit {
       password: this.changePWForm.value.passwordChecker.password,
     }).subscribe(data => {
         console.log(data);
-        // this.alertService.success('Profile data update successful');
-        alert('Password change successful');
+        this.presentToast('Password change successful');
         this.router.navigate(['/profilePage'], {queryParams: {passwordChanged: true}});
       },
       error => {
-        alert(error.error.message);
+        this.presentToast(error.error.message);
       });
+  }
+
+  async presentToast(text) {
+    const toast = await this.toastController.create({
+      message: text,
+      duration: 4000,
+      position: 'top'
+    });
+    toast.present();
   }
 }
