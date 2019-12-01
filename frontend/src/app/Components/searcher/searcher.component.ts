@@ -57,7 +57,6 @@ export class SearcherComponent implements OnInit {
         new ServiceItem(instance.user, instance.serviceName, instance.category
           , instance.price, instance.location, instance.description)));
     });
-    console.log(this.services);
   }
 
   closeServices() {
@@ -68,18 +67,13 @@ export class SearcherComponent implements OnInit {
   clickCategorySearch(categoryId) {
     this.userServiceView = false;
     this.services = [];
-    console.log(this.services);
-    console.log(categoryId);
     this.category = this.categories[categoryId];
-    console.log(this.category);
-    console.log(this.serviceSearchAnyURL + this.category);
     this.httpClient.get(this.serviceSearchAnyURL + this.category, {
     }).subscribe((instances: any) => {
       this.services.push.apply(this.services, instances.map((instance) =>
         new ServiceItem(instance.user, instance.serviceName, instance.category
           , instance.price, instance.location, instance.description)));
       });
-    console.log(this.services);
 
   }
 

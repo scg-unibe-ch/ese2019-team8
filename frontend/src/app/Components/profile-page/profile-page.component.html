@@ -14,7 +14,7 @@
             <ion-header>
               <ion-toolbar>
                 <ion-thumbnail slot="start">
-                  <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+                  <img src="../../../assets/profilePic.jpg"/>
                 </ion-thumbnail>
                 <ion-title slot="start">{{userItem.username}}'s Profile</ion-title>
               </ion-toolbar>
@@ -71,7 +71,7 @@
         <div>
       <div>
         <ion-col>
-          <ion-button color="secondary" *ngIf="!userServiceView" (click)="getCurrentUserServices()">Show my Services</ion-button>
+          <ion-button color="dark" *ngIf="!userServiceView" (click)="getCurrentUserServices()">Show my Services</ion-button>
         </ion-col>
       </div>
       <div>
