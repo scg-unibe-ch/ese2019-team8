@@ -36,6 +36,23 @@ export class UserListComponent implements OnInit {
     });
   }
 
+  approve(username, approve) {
+    this.httpClient.put('http://localhost:3000/user/admin', {
+      token: this.token,
+      username,
+      isApproved: approve,
+    }).subscribe(data => {
+        console.log(data);
+        this.presentToast('User status changed');
+        this.refresh();
+        // this.router.navigate(['/profilePage'], {queryParams: {dataUpdated: true}});
+      },
+      error => {
+        this.presentToast(error.error.message);
+      });
+
+  }
+
   deleteUser(usernameToBeDeleted) {
     // console.log(usernameToBeDeleted);
     const options = {
