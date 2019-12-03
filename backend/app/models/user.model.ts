@@ -15,6 +15,7 @@ export class User extends Model<User> {
   @Column
   isServiceProvider!: boolean;
 
+  @AllowNull(false)
   @Column
   email!: string;
 
