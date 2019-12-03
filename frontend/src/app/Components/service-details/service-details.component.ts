@@ -1,42 +1,82 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {EventServiceComponent} from '../event-service/event-service.component';
+
 import {ToastController} from '@ionic/angular';
 import {ServiceItem} from '../../_models/service-item';
 import {ValidationMessages} from '../../validators/validationMessages';
 import {UserItem} from '../../_models/user-item';
 
 @Component({
-  selector: 'app-sevice-details',
+  selector: 'app-service-details',
   templateUrl: './service-details.component.html',
   styleUrls: ['./service-details.component.scss'],
 })
 export class ServiceDetailsComponent implements OnInit {
-  serviceItem: ServiceItem = new ServiceItem('', '', '', null, '', '');
-  serviceForm: FormGroup;
-  validationMessages = ValidationMessages.validationMessages;
-  serviceURL: 'http://localhost:3000/service';
-  currentUSerServicesURL = 'http://localhost:3000/service/myServices/';
-  userItem: UserItem = new UserItem(null, '', false,
-    '', '', null, '', null);
-  services: ServiceItem[] = [];
-  token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
-  category: string;
+
+
   constructor(private httpClient: HttpClient,
-              private eventService: EventServiceComponent,
               private formBuilder: FormBuilder,
               private toastController: ToastController
   ) {}
 
-  ngOnInit() {
+  serviceItem: ServiceItem = new ServiceItem(null, '', '', '', null, '', '');
+  serviceForm: FormGroup;
+  validationMessages = ValidationMessages.validationMessages;
+  userItem: UserItem = new UserItem(null, '', false,
+    '', '', null, '', null);
+  services: ServiceItem[] = [];
+  token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
+  modificationView: boolean;
 
+  ngOnInit() {
+    this.services = [];
+    this.httpClient.get('http://localhost:3000/service/myServices/' + this.token, {}).subscribe((instances: any) => {
+      this.services.push.apply(this.services, instances.map((instance) =>
+        new ServiceItem(instance.id, instance.user, instance.serviceName, instance.category
+          , instance.price, instance.location, instance.description)));
+    });
+    // Creation of form
+    this.serviceForm = this.formBuilder.group({
+      serviceName: new FormControl('', Validators.compose([
+        Validators.maxLength(25),
+        Validators.minLength(2),
+        Validators.required
+      ])),
+      serviceCategory: new FormControl(''),
+      price: new FormControl('', Validators.compose([
+          Validators.max(999999999),
+          Validators.pattern('^[0-9]+$')
+        ]
+      )),
+      location: new FormControl('', Validators.compose([
+        Validators.maxLength(50),
+        Validators.minLength(2),
+        Validators.pattern('^[A-Za-z0-9\\s]+$')
+      ])),
+      description: new FormControl(''),
+    });
   }
 
-  clickModifyService() {
+  getOnlyThisService(serviceId) {
+    this.modificationView = true;
+    this.httpClient.get('http://localhost:3000/service/id=' + serviceId).
+    subscribe((instance: any) => {
+      this.serviceItem.id = instance.id;
+      this.serviceItem.user = instance.user;
+      this.serviceItem.serviceName = instance.serviceName;
+      this.serviceItem.category = instance.category;
+      this.serviceItem.price = instance.price;
+      this.serviceItem.location = instance.location;
+      this.serviceItem.description = instance.description;
+    });
+  }
 
-    this.httpClient.post(this.serviceURL, {
+  clickModifyService(serviceId) {
+    this.modificationView = false;
+    this.httpClient.put('http://localhost:3000/service', {
       token: localStorage.getItem('currentUser').replace('"', '').replace('"', ''),
+      id: serviceId,
       serviceName: this.serviceForm.value.serviceName,
       category: this.serviceForm.value.category,
       price: this.serviceForm.value.price,
@@ -44,7 +84,7 @@ export class ServiceDetailsComponent implements OnInit {
       description: this.serviceForm.value.description,
     }).subscribe(data => {
         console.log(data);
-        this.presentToast('Service created');
+        this.presentToast('Service modified');
       },
       error => {
         this.presentToast(error.error.message);
@@ -61,17 +101,17 @@ export class ServiceDetailsComponent implements OnInit {
     toast.present();
   }
 
-  clickDeleteService() {
+  clickDeleteService(serviceId) {
     const options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
       body: {
         token: this.token,
-        serviceId: this.serviceItem.id
+        id: serviceId
       }
     };
-    this.httpClient.delete(this.serviceURL, options).subscribe();
+    this.httpClient.delete('http://localhost:3000/service', options).subscribe();
   }
 
 }

@@ -22,8 +22,6 @@ const routes: Routes = [
   {path: 'service', component: EventServiceComponent},
   {path: 'changePW', component: ChangePasswordPageComponent},
   {path: 'serviceDetails', component: ServiceDetailsComponent}
-
-
 ];
 
 @NgModule({

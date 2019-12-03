@@ -1,3 +1,5 @@
+
+
 <ion-content class="ion-padding">
   <div class="login-box">
     <ion-grid>
@@ -145,25 +147,23 @@
     <ion-col>
       <div>
         <!--Buttons-->
-        <div>
-          <ion-col>
+        <ion-row>
+          <ion-buttons>
             <ion-button (click)="getCurrentUserServices()" *ngIf="!userServiceView" color="dark">Show
               my Services
             </ion-button>
-          </ion-col>
-        </div>
-
-        <div>
-          <ion-col>
             <ion-button (click)="closeServices()" *ngIf="userServiceView" color="danger">Close my
               Services
             </ion-button>
-          </ion-col>
-        </div>
+            <ion-button *ngIf="userServiceView" color="dark" [routerLink]="['/serviceDetails']">More<ion-icon name="more"></ion-icon></ion-button>
+          </ion-buttons>
+        </ion-row>
+
+
 
         <div *ngFor="let item of services">
           <ion-card>
-            <ion-card-header>
+             <ion-card-header>
               <ion-card-subtitle color="medium">{{item.category}}</ion-card-subtitle>
               <ion-card-title color="dark">{{item.serviceName}}</ion-card-title>
             </ion-card-header>
@@ -176,10 +176,9 @@
               <ion-label>{{item.location}}</ion-label>
             </ion-chip>
             <ion-card-content>
-              {{item.description}}
+              {{item.description.substring(0,300)}} [...]
             </ion-card-content>
           </ion-card>
-
         </div>
       </div>
     </ion-col>

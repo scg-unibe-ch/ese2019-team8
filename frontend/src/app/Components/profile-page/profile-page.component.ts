@@ -9,6 +9,7 @@ import {EventServiceComponent} from '../event-service/event-service.component';
 import {SearcherComponent} from '../searcher/searcher.component';
 import {ServiceItem} from '../../_models/service-item';
 import {ValidationMessages} from '../../validators/validationMessages';
+import {ServiceDetailsComponent} from '../service-details/service-details.component';
 
 @Component({
   selector: 'app-profile-page',
@@ -37,7 +38,6 @@ export class ProfilePageComponent implements OnInit {
   services: ServiceItem[] = [];
   userServiceView: boolean;
   validationMessages = ValidationMessages.validationMessages;
-
 
   ngOnInit() {
 
@@ -117,8 +117,9 @@ export class ProfilePageComponent implements OnInit {
     this.userServiceView = true;
     this.httpClient.get(this.currentUSerServicesURL + this.token, {}).subscribe((instances: any) => {
       this.services.push.apply(this.services, instances.map((instance) =>
-        new ServiceItem(instance.user, instance.serviceName, instance.category
+        new ServiceItem(instance.null, instance.user, instance.serviceName, instance.category
           , instance.price, instance.location, instance.description)));
+
     });
   }
 
@@ -180,5 +181,6 @@ export class ProfilePageComponent implements OnInit {
 
     await alert.present();
   }
+
 
 }

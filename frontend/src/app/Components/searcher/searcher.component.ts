@@ -22,7 +22,7 @@ export class SearcherComponent implements OnInit {
   currentUSerServicesURL = 'http://localhost:3000/service/myServices/';
   userItem: UserItem = new UserItem(null, '', false,
     '', '', null, '', null);
-  serviceItem: ServiceItem = new ServiceItem('', '', '', null, '', '');
+  serviceItem: ServiceItem = new ServiceItem(null, '', '', '', null, '', '');
   services: ServiceItem[] = [];
   token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
   userServiceView: boolean;
@@ -40,7 +40,7 @@ export class SearcherComponent implements OnInit {
     this.httpClient.get(this.serviceSearchAnyURL + this.inputValue,
       {}).subscribe((instances: any) => {
       this.services.push.apply(this.services, instances.map((instance) =>
-        new ServiceItem(instance.user, instance.serviceName, instance.category
+        new ServiceItem(instance.id, instance.user, instance.serviceName, instance.category
           , instance.price, instance.location, instance.description)));
     });
   }
@@ -52,7 +52,7 @@ export class SearcherComponent implements OnInit {
     this.userServiceView = true;
     this.httpClient.get(this.currentUSerServicesURL + this.token, {}).subscribe((instances: any) => {
       this.services.push.apply(this.services, instances.map((instance) =>
-        new ServiceItem(instance.user, instance.serviceName, instance.category
+        new ServiceItem(instance.id, instance.user, instance.serviceName, instance.category
           , instance.price, instance.location, instance.description)));
     });
   }
@@ -68,7 +68,7 @@ export class SearcherComponent implements OnInit {
     this.category = this.categories[categoryId];
     this.httpClient.get(this.serviceSearchAnyURL + this.category, {}).subscribe((instances: any) => {
       this.services.push.apply(this.services, instances.map((instance) =>
-        new ServiceItem(instance.user, instance.serviceName, instance.category
+        new ServiceItem(instance.id, instance.user, instance.serviceName, instance.category
           , instance.price, instance.location, instance.description)));
     });
   }

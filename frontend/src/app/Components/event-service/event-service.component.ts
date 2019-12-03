@@ -23,13 +23,13 @@ export class EventServiceComponent implements OnInit {
   profileURL = 'http://localhost:3000/user/profile/';
   userItem: UserItem = new UserItem(null, '', false, '', '', null, '', null);
   token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
-  serviceItem: ServiceItem = new ServiceItem('', '', '', null, '', '');
+  serviceItem: ServiceItem = new ServiceItem(null, '', '', '', null, '', '');
 
 
   ngOnInit() {
     this.httpClient.get(this.serviceURL).subscribe((instances: any) => {
       this.services.push.apply(this.services, instances.map((instance) =>
-        new ServiceItem(instance.user, instance.serviceName, instance.category
+        new ServiceItem(instance.id, instance.user, instance.serviceName, instance.category
           , instance.price, instance.location, instance.description)));
        });
   }

@@ -14,7 +14,7 @@ import {ToastController} from '@ionic/angular';
 })
 
 export class ServiceRegPageComponent implements OnInit {
-  serviceItem: ServiceItem = new ServiceItem('', '', '', null, '', '');
+  serviceItem: ServiceItem = new ServiceItem(null, '', '', '', null, '', '');
   serviceForm: FormGroup;
   validationMessages = ValidationMessages.validationMessages;
   constructor(private httpClient: HttpClient,

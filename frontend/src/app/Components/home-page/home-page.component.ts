@@ -12,7 +12,6 @@ import {UserItem} from '../../_models/user-item';
 })
 export class HomePageComponent implements OnInit {
   searchValue: string;
-  serviceItem: ServiceItem = new ServiceItem('', '', '', null, '', '');
   token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
   userItem: UserItem = new UserItem(null, '', false, '', '', null, '', null);
   profileURL = 'http://localhost:3000/user/profile/';
