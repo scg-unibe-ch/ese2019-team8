@@ -34,6 +34,20 @@ router.get('/', async (req: Request, res: Response) => {
 });
 
 /**
+ * Get all Services
+ * @returns Array of all Services
+ */
+router.get('/id=:id', async (req: Request, res: Response) => {
+  const instance = await Service.findById(req.params.id);
+  if (instance) {
+    res.statusCode = 200;
+    res.send(instance.toSimplification());
+  } else {
+    serviceNotFound(res);
+  }
+});
+
+/**
  * Get your own Services
  * @param token JWT string as HTTP parameters
  * @returns Array of your own Services, message if not logged in
@@ -233,7 +247,10 @@ router.delete('/admin', async (req: Request, res: Response) => {
 
 /**
  * Search within Services
- * @param req //TODO
+ * @param req contains search string for username, serviceName, priceMin (minimal Price), priceMax (maximal Price),
+ * location and description.
+ * If a parameter is empty, then every record within the parameter is valid (including NULL).
+ * If priceMin is empty, it is set to 0; if priceMax is empty, it is set to MAX_VALUE.
  * @returns Array of corresponding services (may be empty)
  */
 router.get('/search/' +
