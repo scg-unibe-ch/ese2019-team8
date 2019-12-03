@@ -8,6 +8,7 @@
           <ion-card-subtitle color="medium">Approved: {{user.isApproved}}</ion-card-subtitle>
           <ion-card-title color="dark">{{user.username}}</ion-card-title>
         </ion-card-header>
+        <ion-button *ngIf="!isAdmin(user.username)" color="danger" (click)="presentAlertConfirm(user.username)">Delete User</ion-button>
         <ion-chip color="dark" outline>
           <ion-label>Email: {{user.email}}</ion-label>
         </ion-chip>
@@ -23,8 +24,10 @@
 
         <ion-card-content>
           {{user.address}}, {{user.city}}
+
         </ion-card-content>
       </ion-card>
+
     </div>
   </ion-content>
 </ion-app>
