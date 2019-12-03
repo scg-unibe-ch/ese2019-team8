@@ -109,13 +109,23 @@
                   </div>
                 </div>
               </div>
+              <ion-item>
+                <ion-checkbox checked="{{userItem.isServiceProvider}}"
+                              color="dark" disabled="true"
+                              name="isServiceProvider" slot="start"></ion-checkbox>
+                <ion-label>Registered as Service Provider</ion-label>
+              </ion-item>
+
             </ion-list>
           </ion-col>
         </ion-row>
 
+
+
         <!--Buttons-->
+        <div>
         <ion-row class="signup-col">
-          <ion-button (click)="save()" [disabled]="!profilePageForm.valid" class="submit-btn" color="secondary">
+          <ion-button (click)="save()" [disabled]="!profilePageForm.valid" class="submit-btn" color="olive">
             <ion-icon name="save" slot="start"></ion-icon>
             Save
           </ion-button>
@@ -123,27 +133,17 @@
             Change Password
           </ion-button>
         </ion-row>
-          <ion-row>
+        </div>
 
-            <ion-item>
-              <ion-checkbox checked="{{userItem.isServiceProvider}}"
-                            color="dark" disabled="true"
-                            name="isServiceProvider" slot="start"></ion-checkbox>
-              <ion-label>Registered as Service Provider</ion-label>
-            </ion-item>
-
-
-
-        </ion-row>
 
       </form>
     </ion-col>
 
 
+
     <!--View for user Service-->
     <ion-col>
       <div>
-
         <!--Buttons-->
         <div>
           <ion-col>

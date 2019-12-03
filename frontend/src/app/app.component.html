@@ -6,7 +6,7 @@
       <img src="../assets/logoSloganTransparent2.svg"/>
     </ion-thumbnail>
 
-    <ion-buttons slot="secondary">
+    <ion-buttons slot="secondary" align-self-start>
       <ion-button *ngIf="loggedIn()" [routerLink]="['/login']" color="danger" (click)="logout()">
         Sign Out
       </ion-button>
