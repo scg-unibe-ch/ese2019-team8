@@ -5,11 +5,9 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AlertController, ToastController} from '@ionic/angular';
-import {EventServiceComponent} from '../event-service/event-service.component';
-import {SearcherComponent} from '../searcher/searcher.component';
 import {ServiceItem} from '../../_models/service-item';
 import {ValidationMessages} from '../../validators/validationMessages';
-import {ServiceDetailsComponent} from '../service-details/service-details.component';
+
 
 @Component({
   selector: 'app-profile-page',
@@ -38,9 +36,10 @@ export class ProfilePageComponent implements OnInit {
   services: ServiceItem[] = [];
   userServiceView: boolean;
   validationMessages = ValidationMessages.validationMessages;
+  isAdmin = false;
+
 
   ngOnInit() {
-
     this.httpClient.get(this.profileURL + this.token)
       .subscribe((instance: any) => {
         this.userItem.username = instance.username;
@@ -50,6 +49,7 @@ export class ProfilePageComponent implements OnInit {
         this.userItem.zip = instance.zip;
         this.userItem.phoneNumber = instance.phoneNumber;
         this.userItem.isServiceProvider = instance.isServiceProvider;
+        this.isAdmin = instance.isAdmin;
         // console.log(instance);
       });
     this.profilePageForm = this.formBuilder.group({

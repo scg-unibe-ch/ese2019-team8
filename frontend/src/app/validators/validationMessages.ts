@@ -50,6 +50,7 @@ export class ValidationMessages {
     ],
     price: [
       {type: 'max', message: 'Price cannot exceed 999\'999\'999 CHF.'},
+      {type: 'pattern', message: 'Please enter a valid number..'}
     ],
     location: [
       {type: 'minlength', message: 'Location must be at least 2 characters long.'},

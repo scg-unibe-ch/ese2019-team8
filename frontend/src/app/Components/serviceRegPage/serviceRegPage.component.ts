@@ -64,12 +64,17 @@ export class ServiceRegPageComponent implements OnInit {
       location: this.serviceForm.value.location,
       description: this.serviceForm.value.description,
     }).subscribe(data => {
-        console.log(data);
+        // console.log(data);
         this.presentToast('Service created');
+        this.refresh();
       },
       error => {
         this.presentToast(error.error.message);
       });
+  }
+
+  refresh(): void {
+    window.location.reload();
   }
 
   async presentToast(text) {

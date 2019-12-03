@@ -15,10 +15,12 @@ export class HomePageComponent implements OnInit {
   token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
   userItem: UserItem = new UserItem(null, '', false, '', '', null, '', null);
   profileURL = 'http://localhost:3000/user/profile/';
-    constructor(private eventService: EventServiceComponent,
-                private httpClient: HttpClient) {
+
+  constructor(private eventService: EventServiceComponent,
+              private httpClient: HttpClient) {
   }
 
+  isAdmin = false;
 
   ngOnInit() {
     this.httpClient.get(this.profileURL + this.token)
@@ -26,6 +28,11 @@ export class HomePageComponent implements OnInit {
         // this.user = instances.map((instance) => new userItem(instance.username, instance.email, instance.zip));
         this.userItem.username = instance.username;
         this.userItem.isServiceProvider = instance.isServiceProvider;
+      });
+    this.httpClient.get(this.profileURL + this.token)
+      .subscribe((instance: any) => {
+        console.log('is admin:' + instance.isAdmin)
+        this.isAdmin = instance.isAdmin;
       });
   }
 

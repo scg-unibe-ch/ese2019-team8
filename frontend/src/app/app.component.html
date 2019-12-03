@@ -10,13 +10,10 @@
       <ion-button *ngIf="loggedIn()" [routerLink]="['/login']" color="danger" (click)="logout()">
         Sign Out
       </ion-button>
-      <!--<ion-button *ngIf="!loggedIn()" [routerLink]="['/login']" color="secondary">
-        Sign in
-      </ion-button>-->
-      <ion-button  *ngIf="loggedIn()" [routerLink]="['/home']">
+      <ion-button *ngIf="loggedIn()" [routerLink]="['/home']">
         <ion-icon name="search" slot="icon-only"></ion-icon>
       </ion-button>
-      <ion-button  *ngIf="loggedIn()" [routerLink]="['/profilePage']">
+      <ion-button *ngIf="loggedIn()" [routerLink]="['/profilePage']">
         <ion-icon name="contact" slot="icon-only"></ion-icon>
       </ion-button>
 

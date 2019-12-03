@@ -10,32 +10,32 @@
 
           <ion-card>
             <ion-card-content>
-          <ion-row>
-            <ion-col>
-              <ion-item>
-                <ion-label position="stacked">Username or Email</ion-label>
-                <ion-input [(ngModel)]="userItem.username" name="username"></ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-label position="stacked">Password</ion-label>
-                <ion-input [(ngModel)]="userItem.password" name="password" type="password"></ion-input>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-          <!--Buttons-->
-          <ion-row>
-            <ion-col size="2">
-              <ion-button (click)="clickLogin()" color="olive">Login</ion-button>
-            </ion-col>
-          </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-item>
+                    <ion-label position="stacked">Username</ion-label>
+                    <ion-input [(ngModel)]="userItem.username" name="username"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label position="stacked">Password</ion-label>
+                    <ion-input [(ngModel)]="userItem.password" name="password" type="password"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <!--Buttons-->
+              <ion-row>
+                <ion-col size="2">
+                  <ion-button (click)="clickLogin()" color="olive">Login</ion-button>
+                </ion-col>
+              </ion-row>
 
-          <ion-row>
-            <ion-col size="2">
-              <ion-button [routerLink]="['/registration']" color="dark">Register a new profile</ion-button>
-            </ion-col>
-          </ion-row>
+              <ion-row>
+                <ion-col size="2">
+                  <ion-button [routerLink]="['/registration']" color="dark">Register a new profile</ion-button>
+                </ion-col>
+              </ion-row>
 
-              </ion-card-content>
+            </ion-card-content>
           </ion-card>
 
         </ion-col>

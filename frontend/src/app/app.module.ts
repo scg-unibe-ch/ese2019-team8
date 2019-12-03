@@ -16,7 +16,6 @@ import {ProfilePageComponent} from './Components/profile-page/profile-page.compo
 import {AppRoutingModule} from './app-routing.module';
 import {HomePageComponent} from './Components/home-page/home-page.component';
 import {ServiceRegPageComponent} from './Components/serviceRegPage/serviceRegPage.component';
-
 import {AuthGuard} from './_guards';
 import {JwtInterceptor} from './_helpers';
 import {AuthenticationService, UserService} from './_services';
@@ -24,6 +23,8 @@ import {SearcherComponent} from './Components/searcher/searcher.component';
 import {EventServiceComponent} from './Components/event-service/event-service.component';
 import {ChangePasswordPageComponent} from './Components/change-password-page/change-password-page.component';
 import {ServiceDetailsComponent} from './Components/service-details/service-details.component';
+import {UserListComponent} from './Components/user-list/user-list.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,8 @@ import {ServiceDetailsComponent} from './Components/service-details/service-deta
     SearcherComponent,
     EventServiceComponent,
     ChangePasswordPageComponent,
-    ServiceDetailsComponent
+    ServiceDetailsComponent,
+    UserListComponent
   ],
   entryComponents: [],
   imports: [
