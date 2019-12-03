@@ -12,187 +12,184 @@
 
             <ion-title slot="start">Hello {{userItem.username}}</ion-title>
 
-              <ion-list inset>
+            <ion-list inset>
 
-                <ion-header>
-                  <ion-toolbar>
-                    <ion-thumbnail slot="start">
-                      <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
-                    </ion-thumbnail>
-                    <ion-title slot="start">{{userItem.username}}'s Profile</ion-title>
-                  </ion-toolbar>
-                </ion-header>
-
-
+              <ion-header>
+                <ion-toolbar>
+                  <ion-thumbnail slot="start">
+                    <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+                  </ion-thumbnail>
+                  <ion-title slot="start">{{userItem.username}}'s Profile</ion-title>
+                </ion-toolbar>
+              </ion-header>
 
 
-                  <!--input-->
+              <!--input-->
 
-                  <div class="registrationForm">
-                    <div [formGroup]="profilePageForm">
+              <div class="registrationForm">
+                <div [formGroup]="profilePageForm">
 
-                      <ion-item>
-                        <ion-input formControlName="email" name="email" placeholder="Email" type="text"
-                                   value="{{userItem.email}}" required></ion-input>
-                      </ion-item>
+                  <ion-item>
+                    <ion-input formControlName="email" name="email" placeholder="Email" required
+                               type="text" value="{{userItem.email}}"></ion-input>
+                  </ion-item>
 
-                      <div class="validation-errors">
-                        <ng-container *ngFor="let validation of validationMessages.email">
-                          <div
-                            *ngIf="profilePageForm.get('email').hasError(validation.type) && (profilePageForm.get('email').dirty || profilePageForm.get('email').touched)"
-                            class="error-message">
-                            <ion-icon name="information-circle"></ion-icon>
-                            {{ validation.message }}
-                          </div>
-                        </ng-container>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validationMessages.email">
+                      <div
+                        *ngIf="profilePageForm.get('email').hasError(validation.type) && (profilePageForm.get('email').dirty || profilePageForm.get('email').touched)"
+                        class="error-message">
+                        <ion-icon name="information-circle"></ion-icon>
+                        {{ validation.message }}
                       </div>
+                    </ng-container>
+                  </div>
 
-                      <ion-item>
-                        <ion-input formControlName="address" name="address" placeholder="Address"
-                                   type="text"
-                                   value="{{userItem.address}}"></ion-input>
-                      </ion-item>
+                  <ion-item>
+                    <ion-input formControlName="address" name="address" placeholder="Address"
+                               type="text"
+                               value="{{userItem.address}}"></ion-input>
+                  </ion-item>
 
-                      <div class="validation-errors">
-                        <ng-container *ngFor="let validation of validationMessages.address">
-                          <div
-                            *ngIf="profilePageForm.get('address').hasError(validation.type) && (profilePageForm.get('address').dirty || profilePageForm.get('address').touched)"
-                            class="error-message">
-                            <ion-icon name="information-circle"></ion-icon>
-                            {{ validation.message }}
-                          </div>
-                        </ng-container>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validationMessages.address">
+                      <div
+                        *ngIf="profilePageForm.get('address').hasError(validation.type) && (profilePageForm.get('address').dirty || profilePageForm.get('address').touched)"
+                        class="error-message">
+                        <ion-icon name="information-circle"></ion-icon>
+                        {{ validation.message }}
                       </div>
-
-
-                      <ion-item>
-                        <ion-input formControlName="zip" name="zip" placeholder="ZIP Code" type="text"
-                                   value="{{userItem.zip}}"></ion-input>
-                      </ion-item>
-
-                      <div class="validation-errors">
-                        <ng-container *ngFor="let validation of validationMessages.zip">
-                          <div
-                            *ngIf="profilePageForm.get('zip').hasError(validation.type) && (profilePageForm.get('zip').dirty || profilePageForm.get('zip').touched)"
-                            class="error-message">
-                            <ion-icon name="information-circle"></ion-icon>
-                            {{ validation.message }}
-                          </div>
-                        </ng-container>
-                      </div>
-
-                      <ion-item>
-                        <ion-input formControlName="city" name="city" placeholder="City" type="text"
-                                   value="{{userItem.city}}"></ion-input>
-                      </ion-item>
-
-                      <div class="validation-errors">
-                        <ng-container *ngFor="let validation of validationMessages.city">
-                          <div
-                            *ngIf="profilePageForm.get('city').hasError(validation.type) && (profilePageForm.get('city').dirty || profilePageForm.get('city').touched)"
-                            class="error-message">
-                            <ion-icon name="information-circle"></ion-icon>
-                            {{ validation.message }}
-                          </div>
-                        </ng-container>
-                      </div>
-
-                      <ion-item>
-                        <ion-input formControlName="phoneNumber" name="phoneNumber"
-                                   placeholder="Phone Number"
-                                   type="phoneNumber"
-                                   value="{{userItem.phoneNumber}}"></ion-input>
-                      </ion-item>
-
-                      <div class="validation-errors">
-                        <ng-container *ngFor="let validation of validationMessages.phoneNumber">
-                          <div
-                            *ngIf="profilePageForm.get('phoneNumber').hasError(validation.type) && (profilePageForm.get('phoneNumber').dirty || profilePageForm.get('phoneNumber').touched)"
-                            class="error-message">
-                            <ion-icon name="information-circle"></ion-icon>
-                            {{ validation.message }}
-                          </div>
-                        </ng-container>
-                      </div>
-                    </div>
+                    </ng-container>
                   </div>
 
 
-    <ion-item>
-      <ion-checkbox checked="{{userItem.isServiceProvider}}"
-                    color="dark" disabled="true"
-                    name="isServiceProvider" slot="start"></ion-checkbox>
-      <ion-label>Registered as Service Provider</ion-label>
-    </ion-item>
+                  <ion-item>
+                    <ion-input formControlName="zip" name="zip" placeholder="ZIP Code" type="text"
+                               value="{{userItem.zip}}"></ion-input>
+                  </ion-item>
 
-  <!--Buttons-->
-  <div>
-    <ion-row class="signup-col">
-      <ion-button (click)="save()" [disabled]="!profilePageForm.valid" class="submit-btn" color="olive">
-        <ion-icon name="save" slot="start"></ion-icon>
-        Save
-      </ion-button>
-      <ion-button [routerLink]="['/changePW']" color="medium">
-        Change Password
-      </ion-button>
-    </ion-row>
-  </div>
-              </ion-list>
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validationMessages.zip">
+                      <div
+                        *ngIf="profilePageForm.get('zip').hasError(validation.type) && (profilePageForm.get('zip').dirty || profilePageForm.get('zip').touched)"
+                        class="error-message">
+                        <ion-icon name="information-circle"></ion-icon>
+                        {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+                  <ion-item>
+                    <ion-input formControlName="city" name="city" placeholder="City" type="text"
+                               value="{{userItem.city}}"></ion-input>
+                  </ion-item>
+
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validationMessages.city">
+                      <div
+                        *ngIf="profilePageForm.get('city').hasError(validation.type) && (profilePageForm.get('city').dirty || profilePageForm.get('city').touched)"
+                        class="error-message">
+                        <ion-icon name="information-circle"></ion-icon>
+                        {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+
+                  <ion-item>
+                    <ion-input formControlName="phoneNumber" name="phoneNumber"
+                               placeholder="Phone Number"
+                               type="phoneNumber"
+                               value="{{userItem.phoneNumber}}"></ion-input>
+                  </ion-item>
+
+                  <div class="validation-errors">
+                    <ng-container *ngFor="let validation of validationMessages.phoneNumber">
+                      <div
+                        *ngIf="profilePageForm.get('phoneNumber').hasError(validation.type) && (profilePageForm.get('phoneNumber').dirty || profilePageForm.get('phoneNumber').touched)"
+                        class="error-message">
+                        <ion-icon name="information-circle"></ion-icon>
+                        {{ validation.message }}
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+
+
+              <ion-item>
+                <ion-checkbox checked="{{userItem.isServiceProvider}}"
+                              color="dark" disabled="true"
+                              name="isServiceProvider" slot="start"></ion-checkbox>
+                <ion-label>Registered as Service Provider</ion-label>
+              </ion-item>
+
+              <!--Buttons-->
+              <div>
+                <ion-row class="signup-col">
+                  <ion-button (click)="save()" [disabled]="!profilePageForm.valid" class="submit-btn" color="olive">
+                    <ion-icon name="save" slot="start"></ion-icon>
+                    Save
+                  </ion-button>
+                  <ion-button [routerLink]="['/changePW']" color="medium">
+                    Change Password
+                  </ion-button>
+                </ion-row>
+              </div>
+            </ion-list>
 
           </form>
 
         </ion-col>
 
 
+        <!--View for user Service-->
+        <ion-col>
+          <div>
+            <!--Buttons-->
+            <ion-row>
+              <ion-buttons>
+                <ion-button (click)="getCurrentUserServices()" *ngIf="!userServiceView" color="dark">Show
+                  my Services
+                </ion-button>
+                <ion-button (click)="closeServices()" *ngIf="userServiceView" color="danger">Close my
+                  Services
+                </ion-button>
+                <ion-button *ngIf="userServiceView" [routerLink]="['/serviceDetails']" color="dark">More
+                  <ion-icon name="more"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </ion-row>
 
-  <!--View for user Service-->
-  <ion-col>
-    <div>
-      <!--Buttons-->
-      <ion-row>
-        <ion-buttons>
-          <ion-button (click)="getCurrentUserServices()" *ngIf="!userServiceView" color="dark">Show
-            my Services
-          </ion-button>
-          <ion-button (click)="closeServices()" *ngIf="userServiceView" color="danger">Close my
-            Services
-          </ion-button>
-          <ion-button *ngIf="userServiceView" [routerLink]="['/serviceDetails']" color="dark">More
-            <ion-icon name="more"></ion-icon>
-          </ion-button>
-        </ion-buttons>
+
+            <div *ngFor="let item of services">
+              <ion-card>
+                <ion-card-header>
+                  <ion-card-subtitle color="medium">{{item.category}}</ion-card-subtitle>
+                  <ion-card-title color="dark">{{item.serviceName}}</ion-card-title>
+                </ion-card-header>
+                <ion-chip color="dark" outline>
+                  <ion-icon name="cash"></ion-icon>
+                  <ion-label>{{item.price}} CHF</ion-label>
+                </ion-chip>
+                <ion-chip color="dark" outline>
+                  <ion-icon name="pin"></ion-icon>
+                  <ion-label>{{item.location}}</ion-label>
+                </ion-chip>
+                <ion-card-content>
+                  {{item.description.substring(0, 300)}} [...]
+                </ion-card-content>
+              </ion-card>
+            </div>
+          </div>
+        </ion-col>
+
+        <ion-footer>
+          <ion-buttons slot="primary">
+            <ion-button (click)="presentAlertConfirm()" color="danger">Delete Profile</ion-button>
+          </ion-buttons>
+        </ion-footer>
+
       </ion-row>
-
-
-      <div *ngFor="let item of services">
-        <ion-card>
-          <ion-card-header>
-            <ion-card-subtitle color="medium">{{item.category}}</ion-card-subtitle>
-            <ion-card-title color="dark">{{item.serviceName}}</ion-card-title>
-          </ion-card-header>
-          <ion-chip color="dark" outline>
-            <ion-icon name="cash"></ion-icon>
-            <ion-label>{{item.price}} CHF</ion-label>
-          </ion-chip>
-          <ion-chip color="dark" outline>
-            <ion-icon name="pin"></ion-icon>
-            <ion-label>{{item.location}}</ion-label>
-          </ion-chip>
-          <ion-card-content>
-            {{item.description.substring(0, 300)}} [...]
-          </ion-card-content>
-        </ion-card>
-      </div>
-    </div>
-  </ion-col>
-
-  <ion-footer>
-    <ion-buttons slot="primary">
-      <ion-button (click)="presentAlertConfirm()" color="danger">Delete Profile</ion-button>
-    </ion-buttons>
-  </ion-footer>
-
-      </ion-row>
-  </ion-grid>
+    </ion-grid>
   </div>
 </ion-content>
