@@ -34,8 +34,9 @@ router.get('/', async (req: Request, res: Response) => {
 });
 
 /**
- * Get all Services
- * @returns Array of all Services
+ * Get a Service by id
+ * @param id of Service
+ * @returns Service, if found
  */
 router.get('/id=:id', async (req: Request, res: Response) => {
   const instance = await Service.findById(req.params.id);
