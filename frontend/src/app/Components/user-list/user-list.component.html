@@ -1,0 +1,30 @@
+<ion-app>
+
+  <ion-content class="ion-padding">
+
+    <div *ngFor="let user of users">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle color="medium">Approved: {{user.isApproved}}</ion-card-subtitle>
+          <ion-card-title color="dark">{{user.username}}</ion-card-title>
+        </ion-card-header>
+        <ion-chip color="dark" outline>
+          <ion-label>Email: {{user.email}}</ion-label>
+        </ion-chip>
+        <ion-chip color="dark" outline>
+          <ion-icon name="pin"></ion-icon>
+          <ion-label>{{user.zip}}</ion-label>
+        </ion-chip>
+        <ion-chip color="dark" outline>
+          <ion-icon *ngIf="user.isServiceProvider" name="checkmark"></ion-icon>
+          <ion-icon *ngIf="!user.isServiceProvider" name="close"></ion-icon>
+          <ion-label>Service Provider</ion-label>
+        </ion-chip>
+
+        <ion-card-content>
+          {{user.address}}, {{user.city}}
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </ion-content>
+</ion-app>
