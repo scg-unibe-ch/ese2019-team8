@@ -32,7 +32,7 @@ export class HomePageComponent implements OnInit {
       });
     this.httpClient.get(this.profileURL + this.token)
       .subscribe((instance: any) => {
-        console.log('is admin:' + instance.isAdmin)
+        console.log('is admin:' + instance.isAdmin);
         this.isAdmin = instance.isAdmin;
       });
   }
