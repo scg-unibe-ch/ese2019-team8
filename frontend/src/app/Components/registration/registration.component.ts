@@ -52,6 +52,7 @@ export class RegistrationComponent implements OnInit {
       isServiceProvider: new FormControl(false),
       email: new FormControl('', Validators.compose([
           Validators.pattern('^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$'),
+          Validators.required,
         ]
       )),
       address: new FormControl('', Validators.compose([
@@ -90,11 +91,13 @@ export class RegistrationComponent implements OnInit {
   }
 
   register() {
+    /*
     if (this.registrationForm.valid) {
       console.log('form valid');
     } else {
       console.log('not valid');
     }
+     */
     this.httpClient.post('http://localhost:3000/user', {
       username: this.registrationForm.value.username,
       password: this.registrationForm.value.passwordChecker.password,
@@ -106,7 +109,7 @@ export class RegistrationComponent implements OnInit {
       phoneNumber: this.registrationForm.value.phoneNumber,
 
     }).subscribe(data => {
-        console.log(data);
+        // console.log(data);
         this.presentToast('Registration successful');
         this.router.navigate(['/login'], {queryParams: {registered: true}});
       },

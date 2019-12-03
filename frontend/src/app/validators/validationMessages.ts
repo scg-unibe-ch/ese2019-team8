@@ -21,7 +21,8 @@ export class ValidationMessages {
       {type: 'areEqual', message: 'Password mismatch'}
     ],
     email: [
-      {type: 'pattern', message: 'This is not a valid email address.'}
+      {type: 'pattern', message: 'This is not a valid email address.'},
+      {type: 'required', message: 'Email is required.'},
     ],
     address: [
       {type: 'minlength', message: 'Address must be at least 3 characters long.'},

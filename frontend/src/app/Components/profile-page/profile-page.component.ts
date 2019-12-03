@@ -55,6 +55,7 @@ export class ProfilePageComponent implements OnInit {
     this.profilePageForm = this.formBuilder.group({
       email: new FormControl('', Validators.compose([
           Validators.pattern('^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$'),
+          Validators.required,
         ]
       )),
       address: new FormControl('', Validators.compose([

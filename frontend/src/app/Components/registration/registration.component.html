@@ -85,7 +85,8 @@
 
                   <ion-item>
                     <ion-label position="stacked">Email</ion-label>
-                    <ion-input name="email" type="email" formControlName="email"></ion-input>
+                    <ion-text color="danger">*</ion-text>
+                    <ion-input name="email" type="email" formControlName="email" required></ion-input>
                   </ion-item>
                   <div class="validation-errors">
                     <ng-container *ngFor="let validation of validationMessages.email">

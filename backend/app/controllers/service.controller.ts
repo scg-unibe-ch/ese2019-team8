@@ -329,6 +329,15 @@ router.get('/searchAny/:searchString', async (req: Request, res: Response) => {
   res.send(instances.map(e => e.toSimplification()));
 });
 
+/**
+ * Search within Services in any parameter (if no parameters are used)
+ * @returns Array of all Services
+ */
+router.get('/searchAny/', async (req: Request, res: Response) => {
+  const instances: Array<Service> = await Service.findAll();
+  res.statusCode = 200;
+  res.send(instances.map(e => e.toSimplification()));
+});
 
 /**
  * Deletes all Services of User
