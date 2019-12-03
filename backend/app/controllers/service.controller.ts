@@ -237,8 +237,7 @@ router.delete('/admin', async (req: Request, res: Response) => {
  * @returns Array of corresponding services (may be empty)
  */
 router.get('/search/' +
-  'any=?:any' +
-  '&username=?:username' +
+  'username=?:username' +
   '&serviceName=?:serviceName' +
   '&category=?:category' +
   '&priceMin=?:priceMin' +
@@ -247,10 +246,6 @@ router.get('/search/' +
   '&description=?:description', async (req: Request, res: Response) => {
 
   // TODO optional params not needed in HTTP
-  // TODO handling empty username, when checking for category (unknown cause for error)
-
-  // const any: RegExp = new RegExp((req.params.any === '=' ? '.*' : req.params.any));
-  const any: RegExp = new RegExp(req.params.any);
   const username: RegExp = new RegExp((req.params.username === '=' ? '.*' : req.params.username));
   const serviceName: RegExp = new RegExp((req.params.serviceName === '=' ? '.*' : req.params.serviceName));
   const category: RegExp = new RegExp((req.params.category === '=' ? '.*' : req.params.category));
@@ -267,13 +262,18 @@ router.get('/search/' +
     priceMax = Number.MAX_VALUE;
   }
 
-  // TODO correct implementation of the "any" parameter
   function search(element: Service) {
-    if ((element.username.match(username) || element.username.match(any))
-      && (element.serviceName.match(serviceName) || element.serviceName.match(any))
-      // && (element.category.match(category) || element.category.match(any))
-      && (element.location.match(location) || element.location.match(any))
-      && (element.description.match(description) || element.description.match(any))
+    if ((req.params.category !== '=' && element.category === null)
+      || (req.params.location !== '=' && element.location === null)
+      || (req.params.description !== '=' && element.description === null)) {
+      return;
+    }
+
+    if ((element.username.match(username))
+      && (element.serviceName.match(serviceName))
+      && (element.category === null || element.category.match(category))
+      && (element.location === null || element.location.match(location))
+      && (element.description === null || element.description.match(description))
       && (element.price >= priceMin.valueOf())
       && (element.price <= priceMax.valueOf())
     ) {
@@ -293,15 +293,14 @@ router.get('/search/' +
  * @returns Array of corresponding services (may be empty)
  */
 router.get('/searchAny/:searchString', async (req: Request, res: Response) => {
-  // const searchString: RegExp = new RegExp((req.params.any === '=' ? '.*' : req.params.any));
   const searchString: RegExp = new RegExp(req.params.searchString);
 
   function search(element: Service) {
     if (element.username.match(searchString)
       || element.serviceName.match(searchString)
-      || element.category.match(searchString)
-      || element.location.match(searchString)
-      || element.description.match(searchString)) {
+      || (element.category !== null && element.category.match(searchString))
+      || (element.location !== null && element.location.match(searchString))
+      || (element.description !== null && element.description.match(searchString))) {
       return element;
     }
   }

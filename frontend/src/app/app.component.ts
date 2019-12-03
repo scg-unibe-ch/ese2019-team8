@@ -16,6 +16,8 @@ import {AuthenticationService, UserService} from './_services';
 
 export class AppComponent implements OnInit {
   userItem: UserItem = new UserItem(null, '', false, '', '', null, '', null);
+  profileURL = 'http://localhost:3000/user/profile/';
+  token: string;
 
   constructor(
     private platform: Platform,
@@ -44,5 +46,18 @@ export class AppComponent implements OnInit {
   logout() {
     this.authService.logout();
   }
+
+  isServiceProvider() {
+    if (this.loggedIn()) {
+      this.token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
+      this.httpClient.get(this.profileURL + this.token)
+        .subscribe((instance: any) => {
+          this.userItem.username = instance.username;
+          this.userItem.isServiceProvider = instance.isServiceProvider;
+        });
+    }
+    return this.userItem.isServiceProvider;
+  }
+
 
 }

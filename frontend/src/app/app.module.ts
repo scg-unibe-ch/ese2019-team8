@@ -16,7 +16,6 @@ import {ProfilePageComponent} from './Components/profile-page/profile-page.compo
 import {AppRoutingModule} from './app-routing.module';
 import {HomePageComponent} from './Components/home-page/home-page.component';
 import {ServiceRegPageComponent} from './Components/serviceRegPage/serviceRegPage.component';
-import {AlertModule} from './_alert';
 
 import {AuthGuard} from './_guards';
 import {JwtInterceptor} from './_helpers';
@@ -45,7 +44,6 @@ import {ChangePasswordPageComponent} from './Components/change-password-page/cha
     FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    AlertModule
   ],
   providers: [
     AuthGuard,

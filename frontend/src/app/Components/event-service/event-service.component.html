@@ -1,7 +1,7 @@
 <ion-app>
 
   <ion-content class="ion-padding">
-      <ion-title color="secondary">All Services</ion-title>
+
     <div *ngFor="let item of services">
       <ion-card>
         <ion-card-header>
@@ -21,17 +21,5 @@
         </ion-card-content>
       </ion-card>
     </div>
-
-
-
-    <!--- <div *ngIf="currentUserServices.length == 0">
-      <ion-card>
-        <ion-card-header>No services yet, do you want to add a new Service?</ion-card-header>
-        <ion-card-content><ion-button [routerLink]="['/serviceRegistration']" color="medium">Register a new Service</ion-button>
-        </ion-card-content>
-      </ion-card>
-
-       </div>--->
-
   </ion-content>
 </ion-app>

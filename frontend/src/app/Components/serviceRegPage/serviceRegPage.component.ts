@@ -3,7 +3,8 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {ServiceItem} from '../../_models/service-item';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {EventServiceComponent} from '../event-service/event-service.component';
-
+import {ValidationMessages} from '../../validators/validationMessages';
+import {ToastController} from '@ionic/angular';
 
 
 @Component({
@@ -17,19 +18,16 @@ export class ServiceRegPageComponent implements OnInit {
 
   constructor(private httpClient: HttpClient,
               private eventService: EventServiceComponent,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private toastController: ToastController
+  ) {
   }
 
+  // ToDo: A Form to validate if The Price is a number
 
   serviceForm: FormGroup;
+  validationMessages = ValidationMessages.validationMessages;
 
-  validationMessages = {
-    serviceName: [
-      {type: 'required', message: 'Name of service is required.'},
-      {type: 'minlength', message: 'Name of Service must be at least 2 characters long.'},
-      {type: 'maxlength', message: 'Name of Service cannot be more than 25 characters long.'},
-    ],
-  };
 
   ngOnInit() {
     this.httpClient.get('http://localhost:3000/service', {
@@ -43,14 +41,21 @@ export class ServiceRegPageComponent implements OnInit {
         Validators.required
       ])),
       serviceCategory: new FormControl(''),
-      price: new FormControl(''),
-      location: new FormControl(''),
+      price: new FormControl('', Validators.compose([
+          Validators.max(999999999),
+          Validators.pattern('^[0-9]+$')
+        ]
+      )),
+      location: new FormControl('', Validators.compose([
+        Validators.maxLength(50),
+        Validators.minLength(2),
+        Validators.pattern('^[A-Za-z0-9\\s]+$')
+      ])),
       description: new FormControl(''),
     });
   }
 
 
-  // ToDo: User wird noch nicht mitgegeben?
   clickAddService() {
     this.httpClient.post('http://localhost:3000/service', {
       token: localStorage.getItem('currentUser').replace('"', '').replace('"', ''),
@@ -61,14 +66,21 @@ export class ServiceRegPageComponent implements OnInit {
       description: this.serviceForm.value.description,
     }).subscribe(data => {
         console.log(data);
-        // this.alertService.success('Registration successful');
-        // alert('Registration successful');
+        this.presentToast('Service created');
       },
       error => {
-        alert(error.error.message);
+        this.presentToast(error.error.message);
       });
   }
 
+  async presentToast(text) {
+    const toast = await this.toastController.create({
+      message: text,
+      duration: 4000,
+      position: 'top'
+    });
+    toast.present();
+  }
 }
 
 
