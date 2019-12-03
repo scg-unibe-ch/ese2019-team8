@@ -15,18 +15,17 @@ import {ToastController} from '@ionic/angular';
 
 export class ServiceRegPageComponent implements OnInit {
   serviceItem: ServiceItem = new ServiceItem('', '', '', null, '', '');
-
+  serviceForm: FormGroup;
+  validationMessages = ValidationMessages.validationMessages;
   constructor(private httpClient: HttpClient,
               private eventService: EventServiceComponent,
               private formBuilder: FormBuilder,
               private toastController: ToastController
-  ) {
-  }
+  ) {}
 
   // ToDo: A Form to validate if The Price is a number
 
-  serviceForm: FormGroup;
-  validationMessages = ValidationMessages.validationMessages;
+
 
 
   ngOnInit() {

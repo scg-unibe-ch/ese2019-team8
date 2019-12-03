@@ -23,7 +23,7 @@ import {AuthenticationService, UserService} from './_services';
 import {SearcherComponent} from './Components/searcher/searcher.component';
 import {EventServiceComponent} from './Components/event-service/event-service.component';
 import {ChangePasswordPageComponent} from './Components/change-password-page/change-password-page.component';
-
+import {ServiceDetailsComponent} from './Components/service-details/service-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +34,8 @@ import {ChangePasswordPageComponent} from './Components/change-password-page/cha
     HomePageComponent,
     SearcherComponent,
     EventServiceComponent,
-    ChangePasswordPageComponent
+    ChangePasswordPageComponent,
+    ServiceDetailsComponent
   ],
   entryComponents: [],
   imports: [
