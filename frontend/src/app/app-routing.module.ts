@@ -8,6 +8,7 @@ import {ProfilePageComponent} from './Components/profile-page/profile-page.compo
 import {SearcherComponent} from './Components/searcher/searcher.component';
 import {EventServiceComponent} from './Components/event-service/event-service.component';
 import {ChangePasswordPageComponent} from './Components/change-password-page/change-password-page.component';
+import {UserListComponent} from './Components/user-list/user-list.component';
 
 
 const routes: Routes = [
@@ -19,7 +20,8 @@ const routes: Routes = [
   {path: 'profilePage', component: ProfilePageComponent},
   {path: 'search', component: SearcherComponent},
   {path: 'service', component: EventServiceComponent},
-  {path: 'changePW', component: ChangePasswordPageComponent}
+  {path: 'changePW', component: ChangePasswordPageComponent},
+  {path: 'userList', component: UserListComponent}
 
 ];
 

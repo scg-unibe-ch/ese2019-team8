@@ -37,10 +37,9 @@ export class ProfilePageComponent implements OnInit {
   services: ServiceItem[] = [];
   userServiceView: boolean;
   validationMessages = ValidationMessages.validationMessages;
-
+  isAdmin = false;
 
   ngOnInit() {
-
     this.httpClient.get(this.profileURL + this.token)
       .subscribe((instance: any) => {
         this.userItem.username = instance.username;
@@ -50,6 +49,7 @@ export class ProfilePageComponent implements OnInit {
         this.userItem.zip = instance.zip;
         this.userItem.phoneNumber = instance.phoneNumber;
         this.userItem.isServiceProvider = instance.isServiceProvider;
+        this.isAdmin = instance.isAdmin;
         // console.log(instance);
       });
     this.profilePageForm = this.formBuilder.group({

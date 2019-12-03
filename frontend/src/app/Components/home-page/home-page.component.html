@@ -1,11 +1,13 @@
 <ion-app>
   <ion-buttons>
-  <ion-button *ngIf="userItem.isServiceProvider" [routerLink]="['/serviceRegistration']" color="olive">
-    <ion-icon name="add"></ion-icon> Add a new Service
-  </ion-button>
-    </ion-buttons>
-
-
+    <ion-button *ngIf="userItem.isServiceProvider" [routerLink]="['/serviceRegistration']" color="olive">
+      <ion-icon name="add"></ion-icon>
+      Add a new Service
+    </ion-button>
+    <ion-button *ngIf="isAdmin" [routerLink]="['/userList']" color="warning">
+      Admin User Panel
+    </ion-button>
+  </ion-buttons>
 
   <!--<ion-buttons slot="secondary">
       <ion-button float-right *ngIf="userItem.isServiceProvider" [routerLink]="['/serviceRegistration']" color="dark">
@@ -17,10 +19,12 @@
     <app-searcher></app-searcher>
   </ion-content>
   <!--TODO: real featured Services, currently all services-->
-  <div><ion-item>
-    <ion-title  color="dark" align-self-center>Featured Services</ion-title>
+  <div>
+    <ion-item>
+      <ion-title color="dark" align-self-center>Featured Services</ion-title>
 
-  </ion-item></div>
+    </ion-item>
+  </div>
   <ion-content>
     <app-event-service></app-event-service>
   </ion-content>
