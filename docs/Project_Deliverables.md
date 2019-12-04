@@ -15,12 +15,14 @@
 * Collect and refine requirements for this milestone from your student assistants who are also your clients. Decide among your team who wants to play which roles. Ideally product owner should talk to clients and get the requirements correct. He/she then conveys the requirements to the team.
 * Start modeling your app first! Brainstorm within the team to identify important concepts of the domain and relationships between them. Use your knowledge of UML.
 * For this milestone, you need to implement authorization and authentication feature for the event management platform.
-* We plan to end this milestone on 23‑Oct‑19
+###### Due date:  23‑Oct‑19
 
 #### Milestone 2
 * CRUD Operations on Services
+###### Due date:  13‑Nov‑19
 
 
 #### Milestone 3
 * Special feature
-* Software refinement
+* All project deliverable
+###### Due date:  04‑Dec‑19
