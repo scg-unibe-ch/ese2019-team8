@@ -8,14 +8,14 @@
           <ion-card-subtitle color="medium">Approved: {{user.isApproved}}</ion-card-subtitle>
           <ion-card-title color="dark">{{user.username}}</ion-card-title>
         </ion-card-header>
-        <ion-button *ngIf="!isAdmin(user.username)" color="danger" (click)="presentAlertConfirm(user.username)">Delete
+        <ion-button *ngIf="!isAdmin(user.username)" color="danger" (click)="deleteUserAlert(user.username)">Delete
           User
         </ion-button>
         <ion-button *ngIf="!isAdmin(user.username) && user.isApproved === true" color="warning"
-                    (click)="approve(user.username,false)">Disapprove User
+                    (click)="changeApproveStatus(user.username,false)">Disapprove User
         </ion-button>
         <ion-button *ngIf="!isAdmin(user.username) && user.isApproved === false" color="success"
-                    (click)="approve(user.username,true)">Approve User
+                    (click)="changeApproveStatus(user.username,true)">Approve User
         </ion-button>
 
         <ion-chip color="dark" outline>

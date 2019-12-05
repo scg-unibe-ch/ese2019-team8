@@ -59,5 +59,4 @@ export class AppComponent implements OnInit {
     return this.userItem.isServiceProvider;
   }
 
-
 }

@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {Router} from '@angular/router';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {HttpClient} from '@angular/common/http';
 import {UserItem} from '../../_models/user-item';
 import {ServiceItem} from '../../_models/service-item';
-import {forEach} from '@angular-devkit/schematics';
+import {interval} from 'rxjs';
+import {timeout} from 'rxjs/operators';
+import {AlertController} from '@ionic/angular';
 
 
 @Component({
@@ -15,7 +15,7 @@ import {forEach} from '@angular-devkit/schematics';
 export class SearcherComponent implements OnInit {
 
   constructor(private httpClient: HttpClient,
-              private router: Router) {
+              private alertController: AlertController) {
   }
 
   serviceSearchAnyURL = 'http://localhost:3000/service/searchAny/';
@@ -33,7 +33,7 @@ export class SearcherComponent implements OnInit {
   randomPartyView: boolean;
 
 
-    ngOnInit() {
+  ngOnInit() {
   }
 
 
@@ -45,9 +45,9 @@ export class SearcherComponent implements OnInit {
       {}).subscribe((instances: any) => {
       this.services.push.apply(this.services, instances.map((instance) =>
         new ServiceItem(instance.id, instance.user, instance.serviceName, instance.category
-          , instance.price, instance.location, instance.description)));
-      });
-    this.refresh();
+          , instance.price, instance.location, instance.description, instance.contactMail)));
+    });
+    // this.refresh();
   }
 
 
@@ -56,7 +56,7 @@ export class SearcherComponent implements OnInit {
     this.httpClient.get(this.currentUSerServicesURL + this.token, {}).subscribe((instances: any) => {
       this.services.push.apply(this.services, instances.map((instance) =>
         new ServiceItem(instance.id, instance.user, instance.serviceName, instance.category
-          , instance.price, instance.location, instance.description)));
+          , instance.price, instance.location, instance.descriptio, instance.contactMail)));
     });
   }
 
@@ -71,7 +71,7 @@ export class SearcherComponent implements OnInit {
     this.httpClient.get(this.serviceSearchAnyURL + this.category, {}).subscribe((instances: any) => {
       this.services.push.apply(this.services, instances.map((instance) =>
         new ServiceItem(instance.id, instance.user, instance.serviceName, instance.category
-          , instance.price, instance.location, instance.description)));
+          , instance.price, instance.location, instance.description, instance.contactMail)));
     });
   }
 
@@ -81,7 +81,7 @@ export class SearcherComponent implements OnInit {
     this.httpClient.get('http://localhost:3000/service').subscribe((instances: any) => {
       this.services.push.apply(this.services, instances.map((instance) =>
         new ServiceItem(instance.id, instance.user, instance.serviceName, instance.category
-          , instance.price, instance.location, instance.description)));
+          , instance.price, instance.location, instance.description, instance.contactMail)));
       this.services = this.shuffle(this.services);
       let index = 0;
       for (const partyCategory of this.partyCategories) {
@@ -111,8 +111,58 @@ export class SearcherComponent implements OnInit {
     return array[Math.floor(Math.random() * array.length)];
   }
 
+  /**
+   * Refreshes the page after 4 seconds, so that the Toast alert is displayed first
+   */
   refresh(): void {
-    window.location.reload();
+    interval(4000).pipe(timeout(5000))      // Let's use bigger timespan to be safe,
+      // since `interval` might fire a bit later then scheduled.
+      .subscribe(
+        value => window.location.reload(), // Will emit numbers just as regular `interval` would.
+        err => console.log(err),     // Will never be called.
+      );
+  }
+
+
+  /**
+   * Presents alert with booking details and two buttons. One for cancel and one for copying booking email to clipboard.
+   */
+  async showBooking(serviceName, email) {
+    const alert = await this.alertController.create({
+      header: 'Service: ' + serviceName,
+      subHeader: 'Booking Details',
+      message: 'Contact the service provider: ' + email,
+      buttons: [
+        {
+          text: 'Close',
+          role: 'cancel',
+          handler: () => {
+            // console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Copy email to clipboard',
+          handler: () => {
+            // console.log(email);
+            this.copyToClipboard(email);
+          }
+        },
+      ]
+    });
+
+    await alert.present();
+  }
+
+  /**
+   * Copies input string to clipboard.
+   */
+  copyToClipboard(text) {
+    document.addEventListener('copy', (e: ClipboardEvent) => {
+      e.clipboardData.setData('text/plain', (text));
+      e.preventDefault();
+      document.removeEventListener('copy', null);
+    });
+    document.execCommand('copy');
   }
 
 }

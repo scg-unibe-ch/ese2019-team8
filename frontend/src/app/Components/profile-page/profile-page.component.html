@@ -17,7 +17,7 @@
               <ion-header>
                 <ion-toolbar>
                   <ion-thumbnail slot="start">
-                    <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+                    <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y" alt="Avatar Icon">
                   </ion-thumbnail>
                   <ion-title slot="start">{{userItem.username}}'s Profile</ion-title>
                 </ion-toolbar>
@@ -164,6 +164,8 @@
                 <ion-card-header>
                   <ion-card-subtitle color="light">{{item.category}}</ion-card-subtitle>
                   <ion-card-title color="dark">{{item.serviceName}}</ion-card-title>
+                  <ion-button color="olive" (click)="showBooking(item.serviceName, item.contactMail)">Book
+                  </ion-button>
                 </ion-card-header>
                 <ion-chip color="dark" outline>
                   <ion-icon name="cash"></ion-icon>
@@ -183,7 +185,7 @@
 
         <ion-footer>
           <ion-buttons slot="primary">
-            <ion-button (click)="presentAlertConfirm()" color="danger">Delete Profile</ion-button>
+            <ion-button (click)="deleteProfileAlert()" color="danger">Delete Profile</ion-button>
           </ion-buttons>
         </ion-footer>
 

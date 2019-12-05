@@ -26,7 +26,9 @@ export class ChangePasswordPageComponent implements OnInit {
   token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
   validationMessages = ValidationMessages.validationMessages;
 
-
+  /**
+   * Creates FormGroup with two slots so password can be changed and checked if input is the same.
+   */
   ngOnInit() {
     this.passwordCheckerGroup = new FormGroup({
       password: new FormControl('', Validators.compose([
@@ -44,9 +46,10 @@ export class ChangePasswordPageComponent implements OnInit {
     });
   }
 
-
+  /**
+   * Changes pw of currently logged in user with put method.
+   */
   changePW() {
-    console.log(this.changePWForm.value.passwordChecker.password);
     this.httpClient.put('http://localhost:3000/user/profile', {
       token: this.token,
       password: this.changePWForm.value.passwordChecker.password,

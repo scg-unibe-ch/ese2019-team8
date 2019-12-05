@@ -1,7 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ServiceItem} from '../../_models/service-item';
 import {HttpClient} from '@angular/common/http';
-import {SearcherComponent} from '../searcher/searcher.component';
 import {EventServiceComponent} from '../event-service/event-service.component';
 import {UserItem} from '../../_models/user-item';
 
@@ -22,6 +20,9 @@ export class HomePageComponent implements OnInit {
 
   isAdmin = false;
 
+  /**
+   * Checks currently loggen in user and sets parameters if admin and if serivice procider accordingly.
+   */
   ngOnInit() {
     this.httpClient.get(this.profileURL + this.token)
       .subscribe((instance: any) => {
@@ -31,7 +32,7 @@ export class HomePageComponent implements OnInit {
       });
     this.httpClient.get(this.profileURL + this.token)
       .subscribe((instance: any) => {
-        console.log('is admin:' + instance.isAdmin);
+        // console.log('is admin:' + instance.isAdmin);
         this.isAdmin = instance.isAdmin;
       });
   }

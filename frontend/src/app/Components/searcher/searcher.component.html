@@ -10,13 +10,15 @@
       </ion-button>
     </ion-toolbar>
 
-    <ion-button class="button-random" (click)="clickRandomParty()" [routerLink]="['/search']">Make me a random Party</ion-button>
+    <ion-button (click)="clickRandomParty()" [routerLink]="['/search']">Make me a random Party</ion-button>
     <div *ngIf="!randomPartyView">
       <div *ngFor="let item of services">
         <ion-card>
           <ion-card-header>
             <ion-card-subtitle color="light">{{item.category}}</ion-card-subtitle>
             <ion-card-title color="dark">{{item.serviceName}}</ion-card-title>
+            <ion-button color="olive" (click)="showBooking(item.serviceName, item.contactMail)">Book
+            </ion-button>
           </ion-card-header>
           <ion-chip color="dark" outline>
             <ion-icon name="cash"></ion-icon>
