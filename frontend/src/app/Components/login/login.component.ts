@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.httpClient.post('http://localhost:3000/user/createAdmin', {}).subscribe(data => {
-      console.log(data);
+      // console.log(data);
     });
 
     this.authenticationService.logout();
@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
           // console.log(data.message);
           this.presentToast(data.message);
           this.router.navigate(['/home'], {queryParams: {login: true}});
-          },
+        },
         error => {
           this.presentToast(error.error.message);
           this.loading = false;

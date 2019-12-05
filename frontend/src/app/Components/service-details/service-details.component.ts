@@ -157,7 +157,4 @@ export class ServiceDetailsComponent implements OnInit {
         err => console.log(err),     // Will never be called.
       );
   }
-  refresh(): void {
-    window.location.reload();
-  }
 }
