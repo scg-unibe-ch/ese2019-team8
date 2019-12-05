@@ -311,22 +311,28 @@ router.get('/search/' +
  * @returns Array of corresponding services (may be empty)
  */
 router.get('/searchAny/:searchString', async (req: Request, res: Response) => {
-  const searchString: RegExp = new RegExp(req.params.searchString.toLocaleLowerCase());
+  if (req.params.searchString === 'undefined') {
+    const instances: Array<Service> = await Service.findAll();
+    res.statusCode = 200;
+    res.send(instances.map(e => e.toSimplification()));
+  } else {
+    const searchString: RegExp = new RegExp(req.params.searchString.toLocaleLowerCase());
 
-  function search(element: Service) {
-    if (element.username.toLocaleLowerCase().match(searchString)
-      || element.serviceName.toLocaleLowerCase().match(searchString)
-      || (element.category !== null && element.category.toLocaleLowerCase().match(searchString))
-      || (element.location !== null && element.location.toLocaleLowerCase().match(searchString))
-      || (element.description !== null && element.description.toLocaleLowerCase().match(searchString))) {
-      return element;
+    function search(element: Service) {
+      if (element.username.toLocaleLowerCase().match(searchString)
+        || element.serviceName.toLocaleLowerCase().match(searchString)
+        || (element.category !== null && element.category.toLocaleLowerCase().match(searchString))
+        || (element.location !== null && element.location.toLocaleLowerCase().match(searchString))
+        || (element.description !== null && element.description.toLocaleLowerCase().match(searchString))) {
+        return element;
+      }
     }
-  }
 
-  let instances: Array<Service> = await Service.findAll();
-  instances = instances.filter(search);
-  res.statusCode = 200;
-  res.send(instances.map(e => e.toSimplification()));
+    let instances: Array<Service> = await Service.findAll();
+    instances = instances.filter(search);
+    res.statusCode = 200;
+    res.send(instances.map(e => e.toSimplification()));
+  }
 });
 
 /**
