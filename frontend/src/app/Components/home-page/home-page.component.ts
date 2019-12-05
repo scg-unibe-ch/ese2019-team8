@@ -15,7 +15,7 @@ export class HomePageComponent implements OnInit {
   token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
   userItem: UserItem = new UserItem(null, '', false, '', '', null, '', null);
   profileURL = 'http://localhost:3000/user/profile/';
-
+  searchResultView: boolean;
   constructor(private eventService: EventServiceComponent,
               private httpClient: HttpClient) {
   }

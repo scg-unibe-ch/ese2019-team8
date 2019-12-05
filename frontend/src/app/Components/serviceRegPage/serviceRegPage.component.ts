@@ -66,7 +66,7 @@ export class ServiceRegPageComponent implements OnInit {
     }).subscribe(data => {
         console.log(data);
         this.presentToast('Service created');
-        this.refresh();
+        // this.refresh();
       },
       error => {
         this.presentToast(error.error.message);

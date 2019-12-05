@@ -27,8 +27,10 @@ export class SearcherComponent implements OnInit {
   token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
   inputValue: string;
   categories: string[] = ['venue', 'photography', 'catering', 'hotels', 'music', 'stylist', 'decoration', 'planner'];
+  partyCategories: string[] = ['venue', 'catering', 'music', 'planner'];
   category: string;
   randomServices: ServiceItem[] = [];
+  randomPartyView: boolean;
 
 
     ngOnInit() {
@@ -36,6 +38,7 @@ export class SearcherComponent implements OnInit {
 
 
   clickSearch() {
+    this.randomPartyView = false;
     this.closeServices();
     // Searches for service in DB, with all parameters
     this.httpClient.get(this.serviceSearchAnyURL + this.inputValue,
@@ -47,7 +50,6 @@ export class SearcherComponent implements OnInit {
     this.refresh();
   }
 
-  // TODO: Search for specific user
 
   getCurrentUserServices() {
     this.closeServices();
@@ -63,6 +65,7 @@ export class SearcherComponent implements OnInit {
   }
 
   clickCategorySearch(categoryId) {
+    this.randomPartyView = false;
     this.services = [];
     this.category = this.categories[categoryId];
     this.httpClient.get(this.serviceSearchAnyURL + this.category, {}).subscribe((instances: any) => {
@@ -73,25 +76,38 @@ export class SearcherComponent implements OnInit {
   }
 
   clickRandomParty() {
-      let array;
-      let i;
-      let randomService;
-      array = [0, 2, 4, 7];
-      randomService = new ServiceItem(null, '', '', '',
-        null, '', '');
-      for (i of array) {
-          this.clickCategorySearch(array[i]);
-          console.log(this.services);
-          randomService = this.services[this.randomIndex(this.services)];
-          console.log(this.randomServices);
-          this.randomServices.push(randomService);
-          console.log(this.randomServices);
-    }
-      this.services.push.apply(this.services, this.randomServices);
-      console.log(this.services);
+    this.randomPartyView = true;
+    this.services = [];
+    this.httpClient.get('http://localhost:3000/service').subscribe((instances: any) => {
+      this.services.push.apply(this.services, instances.map((instance) =>
+        new ServiceItem(instance.id, instance.user, instance.serviceName, instance.category
+          , instance.price, instance.location, instance.description)));
+      this.services = this.shuffle(this.services);
+      let index = 0;
+      for (const partyCategory of this.partyCategories) {
+        let i = 0;
+        for (const serviceItem of this.services) {
+          if (serviceItem.category === partyCategory) {
+            while (i < 1) {
+            this.randomServices[index] = serviceItem;
+            index++;
+            i++;
+          }
+        }
+
+      }}
+    });
   }
 
-  randomIndex(array) {
+  shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  randomItem(array) {
     return array[Math.floor(Math.random() * array.length)];
   }
 
