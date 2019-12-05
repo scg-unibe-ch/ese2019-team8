@@ -9,9 +9,7 @@
         <ion-icon  name="search" slot="icon-only" ></ion-icon>
       </ion-button>
     </ion-toolbar>
-
-      <!--<ion-title *ngIf="!userServiceView" color="secondary">Your Search</ion-title>-->
-
+    <ion-button (click)="clickRandomParty()">Make me a random Party</ion-button>
       <div *ngFor="let item of services">
         <ion-card>
           <ion-card-header>
@@ -36,36 +34,37 @@
 
     <div>
   <ion-col>
-      <ion-button color="light" size="medium" (click)="clickCategorySearch(0)" [routerLink]="['/search']" >
-          <ion-icon color="dark" name="wine"></ion-icon> Venue
+      <ion-button color="olive" size="medium" (click)="clickCategorySearch(0)" [routerLink]="['/search']" >
+        <ion-icon align-self-center size="small" color="light" name="wine"></ion-icon>
+        <p style="margin-left:0.75em">Venue</p>
       </ion-button>
-    <ion-button color="light" size="medium" (click)="clickCategorySearch(1)" [routerLink]="['/search']">
-      <ion-icon color="dark" slot="icon-only" name="camera"></ion-icon>
-       Photography
+    <ion-button color="olive" size="medium" (click)="clickCategorySearch(1)" [routerLink]="['/search']">
+      <ion-icon size="small" color="light" slot="icon-only" name="camera"></ion-icon>
+      <p style="margin-left:0.75em">Photography</p>
     </ion-button>
-    <ion-button color="light" size="medium" (click)="clickCategorySearch(2)" [routerLink]="['/search']">
-      <ion-icon color="dark" slot="icon-only" name="restaurant"></ion-icon>
-       Catering
+    <ion-button color="olive" size="medium" (click)="clickCategorySearch(2)" [routerLink]="['/search']">
+      <ion-icon size="small" color="light" slot="icon-only" name="restaurant"></ion-icon>
+      <p style="margin-left:0.75em">Catering</p>
     </ion-button>
-    <ion-button color="light" size="medium" (click)="clickCategorySearch(3)" [routerLink]="['/search']">
-      <ion-icon color="dark" slot="icon-only" name="bed"></ion-icon>
-      Hotels
+    <ion-button color="olive" size="medium" (click)="clickCategorySearch(3)" [routerLink]="['/search']">
+      <ion-icon size="small" color="light" slot="icon-only" name="bed"></ion-icon>
+      <p style="margin-left:0.75em">Hotels</p>
     </ion-button>
-    <ion-button color="light" size="medium" (click)="clickCategorySearch(4)" [routerLink]="['/search']">
-      <ion-icon color="dark" slot="icon-only" name="musical-notes"></ion-icon>
-       Music
+    <ion-button color="olive" size="medium" (click)="clickCategorySearch(4)" [routerLink]="['/search']">
+      <ion-icon size="small" color="light" slot="icon-only" name="musical-notes"></ion-icon>
+      <p style="margin-left:0.75em">Music</p>
     </ion-button>
-    <ion-button color="light" size="medium" (click)="clickCategorySearch(5)" [routerLink]="['/search']">
-      <ion-icon color="dark" slot="icon-only" name="bowtie"></ion-icon>
-      Stylist
+    <ion-button color="olive" size="medium" (click)="clickCategorySearch(5)" [routerLink]="['/search']">
+      <ion-icon size="small" color="light" slot="icon-only" name="bowtie"></ion-icon>
+      <p style="margin-left:0.75em">Stylist</p>
     </ion-button>
-    <ion-button color="light" size="medium" (click)="clickCategorySearch(6)" [routerLink]="['/search']">
-      <ion-icon color="dark" slot="icon-only" name="rose"></ion-icon>
-      Decoration
+    <ion-button color="olive" size="medium" (click)="clickCategorySearch(6)" [routerLink]="['/search']">
+      <ion-icon size="small" color="light" slot="icon-only" name="rose"></ion-icon>
+      <p style="margin-left:0.75em">Decoration</p>
     </ion-button>
-    <ion-button color="light" size="medium" (click)="clickCategorySearch(7)" [routerLink]="['/search']">
-      <ion-icon color="dark" slot="icon-only" name="clipboard"></ion-icon>
-      Event Planner
+    <ion-button color="olive" size="medium" (click)="clickCategorySearch(7)" [routerLink]="['/search']">
+      <ion-icon size="small" color="light" slot="icon-only" name="clipboard"></ion-icon>
+      <p style="margin-left:0.75em">Event Planner</p>
     </ion-button>
   </ion-col>
     </div>

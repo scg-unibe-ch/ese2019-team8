@@ -29,7 +29,7 @@ export class User extends Model<User> {
   city!: string;
 
   // True if user is approved by admin
-  @Default(false)
+  @Default(true)
   @Column
   isApproved!: boolean;
 

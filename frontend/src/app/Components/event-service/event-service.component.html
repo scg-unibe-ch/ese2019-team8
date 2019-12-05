@@ -3,23 +3,28 @@
   <ion-content class="ion-padding">
 
     <div *ngFor="let item of services">
-      <ion-card>
-        <ion-card-header>
-          <ion-card-subtitle color="medium">{{item.category}}</ion-card-subtitle>
-          <ion-card-title color="dark">{{item.serviceName}}</ion-card-title>
-        </ion-card-header>
-        <ion-chip color="dark" outline>
-          <ion-icon name="cash"></ion-icon>
-          <ion-label>{{item.price}} CHF</ion-label>
-        </ion-chip>
-        <ion-chip color="dark" outline>
-          <ion-icon name="pin"></ion-icon>
-          <ion-label>{{item.location}}</ion-label>
-        </ion-chip>
-        <ion-card-content>
-          {{item.description}}
-        </ion-card-content>
-      </ion-card>
-    </div>
+
+      <div>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle color="light">{{item.category}}</ion-card-subtitle>
+            <ion-card-title color="dark">{{item.serviceName}}</ion-card-title>
+            <ion-chip color="dark" outline>
+              <ion-icon name="cash"></ion-icon>
+              <ion-label>{{item.price}} CHF</ion-label>
+            </ion-chip>
+            <ion-chip color="light" outline>
+              <ion-icon name="pin"></ion-icon>
+              <ion-label>{{item.location}}</ion-label>
+            </ion-chip>
+          </ion-card-header>
+          <ion-card-content>
+            {{item.description}}
+          </ion-card-content>
+        </ion-card>
+      </div>
+
+      </div>
+
   </ion-content>
 </ion-app>

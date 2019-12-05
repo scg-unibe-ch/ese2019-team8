@@ -31,18 +31,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.httpClient.post('http://localhost:3000/user/createAdmin', {}).subscribe(data => {
-      // console.log(data);
+      console.log(data);
     });
-    /*
-    // TODO: fix get method
-    // get users from secure api end point
-    this.userService.getAll()
-      .pipe(first())
-      .subscribe(users => {
-        this.users = users;
-      });
-     */
-    // reset login status
+
     this.authenticationService.logout();
   }
 

@@ -1,8 +1,10 @@
 <div *ngIf="!modificationView">
+
 <div  *ngFor="let item of services" >
+
     <ion-card>
       <ion-card-header>
-        <ion-card-subtitle color="medium">{{item.category}}</ion-card-subtitle>
+        <ion-card-subtitle color="light">{{item.category}}</ion-card-subtitle>
         <ion-card-title color="dark">{{item.serviceName}}</ion-card-title>
       </ion-card-header>
       <ion-chip color="dark" outline>
@@ -18,7 +20,7 @@
       </ion-card-content>
       <ion-buttons>
       <ion-button color="olive" (click)="getOnlyThisService(item.id)">Modify Service</ion-button>
-      <ion-button (click)="clickDeleteService(item.id)" color="danger">Delete Service</ion-button>
+      <ion-button (click)="clickDeleteService(item.id)" color="danger" [routerLink]="['/serviceDetails']">Delete Service</ion-button>
       </ion-buttons>
     </ion-card>
   </div>
@@ -55,15 +57,15 @@
       <div>
         <ion-item>
           <ion-label color="dark">Category</ion-label>
-          <ion-select interface="popover" name="serviceCategory" [(ngModel)]="serviceItem.category" multiple="false" color="medium"
+          <ion-select interface="popover" name="serviceCategory" [(ngModel)]="serviceItem.category" multiple="false"
                       formControlName="serviceCategory">
             <ion-select-option value="venue">Venue</ion-select-option>
             <ion-select-option value="photography">Photography</ion-select-option>
             <ion-select-option value="catering">Catering</ion-select-option>
             <ion-select-option value="music">Music</ion-select-option>
-            <ion-select-option value="music">Hotels</ion-select-option>
-            <ion-select-option value="music">Stylist</ion-select-option>
-            <ion-select-option value="music">Decoration</ion-select-option>
+            <ion-select-option value="hotels">Hotels</ion-select-option>
+            <ion-select-option value="stylist">Stylist</ion-select-option>
+            <ion-select-option value="decoration">Decoration</ion-select-option>
             <ion-select-option value="planner">Event planning</ion-select-option>
           </ion-select>
         </ion-item>
@@ -118,7 +120,7 @@
 
   <ion-row>
     <ion-col size="2">
-      <ion-button (click)="clickModifyService(serviceItem.id)" [routerLink]="['/serviceDetails']" color="success"
+      <ion-button (click)="clickModifyService(serviceItem.id)" color="success"
                   [disabled]="!serviceForm.valid">Save your changes
       </ion-button>
       <ion-button (click)="modificationView=false" [routerLink]="['/serviceDetails']" color="danger">

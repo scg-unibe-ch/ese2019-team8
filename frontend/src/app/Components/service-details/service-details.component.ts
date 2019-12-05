@@ -89,6 +89,7 @@ export class ServiceDetailsComponent implements OnInit {
       error => {
         this.presentToast(error.error.message);
       });
+    this.refresh();
   }
 
 
@@ -113,5 +114,7 @@ export class ServiceDetailsComponent implements OnInit {
     };
     this.httpClient.delete('http://localhost:3000/service', options).subscribe();
   }
-
+  refresh(): void {
+    window.location.reload();
+  }
 }
