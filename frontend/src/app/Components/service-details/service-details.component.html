@@ -20,7 +20,8 @@
       </ion-card-content>
       <ion-buttons>
       <ion-button color="olive" (click)="getOnlyThisService(item.id)">Modify Service</ion-button>
-      <ion-button (click)="clickDeleteService(item.id)" color="danger" [routerLink]="['/serviceDetails']">Delete Service</ion-button>
+      <ion-button (click)="deleteServiceAlert(item.id, item.serviceName)" color="danger">Delete Service</ion-button>
+
       </ion-buttons>
     </ion-card>
   </div>

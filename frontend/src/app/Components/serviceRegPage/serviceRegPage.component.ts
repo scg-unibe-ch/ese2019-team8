@@ -6,6 +6,9 @@ import {EventServiceComponent} from '../event-service/event-service.component';
 import {ValidationMessages} from '../../validators/validationMessages';
 import {ToastController} from '@ionic/angular';
 
+import {interval} from 'rxjs';
+import {timeout} from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-home',
@@ -17,12 +20,12 @@ export class ServiceRegPageComponent implements OnInit {
   serviceItem: ServiceItem = new ServiceItem(null, '', '', '', null, '', '');
   serviceForm: FormGroup;
   validationMessages = ValidationMessages.validationMessages;
+
   constructor(private httpClient: HttpClient,
               private eventService: EventServiceComponent,
               private formBuilder: FormBuilder,
               private toastController: ToastController
   ) {}
-
 
   ngOnInit() {
     this.httpClient.get('http://localhost:3000/service', {
@@ -44,7 +47,7 @@ export class ServiceRegPageComponent implements OnInit {
       location: new FormControl('', Validators.compose([
         Validators.maxLength(50),
         Validators.minLength(2),
-        Validators.pattern('^[A-Za-z0-9\\s]+$')
+        Validators.pattern('^[A-Za-z0-9\\säÄöÖüÜß\\-]+$')
       ])),
       description: new FormControl(''),
     });
@@ -71,7 +74,12 @@ export class ServiceRegPageComponent implements OnInit {
   }
 
   refresh(): void {
-    window.location.reload();
+    interval(4000).pipe(timeout(5000))      // Let's use bigger timespan to be safe,
+      // since `interval` might fire a bit later then scheduled.
+      .subscribe(
+        value => window.location.reload(), // Will emit numbers just as regular `interval` would.
+        err => console.log(err),     // Will never be called.
+      );
   }
 
   async presentToast(text) {

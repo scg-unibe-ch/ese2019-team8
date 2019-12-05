@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
-import {ToastController} from '@ionic/angular';
+import {AlertController, ToastController} from '@ionic/angular';
 import {ServiceItem} from '../../_models/service-item';
 import {ValidationMessages} from '../../validators/validationMessages';
 import {UserItem} from '../../_models/user-item';
+import {interval} from 'rxjs';
+import {timeout} from 'rxjs/operators';
 
 @Component({
   selector: 'app-service-details',
@@ -17,8 +19,10 @@ export class ServiceDetailsComponent implements OnInit {
 
   constructor(private httpClient: HttpClient,
               private formBuilder: FormBuilder,
-              private toastController: ToastController
-  ) {}
+              private toastController: ToastController,
+              private alertController: AlertController
+  ) {
+  }
 
   serviceItem: ServiceItem = new ServiceItem(null, '', '', '', null, '', '');
   serviceForm: FormGroup;
@@ -52,7 +56,7 @@ export class ServiceDetailsComponent implements OnInit {
       location: new FormControl('', Validators.compose([
         Validators.maxLength(50),
         Validators.minLength(2),
-        Validators.pattern('^[A-Za-z0-9\\s]+$')
+        Validators.pattern('^[A-Za-z0-9\\säÄöÖüÜß\\-]+$')
       ])),
       description: new FormControl(''),
     });
@@ -60,8 +64,7 @@ export class ServiceDetailsComponent implements OnInit {
 
   getOnlyThisService(serviceId) {
     this.modificationView = true;
-    this.httpClient.get('http://localhost:3000/service/id=' + serviceId).
-    subscribe((instance: any) => {
+    this.httpClient.get('http://localhost:3000/service/id=' + serviceId).subscribe((instance: any) => {
       this.serviceItem.id = instance.id;
       this.serviceItem.user = instance.user;
       this.serviceItem.serviceName = instance.serviceName;
@@ -85,12 +88,38 @@ export class ServiceDetailsComponent implements OnInit {
     }).subscribe(data => {
         console.log(data);
         this.presentToast('Service modified');
+        this.refresh();
       },
       error => {
         this.presentToast(error.error.message);
       });
   }
 
+
+  async deleteServiceAlert(serviceId, serviceName) {
+    const alert = await this.alertController.create({
+      header: 'Do you really want to delete ' + serviceName + '? This action can not be undone!',
+      message: '<strong>Yes</strong>, I am sure!!!',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Delete: Service: CANCELED');
+          }
+        }, {
+          text: 'Delete ' + serviceName,
+          handler: () => {
+            console.log('Delete Service: Confirmed');
+            this.clickDeleteService(serviceId);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
 
   async presentToast(text) {
     const toast = await this.toastController.create({
@@ -111,7 +140,22 @@ export class ServiceDetailsComponent implements OnInit {
         id: serviceId
       }
     };
-    this.httpClient.delete('http://localhost:3000/service', options).subscribe();
+    this.httpClient.delete('http://localhost:3000/service', options).subscribe(data => {
+      // console.log('Service deleted');
+      this.presentToast('Service successfully deleted');
+      this.refresh();
+    }, error => {
+      this.presentToast(error.message);
+    });
+  }
+
+  refresh(): void {
+    interval(4000).pipe(timeout(5000))      // Let's use bigger timespan to be safe,
+      // since `interval` might fire a bit later then scheduled.
+      .subscribe(
+        value => window.location.reload(), // Will emit numbers just as regular `interval` would.
+        err => console.log(err),     // Will never be called.
+      );
   }
   refresh(): void {
     window.location.reload();
