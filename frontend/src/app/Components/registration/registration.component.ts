@@ -58,7 +58,7 @@ export class RegistrationComponent implements OnInit {
       address: new FormControl('', Validators.compose([
           Validators.maxLength(150),
           Validators.minLength(3),
-          Validators.pattern('^[A-Za-z0-9\\s]+$')
+          Validators.pattern('^[A-Za-z0-9\\säÄöÖüÜß\\-]+$')
         ]
       )),
       zip: new FormControl('', Validators.compose([
@@ -70,7 +70,7 @@ export class RegistrationComponent implements OnInit {
       city: new FormControl('', Validators.compose([
           Validators.maxLength(25),
           Validators.minLength(2),
-          Validators.pattern('^[A-Za-z\\s]+$')
+          Validators.pattern('^[A-Za-z\\säÄöÖüÜß\\-]+$')
         ]
       )),
       phoneNumber: new FormControl('', Validators.compose([
