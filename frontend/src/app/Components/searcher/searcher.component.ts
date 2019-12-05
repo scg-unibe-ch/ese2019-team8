@@ -46,7 +46,7 @@ export class SearcherComponent implements OnInit {
         new ServiceItem(instance.id, instance.user, instance.serviceName, instance.category
           , instance.price, instance.location, instance.description)));
       });
-    this.refresh();
+    // this.refresh();
   }
 
   // TODO: Search for specific user
