@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-import {UsernameValidator} from '../../validators/username.validator';
 import {PasswordValidator} from '../../validators/password.validator';
 import {UserItem} from '../../_models/user-item';
 import {ValidationMessages} from '../../validators/validationMessages';
@@ -29,6 +28,9 @@ export class RegistrationComponent implements OnInit {
   passwordCheckerGroup: FormGroup;
   validationMessages = ValidationMessages.validationMessages;
 
+  /**
+   * Creates two forms, one for password and pw confirmation, the other for the other user details.
+   */
   ngOnInit() {
     this.passwordCheckerGroup = new FormGroup({
       password: new FormControl('', Validators.compose([
@@ -43,7 +45,6 @@ export class RegistrationComponent implements OnInit {
     });
     this.registrationForm = this.formBuilder.group({
       username: new FormControl('', Validators.compose([
-        UsernameValidator.validUsername,
         Validators.maxLength(25),
         Validators.minLength(5),
         Validators.pattern('^[A-Za-z0-9]+$'),
@@ -84,20 +85,19 @@ export class RegistrationComponent implements OnInit {
 
   }
 
+  /**
+   * Resets form inputs by reloading the init function.
+   */
   reset() {
     // this.registrationForm.reset();
     // this.passwordCheckerGroup.reset();
     this.ngOnInit();
   }
 
+  /**
+   * Creates new db entry with given form values by post mehtod.
+   */
   register() {
-    /*
-    if (this.registrationForm.valid) {
-      console.log('form valid');
-    } else {
-      console.log('not valid');
-    }
-     */
     this.httpClient.post('http://localhost:3000/user', {
       username: this.registrationForm.value.username,
       password: this.registrationForm.value.passwordChecker.password,

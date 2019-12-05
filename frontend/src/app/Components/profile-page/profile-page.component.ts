@@ -38,7 +38,9 @@ export class ProfilePageComponent implements OnInit {
   validationMessages = ValidationMessages.validationMessages;
   isAdmin = false;
 
-
+  /**
+   * Loads currently logged in user from db with token in localStorage. Creates form with current values.
+   */
   ngOnInit() {
     this.httpClient.get(this.profileURL + this.token)
       .subscribe((instance: any) => {
@@ -87,7 +89,9 @@ export class ProfilePageComponent implements OnInit {
     });
   }
 
-
+  /**
+   * Saves current values on profile into db with put method.
+   */
   save() {
     this.httpClient.put('http://localhost:3000/user/profile', {
       token: this.token,
@@ -97,7 +101,6 @@ export class ProfilePageComponent implements OnInit {
       zip: this.profilePageForm.value.zip,
       city: this.profilePageForm.value.city,
       phoneNumber: this.profilePageForm.value.phoneNumber,
-
     }).subscribe(data => {
         console.log(data);
         this.presentToast('Profile data update successful');
@@ -107,7 +110,6 @@ export class ProfilePageComponent implements OnInit {
         this.presentToast(error.error.message);
       });
   }
-
 
   logout() {
     this.authService.logout();
@@ -124,12 +126,17 @@ export class ProfilePageComponent implements OnInit {
     });
   }
 
+  /**
+   * Empties array with services, which "closes" the view for the user.
+   */
   closeServices() {
     this.services = [];
     this.userServiceView = false;
   }
 
-
+  /**
+   * Deletes profile of currently logged in user.
+   */
   deleteProfile() {
     const options = {
       headers: new HttpHeaders({
@@ -158,7 +165,10 @@ export class ProfilePageComponent implements OnInit {
     toast.present();
   }
 
-  async presentAlertConfirm() {
+  /**
+   * Presents toast with confirmation feature, so no deletions happen on accident.
+   */
+  async deleteProfileAlert() {
     const alert = await this.alertController.create({
       header: 'Do you really want to delete your profile? All services connected to this profile will also be deleted. This action can not be undone!',
       message: '<strong>Yes</strong>, I am sure!!!',
@@ -182,6 +192,4 @@ export class ProfilePageComponent implements OnInit {
 
     await alert.present();
   }
-
-
 }

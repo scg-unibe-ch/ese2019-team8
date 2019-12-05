@@ -1,10 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {FormBuilder, FormGroup} from '@angular/forms';
 import {UserItem} from '../../_models/user-item';
 import {ServiceItem} from '../../_models/service-item';
-import {forEach} from '@angular-devkit/schematics';
 import {interval} from 'rxjs';
 import {timeout} from 'rxjs/operators';
 
@@ -16,8 +14,7 @@ import {timeout} from 'rxjs/operators';
 })
 export class SearcherComponent implements OnInit {
 
-  constructor(private httpClient: HttpClient,
-              private router: Router) {
+  constructor(private httpClient: HttpClient) {
   }
 
   serviceSearchAnyURL = 'http://localhost:3000/service/searchAny/';
@@ -97,6 +94,9 @@ export class SearcherComponent implements OnInit {
     return array[Math.floor(Math.random() * array.length)];
   }
 
+  /**
+   * Refreshes the page after 4 seconds, so that the Toast alert is displayed first
+   */
   refresh(): void {
     interval(4000).pipe(timeout(5000))      // Let's use bigger timespan to be safe,
       // since `interval` might fire a bit later then scheduled.

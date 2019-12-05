@@ -1,5 +1,8 @@
 export class ValidationMessages {
 
+  /**
+   * Error messages when inputs are not accepted by regex. Used globally in the frontend.
+   */
   static validationMessages = {
     username: [
       {type: 'required', message: 'Username is required.'},

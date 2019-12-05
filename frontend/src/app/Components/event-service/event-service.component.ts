@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ServiceItem} from '../../_models/service-item';
 import {HttpClient} from '@angular/common/http';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {UserItem} from '../../_models/user-item';
 
 
@@ -27,6 +27,6 @@ export class EventServiceComponent implements OnInit {
       this.services.push.apply(this.services, instances.map((instance) =>
         new ServiceItem(instance.id, instance.user, instance.serviceName, instance.category
           , instance.price, instance.location, instance.description)));
-       });
+    });
   }
 }
