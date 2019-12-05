@@ -34,8 +34,6 @@ router.post('/createAdmin', async (req: Request, res: Response) => {
     res.json({
       'message': 'admin created'
     });
-    res.send(admin.toSimplification());
-    return;
   }
 });
 
