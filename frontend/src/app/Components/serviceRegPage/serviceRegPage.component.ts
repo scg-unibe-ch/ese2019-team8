@@ -23,10 +23,6 @@ export class ServiceRegPageComponent implements OnInit {
               private toastController: ToastController
   ) {}
 
-  // ToDo: A Form to validate if The Price is a number
-
-
-
 
   ngOnInit() {
     this.httpClient.get('http://localhost:3000/service', {
@@ -39,7 +35,7 @@ export class ServiceRegPageComponent implements OnInit {
         Validators.minLength(2),
         Validators.required
       ])),
-      serviceCategory: new FormControl(''),
+      category: new FormControl(''),
       price: new FormControl('', Validators.compose([
           Validators.max(999999999),
           Validators.pattern('^[0-9]+$')
@@ -56,6 +52,7 @@ export class ServiceRegPageComponent implements OnInit {
 
 
   clickAddService() {
+    console.log(this.serviceForm.value.category);
     this.httpClient.post('http://localhost:3000/service', {
       token: localStorage.getItem('currentUser').replace('"', '').replace('"', ''),
       serviceName: this.serviceForm.value.serviceName,
@@ -64,7 +61,7 @@ export class ServiceRegPageComponent implements OnInit {
       location: this.serviceForm.value.location,
       description: this.serviceForm.value.description,
     }).subscribe(data => {
-        // console.log(data);
+        console.log(data);
         this.presentToast('Service created');
         this.refresh();
       },

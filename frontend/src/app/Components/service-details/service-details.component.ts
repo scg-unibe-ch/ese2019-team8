@@ -43,7 +43,7 @@ export class ServiceDetailsComponent implements OnInit {
         Validators.minLength(2),
         Validators.required
       ])),
-      serviceCategory: new FormControl(''),
+      category: new FormControl(''),
       price: new FormControl('', Validators.compose([
           Validators.max(999999999),
           Validators.pattern('^[0-9]+$')
@@ -89,7 +89,6 @@ export class ServiceDetailsComponent implements OnInit {
       error => {
         this.presentToast(error.error.message);
       });
-    this.refresh();
   }
 
 
