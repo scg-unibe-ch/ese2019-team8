@@ -121,7 +121,7 @@ export class ProfilePageComponent implements OnInit {
     this.httpClient.get(this.currentUSerServicesURL + this.token, {}).subscribe((instances: any) => {
       this.services.push.apply(this.services, instances.map((instance) =>
         new ServiceItem(instance.null, instance.user, instance.serviceName, instance.category
-          , instance.price, instance.location, instance.description)));
+          , instance.price, instance.location, instance.description, instance.contactMail)));
 
     });
   }
@@ -191,5 +191,46 @@ export class ProfilePageComponent implements OnInit {
     });
 
     await alert.present();
+  }
+
+  /**
+   * Presents alert with booking details and two buttons. One for cancel and one for copying booking email to clipboard.
+   */
+  async showBooking(serviceName, email) {
+    const alert = await this.alertController.create({
+      header: 'Service: ' + serviceName,
+      subHeader: 'Booking Details',
+      message: 'Contact the service provider: ' + email,
+      buttons: [
+        {
+          text: 'Close',
+          role: 'cancel',
+          handler: () => {
+            // console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Copy email to clipboard',
+          handler: () => {
+            // console.log(email);
+            this.copyToClipboard(email);
+          }
+        },
+      ]
+    });
+
+    await alert.present();
+  }
+
+  /**
+   * Copies input string to clipboard.
+   */
+  copyToClipboard(text) {
+    document.addEventListener('copy', (e: ClipboardEvent) => {
+      e.clipboardData.setData('text/plain', (text));
+      e.preventDefault();
+      document.removeEventListener('copy', null);
+    });
+    document.execCommand('copy');
   }
 }

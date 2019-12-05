@@ -17,7 +17,7 @@ import {timeout} from 'rxjs/operators';
 })
 
 export class ServiceRegPageComponent implements OnInit {
-  serviceItem: ServiceItem = new ServiceItem(null, '', '', '', null, '', '');
+  serviceItem: ServiceItem = new ServiceItem(null, '', '', '', null, '', '', '');
   serviceForm: FormGroup;
   validationMessages = ValidationMessages.validationMessages;
 

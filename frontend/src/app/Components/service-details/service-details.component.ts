@@ -24,7 +24,7 @@ export class ServiceDetailsComponent implements OnInit {
   ) {
   }
 
-  serviceItem: ServiceItem = new ServiceItem(null, '', '', '', null, '', '');
+  serviceItem: ServiceItem = new ServiceItem(null, '', '', '', null, '', '', '');
   serviceForm: FormGroup;
   validationMessages = ValidationMessages.validationMessages;
   userItem: UserItem = new UserItem(null, '', false,
@@ -41,7 +41,7 @@ export class ServiceDetailsComponent implements OnInit {
     this.httpClient.get('http://localhost:3000/service/myServices/' + this.token, {}).subscribe((instances: any) => {
       this.services.push.apply(this.services, instances.map((instance) =>
         new ServiceItem(instance.id, instance.user, instance.serviceName, instance.category
-          , instance.price, instance.location, instance.description)));
+          , instance.price, instance.location, instance.description, instance.contactMail)));
     });
     // Creation of form
     this.serviceForm = this.formBuilder.group({
@@ -78,6 +78,7 @@ export class ServiceDetailsComponent implements OnInit {
       this.serviceItem.price = instance.price;
       this.serviceItem.location = instance.location;
       this.serviceItem.description = instance.description;
+      this.serviceItem.contactMail = instance.contactMail
     });
   }
 

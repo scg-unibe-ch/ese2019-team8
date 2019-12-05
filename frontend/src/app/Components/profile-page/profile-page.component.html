@@ -164,6 +164,8 @@
                 <ion-card-header>
                   <ion-card-subtitle color="light">{{item.category}}</ion-card-subtitle>
                   <ion-card-title color="dark">{{item.serviceName}}</ion-card-title>
+                  <ion-button color="olive" (click)="showBooking(item.serviceName, item.contactMail)">Book
+                  </ion-button>
                 </ion-card-header>
                 <ion-chip color="dark" outline>
                   <ion-icon name="cash"></ion-icon>
