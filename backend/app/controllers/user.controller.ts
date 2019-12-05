@@ -24,6 +24,7 @@ router.post('/createAdmin', async (req: Request, res: Response) => {
   } else {
     const admin = new User();
     admin.username = 'admin1';
+    admin.email = 'admin@admin.admin';
     admin.passwordHash = await bcrypt.hash('admin1', saltRounds);
     admin.isApproved = true;
     admin.isServiceProvider = true;
