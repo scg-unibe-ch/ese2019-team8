@@ -1,6 +1,5 @@
 import {
   Column,
-  Default,
   AllowNull,
   PrimaryKey,
   Model,
@@ -27,6 +26,9 @@ export class Service extends Model<Service> {
   @BelongsTo(() => User)
   user!: User;
 
+  @Column
+  contactMail!: String;
+
   @AllowNull(false)
   @Column
   serviceName!: String;
@@ -45,6 +47,7 @@ export class Service extends Model<Service> {
 
   fromSimplification(simplification: any): void {
     this.username = simplification['username'];
+    this.contactMail = simplification['contactMail'];
     this.serviceName = simplification['serviceName'];
     this.category = simplification['category'];
     this.price = simplification['price'];
@@ -56,6 +59,7 @@ export class Service extends Model<Service> {
     return {
       'id': this.id,
       'username': this.username,
+      'contactMail': this.contactMail,
       'serviceName': this.serviceName,
       'category': this.category,
       'price': this.price,
