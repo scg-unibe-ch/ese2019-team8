@@ -264,12 +264,11 @@ router.get('/search/' +
   '&location=?:location' +
   '&description=?:description', async (req: Request, res: Response) => {
 
-  // TODO optional params not needed in HTTP
-  const username: RegExp = new RegExp((req.params.username === '=' ? '.*' : req.params.username));
-  const serviceName: RegExp = new RegExp((req.params.serviceName === '=' ? '.*' : req.params.serviceName));
-  const category: RegExp = new RegExp((req.params.category === '=' ? '.*' : req.params.category));
-  const location: RegExp = new RegExp((req.params.location === '=' ? '.*' : req.params.location));
-  const description = new RegExp((req.params.description === '=' ? '.*' : req.params.description));
+  const username: RegExp = new RegExp((req.params.username === '=' ? '.*' : req.params.username.toLocaleLowerCase()));
+  const serviceName: RegExp = new RegExp((req.params.serviceName === '=' ? '.*' : req.params.serviceName.toLocaleLowerCase()));
+  const category: RegExp = new RegExp((req.params.category === '=' ? '.*' : req.params.category.toLocaleLowerCase()));
+  const location: RegExp = new RegExp((req.params.location === '=' ? '.*' : req.params.location.toLocaleLowerCase()));
+  const description = new RegExp((req.params.description === '=' ? '.*' : req.params.description.toLocaleLowerCase()));
 
   let priceMin = parseFloat(req.params.priceMin);
   let priceMax = parseFloat(req.params.priceMax);
@@ -289,10 +288,10 @@ router.get('/search/' +
     }
 
     if ((element.username.match(username))
-      && (element.serviceName.match(serviceName))
-      && (element.category === null || element.category.match(category))
-      && (element.location === null || element.location.match(location))
-      && (element.description === null || element.description.match(description))
+      && (element.serviceName.toLocaleLowerCase().match(serviceName))
+      && (element.category === null || element.category.toLocaleLowerCase().match(category))
+      && (element.location === null || element.location.toLocaleLowerCase().match(location))
+      && (element.description === null || element.description.toLocaleLowerCase().match(description))
       && (element.price >= priceMin.valueOf())
       && (element.price <= priceMax.valueOf())
     ) {
@@ -312,14 +311,14 @@ router.get('/search/' +
  * @returns Array of corresponding services (may be empty)
  */
 router.get('/searchAny/:searchString', async (req: Request, res: Response) => {
-  const searchString: RegExp = new RegExp(req.params.searchString);
+  const searchString: RegExp = new RegExp(req.params.searchString.toLocaleLowerCase());
 
   function search(element: Service) {
-    if (element.username.match(searchString)
-      || element.serviceName.match(searchString)
-      || (element.category !== null && element.category.match(searchString))
-      || (element.location !== null && element.location.match(searchString))
-      || (element.description !== null && element.description.match(searchString))) {
+    if (element.username.toLocaleLowerCase().match(searchString)
+      || element.serviceName.toLocaleLowerCase().match(searchString)
+      || (element.category !== null && element.category.toLocaleLowerCase().match(searchString))
+      || (element.location !== null && element.location.toLocaleLowerCase().match(searchString))
+      || (element.description !== null && element.description.toLocaleLowerCase().match(searchString))) {
       return element;
     }
   }
