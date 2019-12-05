@@ -65,7 +65,7 @@ export class UserListComponent implements OnInit {
       }
     };
     this.httpClient.delete('http://localhost:3000/user/admin', options).subscribe(data => {
-      console.log('User deleted');
+      // console.log('User deleted');
       this.presentToast('User profile successfully deleted');
       this.refresh();
     }, error => {

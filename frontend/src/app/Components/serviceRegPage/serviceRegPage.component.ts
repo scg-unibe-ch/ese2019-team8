@@ -48,7 +48,7 @@ export class ServiceRegPageComponent implements OnInit {
       location: new FormControl('', Validators.compose([
         Validators.maxLength(50),
         Validators.minLength(2),
-        Validators.pattern('^[A-Za-z0-9\\s]+$')
+        Validators.pattern('^[A-Za-z0-9\\säÄöÖüÜß\\-]+$')
       ])),
       description: new FormControl(''),
     });
