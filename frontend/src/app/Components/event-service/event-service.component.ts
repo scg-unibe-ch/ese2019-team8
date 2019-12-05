@@ -18,13 +18,9 @@ export class EventServiceComponent implements OnInit {
   @Input()
   profilePageForm: FormGroup;
   services: ServiceItem[] = [];
-  currentUserServices: ServiceItem[] = [];
   serviceURL = 'http://localhost:3000/service';
-  profileURL = 'http://localhost:3000/user/profile/';
   userItem: UserItem = new UserItem(null, '', false, '', '', null, '', null);
   token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
-  serviceItem: ServiceItem = new ServiceItem(null, '', '', '', null, '', '');
-
 
   ngOnInit() {
     this.httpClient.get(this.serviceURL).subscribe((instances: any) => {
