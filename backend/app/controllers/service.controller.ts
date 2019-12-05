@@ -115,6 +115,7 @@ router.post('/', async (req: Request, res: Response) => {
       if (user.isServiceProvider) {
         if (user.isApproved) {
           const instance = new Service();
+          req.body.contactMail = user.email;
           req.body.username = user.username;
           instance.fromSimplification(req.body);
           await instance.save();
