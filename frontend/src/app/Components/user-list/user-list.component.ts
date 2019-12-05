@@ -1,11 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {UserItem} from '../../_models/user-item';
 import {AlertController, ToastController} from '@ionic/angular';
 import {Router} from '@angular/router';
-import {interval} from 'rxjs';
-import {timeout} from 'rxjs/operators';
 
 
 @Component({
@@ -17,8 +15,7 @@ export class UserListComponent implements OnInit {
 
   constructor(private httpClient: HttpClient,
               private toastController: ToastController,
-              private alertController: AlertController,
-              private router: Router) {
+              private alertController: AlertController) {
   }
 
   @Input()
@@ -28,6 +25,9 @@ export class UserListComponent implements OnInit {
   userItem: UserItem = new UserItem(null, '');
   token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
 
+  /**
+   * Get function so all users get pulled from the database to iterate into the list.
+   */
   ngOnInit() {
     this.httpClient.get(this.userURL + this.token).subscribe((instances: any) => {
       this.users.push.apply(this.users, instances.map((instance) =>
@@ -38,7 +38,10 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  approve(username, approve) {
+  /**
+   * Changes status of "isApproved" to the chosen value
+   */
+  changeApproveStatus(username, approve) {
     this.httpClient.put('http://localhost:3000/user/admin', {
       token: this.token,
       username,
@@ -55,6 +58,9 @@ export class UserListComponent implements OnInit {
 
   }
 
+  /**
+   * Deletes user with given username as parameter.
+   */
   deleteUser(usernameToBeDeleted) {
     // console.log(usernameToBeDeleted);
     const options = {
@@ -67,7 +73,7 @@ export class UserListComponent implements OnInit {
       }
     };
     this.httpClient.delete('http://localhost:3000/user/admin', options).subscribe(data => {
-      // console.log('User deleted');
+      console.log('User deleted');
       this.presentToast('User profile successfully deleted');
       this.refresh();
     }, error => {
@@ -75,8 +81,10 @@ export class UserListComponent implements OnInit {
     });
   }
 
-
-  async presentAlertConfirm(usernameToBeDeleted) {
+  /**
+   * Presents toast with confirmation feature, so no deletions happen on accident.
+   */
+  async deleteUserAlert(usernameToBeDeleted) {
     const alert = await this.alertController.create({
       header: 'Do you really want to delete ' + usernameToBeDeleted + '\'s profile? All services connected to this profile will also be deleted. This action can not be undone!',
       message: '<strong>Yes</strong>, I am sure!!!',
@@ -115,11 +123,6 @@ export class UserListComponent implements OnInit {
   }
 
   refresh(): void {
-    interval(4000).pipe(timeout(5000))      // Let's use bigger timespan to be safe,
-      // since `interval` might fire a bit later then scheduled.
-      .subscribe(
-        value => window.location.reload(), // Will emit numbers just as regular `interval` would.
-        err => console.log(err),     // Will never be called.
-      );
+    window.location.reload();
   }
 }

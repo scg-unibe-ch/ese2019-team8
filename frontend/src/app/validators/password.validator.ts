@@ -1,6 +1,9 @@
 import {FormControl, FormGroup} from '@angular/forms';
 
 export class PasswordValidator {
+  /**
+   * Checks if password and passwor confirmation field do contain the same input.
+   */
   static areEqual(formGroup: FormGroup) {
     let val;
     let valid = true;

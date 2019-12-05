@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 import {AlertController, ToastController} from '@ionic/angular';
@@ -33,6 +33,9 @@ export class ServiceDetailsComponent implements OnInit {
   token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
   modificationView: boolean;
 
+  /**
+   * Get method to pull service entries from db. Also creates form for services.
+   */
   ngOnInit() {
     this.services = [];
     this.httpClient.get('http://localhost:3000/service/myServices/' + this.token, {}).subscribe((instances: any) => {
@@ -62,6 +65,9 @@ export class ServiceDetailsComponent implements OnInit {
     });
   }
 
+  /**
+   * Gets details from single service from db with get method.
+   */
   getOnlyThisService(serviceId) {
     this.modificationView = true;
     this.httpClient.get('http://localhost:3000/service/id=' + serviceId).subscribe((instance: any) => {
@@ -75,6 +81,9 @@ export class ServiceDetailsComponent implements OnInit {
     });
   }
 
+  /**
+   * Takes data from FormControl and writes them into the db with put method.
+   */
   clickModifyService(serviceId) {
     this.modificationView = false;
     this.httpClient.put('http://localhost:3000/service', {
@@ -95,7 +104,9 @@ export class ServiceDetailsComponent implements OnInit {
       });
   }
 
-
+  /**
+   * Presents toast with confirmation feature, so no deletions happen on accident.
+   */
   async deleteServiceAlert(serviceId, serviceName) {
     const alert = await this.alertController.create({
       header: 'Do you really want to delete ' + serviceName + '? This action can not be undone!',
@@ -130,6 +141,9 @@ export class ServiceDetailsComponent implements OnInit {
     toast.present();
   }
 
+  /**
+   * Deletes single service with parameter serviceID
+   */
   clickDeleteService(serviceId) {
     const options = {
       headers: new HttpHeaders({
@@ -149,6 +163,9 @@ export class ServiceDetailsComponent implements OnInit {
     });
   }
 
+  /**
+   * Refreshes the page after 4 seconds, so that the Toast alert is displayed first
+   */
   refresh(): void {
     interval(4000).pipe(timeout(5000))      // Let's use bigger timespan to be safe,
       // since `interval` might fire a bit later then scheduled.

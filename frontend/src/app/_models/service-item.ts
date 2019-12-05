@@ -1,9 +1,8 @@
 export class ServiceItem {
   serviceItemsId: number;
 
-
   constructor(
-    public   id: number,
+    public id: number,
     public user: string,
     public serviceName: string,
     public category: string,

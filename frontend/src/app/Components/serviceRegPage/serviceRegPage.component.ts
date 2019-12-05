@@ -27,6 +27,9 @@ export class ServiceRegPageComponent implements OnInit {
               private toastController: ToastController
   ) {}
 
+  /**
+   * Creates services form on page load.
+   */
   ngOnInit() {
     this.httpClient.get('http://localhost:3000/service', {
       params: new HttpParams().set('serviceItemId', '' + this.serviceItem.id)
@@ -53,7 +56,9 @@ export class ServiceRegPageComponent implements OnInit {
     });
   }
 
-
+  /**
+   * Adds service with post method.
+   */
   clickAddService() {
     console.log(this.serviceForm.value.category);
     this.httpClient.post('http://localhost:3000/service', {
@@ -73,6 +78,9 @@ export class ServiceRegPageComponent implements OnInit {
       });
   }
 
+  /**
+   * Refreshes the page after 4 seconds, so that the Toast alert is displayed first
+   */
   refresh(): void {
     interval(4000).pipe(timeout(5000))      // Let's use bigger timespan to be safe,
       // since `interval` might fire a bit later then scheduled.
