@@ -25,7 +25,8 @@ export class ServiceRegPageComponent implements OnInit {
               private eventService: EventServiceComponent,
               private formBuilder: FormBuilder,
               private toastController: ToastController
-  ) {}
+  ) {
+  }
 
   /**
    * Creates services form on page load.
@@ -83,7 +84,7 @@ export class ServiceRegPageComponent implements OnInit {
    */
   refresh(): void {
     interval(4000).pipe(timeout(5000))      // Let's use bigger timespan to be safe,
-      // since `interval` might fire a bit later then scheduled.
+    // since `interval` might fire a bit later then scheduled.
       .subscribe(
         value => window.location.reload(), // Will emit numbers just as regular `interval` would.
         err => console.log(err),     // Will never be called.

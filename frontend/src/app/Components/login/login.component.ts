@@ -5,8 +5,7 @@ import {Router} from '@angular/router';
 
 import {first} from 'rxjs/operators';
 
-import {UserService} from '../../_services';
-import {AuthenticationService} from '../../_services';
+import {AuthenticationService, UserService} from '../../_services';
 import {ToastController} from '@ionic/angular';
 
 @Component({
@@ -32,7 +31,7 @@ export class LoginComponent implements OnInit {
    */
   ngOnInit() {
     this.httpClient.post('http://localhost:3000/user/createAdmin', {}).subscribe(data => {
-      // console.log(data);
+      console.log(data);
     });
     this.authenticationService.logout();
   }

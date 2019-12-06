@@ -1,15 +1,34 @@
-ion-card{
-  ion-card-header{
-    background-image: url("../../../assets/cardBackgrounds/BalloonsBandW.jpeg");
+/**
+* image source https://www.pexels.com/de-de/foto/abstrakt-beleuchtet-beleuchtung-bildung-301673/
+* Licence: https://www.pexels.com/de-de/fotolizenz/
+ */
+ion-card {
+  ion-card-header {
+    background-image: url("../../../assets/abstract-art-blur-bokeh-301673-min.png");
   }
-  ion-card-subtitle{
+
+  ion-card-subtitle {
     size: 14pt
 
   }
-  ion-card-title{
+
+  ion-card-title {
     size: 20pt;
   }
-  ion-card-content{
+
+  ion-card-content {
     color: #1e2023;
   }
+}
+
+.serviceModTitle {
+  font-size: 20pt;
+}
+
+.whiteChip {
+  color: white;
+}
+
+.blackChip {
+  color: black;
 }

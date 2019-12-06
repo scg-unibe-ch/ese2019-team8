@@ -14,32 +14,41 @@ import {AlertController} from '@ionic/angular';
 })
 export class SearcherComponent implements OnInit {
 
-  constructor(private httpClient: HttpClient,
-              private alertController: AlertController) {
-  }
-
   serviceSearchAnyURL = 'http://localhost:3000/service/searchAny/';
   profileURL = 'http://localhost:3000/user/profile/';
-  currentUSerServicesURL = 'http://localhost:3000/service/myServices/';
   userItem: UserItem = new UserItem(null, '', false,
     '', '', null, '', null);
   services: ServiceItem[] = [];
   token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
   inputValue: string;
   categories: string[] = ['venue', 'photography', 'catering', 'hotels', 'music', 'stylist', 'decoration', 'planner'];
-  partyCategories: string[] = ['venue', 'catering', 'music', 'planner'];
+  partyCategories: string[] = ['venue', 'catering', 'music', 'decoration', 'planner'];
   category: string;
   randomServices: ServiceItem[] = [];
   randomPartyView: boolean;
+  searchResultView: boolean;
+  randomServiceView: boolean;
 
+  constructor(private httpClient: HttpClient,
+              private alertController: AlertController) {
+  }
 
   ngOnInit() {
+    this.httpClient.get(this.profileURL + this.token)
+      .subscribe((instance: any) => {
+        // this.user = instances.map((instance) => new userItem(instance.username, instance.email, instance.zip));
+        this.userItem.username = instance.username;
+        this.userItem.isServiceProvider = instance.isServiceProvider;
+      });
   }
 
 
   clickSearch() {
+    this.searchResultView = true;
     this.randomPartyView = false;
-    this.closeServices();
+    this.randomServiceView = false;
+    this.services = [];
+    this.randomServices = [];
     // Searches for service in DB, with all parameters
     this.httpClient.get(this.serviceSearchAnyURL + this.inputValue,
       {}).subscribe((instances: any) => {
@@ -51,22 +60,20 @@ export class SearcherComponent implements OnInit {
   }
 
 
-  getCurrentUserServices() {
-    this.closeServices();
-    this.httpClient.get(this.currentUSerServicesURL + this.token, {}).subscribe((instances: any) => {
-      this.services.push.apply(this.services, instances.map((instance) =>
-        new ServiceItem(instance.id, instance.user, instance.serviceName, instance.category
-          , instance.price, instance.location, instance.descriptio, instance.contactMail)));
-    });
-  }
-
   closeServices() {
+    this.randomPartyView = false;
+    this.searchResultView = false;
+    this.randomServiceView = false;
     this.services = [];
+    this.randomServices = [];
   }
 
   clickCategorySearch(categoryId) {
+    this.searchResultView = true;
     this.randomPartyView = false;
+    this.randomServiceView = false;
     this.services = [];
+    this.randomServices = [];
     this.category = this.categories[categoryId];
     this.httpClient.get(this.serviceSearchAnyURL + this.category, {}).subscribe((instances: any) => {
       this.services.push.apply(this.services, instances.map((instance) =>
@@ -77,7 +84,10 @@ export class SearcherComponent implements OnInit {
 
   clickRandomParty() {
     this.randomPartyView = true;
+    this.searchResultView = false;
+    this.randomServiceView = false;
     this.services = [];
+    this.randomServices = [];
     this.httpClient.get('http://localhost:3000/service').subscribe((instances: any) => {
       this.services.push.apply(this.services, instances.map((instance) =>
         new ServiceItem(instance.id, instance.user, instance.serviceName, instance.category
@@ -89,14 +99,34 @@ export class SearcherComponent implements OnInit {
         for (const serviceItem of this.services) {
           if (serviceItem.category === partyCategory) {
             while (i < 1) {
-            this.randomServices[index] = serviceItem;
-            index++;
-            i++;
+              this.randomServices[index] = serviceItem;
+              index++;
+              i++;
+            }
           }
-        }
 
-      }}
+        }
+      }
     });
+  }
+
+  clickRandomService() {
+    this.searchResultView = false;
+    this.randomPartyView = false;
+    this.randomServiceView = true;
+    this.services = [];
+    this.randomServices = [];
+    this.httpClient.get('http://localhost:3000/service').subscribe((instances: any) => {
+      this.services.push.apply(this.services, instances.map((instance) =>
+        new ServiceItem(instance.id, instance.user, instance.serviceName, instance.category
+          , instance.price, instance.location, instance.description, instance.contactMail)));
+      this.services = this.shuffle(this.services);
+      let randomService;
+      randomService = this.randomItem(this.services);
+      this.services = [];
+      this.services.push(randomService);
+    });
+
   }
 
   shuffle(array) {
@@ -116,7 +146,7 @@ export class SearcherComponent implements OnInit {
    */
   refresh(): void {
     interval(4000).pipe(timeout(5000))      // Let's use bigger timespan to be safe,
-      // since `interval` might fire a bit later then scheduled.
+    // since `interval` might fire a bit later then scheduled.
       .subscribe(
         value => window.location.reload(), // Will emit numbers just as regular `interval` would.
         err => console.log(err),     // Will never be called.

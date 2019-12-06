@@ -1,7 +1,7 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { EventServiceComponent } from './event-service.component';
+import {EventServiceComponent} from './event-service.component';
 
 describe('EventServiceComponent', () => {
   let component: EventServiceComponent;
@@ -9,10 +9,10 @@ describe('EventServiceComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EventServiceComponent ],
+      declarations: [EventServiceComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

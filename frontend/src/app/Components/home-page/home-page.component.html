@@ -2,23 +2,48 @@
   <ion-buttons>
     <ion-button *ngIf="userItem.isServiceProvider" [routerLink]="['/serviceRegistration']" color="olive">
       <ion-icon name="add"></ion-icon>
-      Add a new Service
+      <p style="margin-left:0.5em">Add a new Service</p>
     </ion-button>
-    <ion-button *ngIf="isAdmin" [routerLink]="['/userList']" color="warning">
+    <ion-button [routerLink]="['/search']" color="granit">
+      <ion-icon name="search"></ion-icon>
+      <p style="margin-left:0.5em"> Search for services</p>
+    </ion-button>
+    <ion-button *ngIf="isAdmin" [routerLink]="['/userList']" color="okra">
       Admin User Panel
     </ion-button>
   </ion-buttons>
 
 
-
-  <ion-content>
-    <app-searcher></app-searcher>
-  </ion-content>
   <div>
-      <ion-title color="dark" align-self-center>Featured Services</ion-title>
+    <ion-title align-self-center class="featureTitle" text-capitalize text-center>
+      Featured Services
+    </ion-title>
   </div>
   <ion-content>
-    <app-event-service></app-event-service>
+    <div *ngFor="let item of services">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle color="light">{{item.category}}</ion-card-subtitle>
+          <ion-card-title color="dark">{{item.serviceName}}</ion-card-title>
+          <ion-chip class="blackChip" color="dark" outline>
+            <ion-icon name="cash"></ion-icon>
+            <ion-label>{{item.price}} CHF</ion-label>
+          </ion-chip>
+          <ion-chip class="whiteChip" color="light" outline>
+            <ion-icon name="pin"></ion-icon>
+            <ion-label>{{item.location}}</ion-label>
+          </ion-chip>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-buttons>
+            {{item.description}}
+            <ion-button (click)="showBooking(item.serviceName, item.contactMail)" align-self-end color="olive" fill="solid" size="large"
+                        slot="end">Book
+            </ion-button>
+          </ion-buttons>
+        </ion-card-content>
+      </ion-card>
+    </div>
   </ion-content>
 
 </ion-app>

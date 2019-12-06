@@ -1,28 +1,37 @@
 <ion-app>
 
   <ion-content class="ion-padding">
+    <ion-button>
+      <ion-icon name="arrow-round-back" slot="icon-only"></ion-icon>
+    </ion-button>
+    <div>
+      <ion-title align-self-center color="dark">All Services</ion-title>
+    </div>
 
     <div *ngFor="let item of services">
-        <ion-card>
-          <ion-card-header>
-            <ion-card-subtitle color="light">{{item.category}}</ion-card-subtitle>
-            <ion-card-title color="dark">{{item.serviceName}}</ion-card-title>
-            <ion-button color="olive" (click)="showBooking(item.serviceName, item.contactMail)">Book
-            </ion-button>
-            <ion-chip color="dark" outline>
-              <ion-icon name="cash"></ion-icon>
-              <ion-label>{{item.price}} CHF</ion-label>
-            </ion-chip>
-            <ion-chip color="light" outline>
-              <ion-icon name="pin"></ion-icon>
-              <ion-label>{{item.location}}</ion-label>
-            </ion-chip>
-          </ion-card-header>
-          <ion-card-content>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle color="light">{{item.category}}</ion-card-subtitle>
+          <ion-card-title color="dark">{{item.serviceName}}</ion-card-title>
+          <ion-chip class="blackChip" color="dark" outline>
+            <ion-icon name="cash"></ion-icon>
+            <ion-label>{{item.price}} CHF</ion-label>
+          </ion-chip>
+          <ion-chip class="whiteChip" color="light" outline>
+            <ion-icon name="pin"></ion-icon>
+            <ion-label>{{item.location}}</ion-label>
+          </ion-chip>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-buttons>
             {{item.description}}
-          </ion-card-content>
-        </ion-card>
-      </div>
+            <ion-button (click)="showBooking(item.serviceName, item.contactMail)" align-self-end color="olive" fill="solid" size="large"
+                        slot="end">Book
+            </ion-button>
+          </ion-buttons>
+        </ion-card-content>
+      </ion-card>
+    </div>
 
   </ion-content>
 </ion-app>

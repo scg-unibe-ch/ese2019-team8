@@ -1,20 +1,54 @@
-ion-button:before{
+/**
+* image sources https://www.pexels.com/de-de/foto/abstrakt-beleuchtet-beleuchtung-bildung-301673/
+* https://www.pexels.com/de-de/foto/abstrakt-bunt-dekoration-design-796607/
+* Licence: https://www.pexels.com/de-de/fotolizenz/
+ */
+ion-button:before {
   margin: 0 5px;
 }
-ion-card{
-  ion-card-header{
-    background-image: url("../../../assets/cardBackgrounds/BalloonsBandW.jpeg");
+
+ion-card {
+  ion-card-header {
+    background-image: url("../../../assets/abstract-art-blur-bokeh-301673-min.png");
   }
-  ion-card-subtitle{
+
+  ion-card-subtitle {
     size: 14pt
 
   }
-  ion-card-title{
+
+  ion-card-title {
     size: 20pt;
   }
-  ion-card-content{
+
+  ion-card-content {
     color: #1e2023;
   }
+}
+
+.randomButton {
+  background-image: url("../../../assets/randomButtonBg.png");
+  color: white
+}
+
+.randomHeader {
+  font-size: 25pt;
+  background-image: url("../../../assets/randomButtonBg.png");
+  color: white;
+  position: center
+}
+
+.searchTitle {
+  font-size: 25pt;
+  position: center
+}
+
+.whiteChip {
+  color: white;
+}
+
+.blackChip {
+  color: black;
 }
 
 

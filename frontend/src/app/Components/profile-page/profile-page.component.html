@@ -6,18 +6,16 @@
 
         <ion-col size="7">
           <form #saveForm="ngForm" (ngSubmit)="save()">
-            <ion-button *ngIf="isAdmin" [routerLink]="['/userList']" color="warning">
-              Admin User Panel
-            </ion-button>
 
-            <ion-title slot="start">Hello {{userItem.username}}</ion-title>
+
+            <ion-title class="helloTitle" slot="start">Hello {{userItem.username}}</ion-title>
 
             <ion-list inset>
 
               <ion-header>
                 <ion-toolbar>
                   <ion-thumbnail slot="start">
-                    <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y" alt="Avatar Icon">
+                    <img alt="Avatar Icon" src="../../../assets/_ionicons_svg_md-person.svg">
                   </ion-thumbnail>
                   <ion-title slot="start">{{userItem.username}}'s Profile</ion-title>
                 </ion-toolbar>
@@ -127,7 +125,6 @@
               <div>
                 <ion-row class="signup-col">
                   <ion-button (click)="save()" [disabled]="!profilePageForm.valid" class="submit-btn" color="olive">
-                    <ion-icon name="save" slot="start"></ion-icon>
                     Save
                   </ion-button>
                   <ion-button [routerLink]="['/changePW']" color="medium">
@@ -151,7 +148,7 @@
                 <ion-button (click)="getCurrentUserServices()" *ngIf="!userServiceView" color="dark">Show
                   my Services
                 </ion-button>
-                <ion-button (click)="closeServices()" *ngIf="userServiceView" color="danger">Close my
+                <ion-button (click)="closeServices()" *ngIf="userServiceView" color="berry">Close my
                   Services
                 </ion-button>
                 <ion-button *ngIf="userServiceView" [routerLink]="['/serviceDetails']" color="dark">More
@@ -164,14 +161,14 @@
                 <ion-card-header>
                   <ion-card-subtitle color="light">{{item.category}}</ion-card-subtitle>
                   <ion-card-title color="dark">{{item.serviceName}}</ion-card-title>
-                  <ion-button color="olive" (click)="showBooking(item.serviceName, item.contactMail)">Book
-                  </ion-button>
+                  <!--<ion-button color="olive" (click)="showBooking(item.serviceName, item.contactMail)">Book
+                  </ion-button>-->
                 </ion-card-header>
-                <ion-chip color="dark" outline>
+                <ion-chip class="blackChip" color="dark" outline>
                   <ion-icon name="cash"></ion-icon>
                   <ion-label>{{item.price}} CHF</ion-label>
                 </ion-chip>
-                <ion-chip color="dark" outline>
+                <ion-chip class="whiteChip" color="light" outline>
                   <ion-icon name="pin"></ion-icon>
                   <ion-label>{{item.location}}</ion-label>
                 </ion-chip>
@@ -184,9 +181,14 @@
         </ion-col>
 
         <ion-footer>
-          <ion-buttons slot="primary">
-            <ion-button (click)="deleteProfileAlert()" color="danger">Delete Profile</ion-button>
-          </ion-buttons>
+          <ion-toolbar>
+            <ion-buttons slot="end">
+              <ion-button *ngIf="isAdmin" [routerLink]="['/userList']" color="okra">
+                Admin User Panel
+              </ion-button>
+              <ion-button (click)="deleteProfileAlert()" color="berry">Delete Profile</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
         </ion-footer>
 
       </ion-row>

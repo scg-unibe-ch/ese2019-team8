@@ -17,13 +17,6 @@ import {timeout} from 'rxjs/operators';
 export class ServiceDetailsComponent implements OnInit {
 
 
-  constructor(private httpClient: HttpClient,
-              private formBuilder: FormBuilder,
-              private toastController: ToastController,
-              private alertController: AlertController
-  ) {
-  }
-
   serviceItem: ServiceItem = new ServiceItem(null, '', '', '', null, '', '', '');
   serviceForm: FormGroup;
   validationMessages = ValidationMessages.validationMessages;
@@ -32,6 +25,13 @@ export class ServiceDetailsComponent implements OnInit {
   services: ServiceItem[] = [];
   token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
   modificationView: boolean;
+
+  constructor(private httpClient: HttpClient,
+              private formBuilder: FormBuilder,
+              private toastController: ToastController,
+              private alertController: AlertController
+  ) {
+  }
 
   /**
    * Get method to pull service entries from db. Also creates form for services.
@@ -169,7 +169,7 @@ export class ServiceDetailsComponent implements OnInit {
    */
   refresh(): void {
     interval(4000).pipe(timeout(5000))      // Let's use bigger timespan to be safe,
-      // since `interval` might fire a bit later then scheduled.
+    // since `interval` might fire a bit later then scheduled.
       .subscribe(
         value => window.location.reload(), // Will emit numbers just as regular `interval` would.
         err => console.log(err),     // Will never be called.

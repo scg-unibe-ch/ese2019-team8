@@ -1,16 +1,19 @@
+<!--Logo and favicon design by @Nina Baumgartner-->
 <ion-app>
 
   <!--Toolbar-->
   <ion-toolbar>
     <ion-thumbnail slot="start">
-      <img src="../assets/logoSloganTransparent2.svg"/>
+      <img src="../assets/logoSloganTransparent2.svg" alt="Logo">
     </ion-thumbnail>
-
-    <ion-buttons slot="secondary" align-self-start>
-      <ion-button *ngIf="loggedIn()" [routerLink]="['/login']" color="danger" (click)="logout()">
+    <ion-buttons align-self-start slot="secondary">
+      <ion-button (click)="logout()" *ngIf="loggedIn()" [routerLink]="['/login']" color="berry">
         Sign Out
       </ion-button>
       <ion-button *ngIf="loggedIn()" [routerLink]="['/home']">
+        <ion-icon name="home" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="loggedIn()" [routerLink]="['/search']">
         <ion-icon name="search" slot="icon-only"></ion-icon>
       </ion-button>
       <ion-button *ngIf="loggedIn()" [routerLink]="['/profilePage']">

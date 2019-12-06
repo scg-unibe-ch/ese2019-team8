@@ -1,26 +1,26 @@
 <div *ngIf="!modificationView">
 
-<div  *ngFor="let item of services" >
+  <div *ngFor="let item of services">
 
     <ion-card>
       <ion-card-header>
         <ion-card-subtitle color="light">{{item.category}}</ion-card-subtitle>
         <ion-card-title color="dark">{{item.serviceName}}</ion-card-title>
       </ion-card-header>
-      <ion-chip color="dark" outline>
+      <ion-chip class="blackChip" color="dark" outline>
         <ion-icon name="cash"></ion-icon>
         <ion-label>{{item.price}} CHF</ion-label>
       </ion-chip>
-      <ion-chip color="dark" outline>
+      <ion-chip class="whiteChip" color="dark" outline>
         <ion-icon name="pin"></ion-icon>
         <ion-label>{{item.location}}</ion-label>
       </ion-chip>
       <ion-card-content>
-        {{item.description.substring(0,300)}} [...]
+        {{item.description}}
       </ion-card-content>
       <ion-buttons>
-      <ion-button color="olive" (click)="getOnlyThisService(item.id)">Modify Service</ion-button>
-      <ion-button (click)="deleteServiceAlert(item.id, item.serviceName)" color="danger">Delete Service</ion-button>
+        <ion-button (click)="getOnlyThisService(item.id)" color="olive">Modify Service</ion-button>
+        <ion-button (click)="deleteServiceAlert(item.id, item.serviceName)" color="berry">Delete Service</ion-button>
 
       </ion-buttons>
     </ion-card>
@@ -28,108 +28,106 @@
 </div>
 
 <form [formGroup]="serviceForm">
-<div *ngIf="modificationView">
-  <ion-title color="Dark">
-    Change your Service Details
-  </ion-title>
-  <ion-row style="height: 100%">
-    <ion-col>
-      <div>
-        <ion-item>
-          <ion-input name="serviceName" [(ngModel)]="serviceItem.serviceName" placeholder="Service Name"
-                     type="text"
-                     formControlName="serviceName" required value="{{serviceItem.serviceName}}"></ion-input>
-        </ion-item>
-      </div>
-      <div class="validation-errors">
-        <ng-container *ngFor="let validation of validationMessages.serviceName">
-          <div class="error-message"
-               *ngIf="serviceForm.get('serviceName').hasError(validation.type) && (serviceForm.get('serviceName').dirty || serviceForm.get('serviceName').touched)">
-            <ion-icon name="information-circle"></ion-icon>
-            {{ validation.message }}
+  <div *ngIf="modificationView">
+    <div>
+      <ion-title class="serviceModTitle" color="Dark">
+        Change {{serviceItem.serviceName}}s details
+      </ion-title>
+    </div>
+    <ion-row style="height: 100%">
+      <ion-col>
+        <div>
+          <ion-item>
+            <ion-input [(ngModel)]="serviceItem.serviceName" formControlName="serviceName" name="serviceName"
+                       placeholder="Service Name"
+                       required type="text" value="{{serviceItem.serviceName}}"></ion-input>
+          </ion-item>
+        </div>
+        <div class="validation-errors">
+          <ng-container *ngFor="let validation of validationMessages.serviceName">
+            <div *ngIf="serviceForm.get('serviceName').hasError(validation.type) && (serviceForm.get('serviceName').dirty || serviceForm.get('serviceName').touched)"
+                 class="error-message">
+              <ion-icon name="information-circle"></ion-icon>
+              {{ validation.message }}
+            </div>
+          </ng-container>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="height: 100%">
+      <ion-col size="5">
+        <div>
+          <ion-item>
+            <ion-label color="dark">Category</ion-label>
+            <ion-select [(ngModel)]="serviceItem.category" formControlName="category" interface="popover" multiple="false"
+                        name="category">
+              <ion-select-option value="venue">Venue</ion-select-option>
+              <ion-select-option value="photography">Photography</ion-select-option>
+              <ion-select-option value="catering">Catering</ion-select-option>
+              <ion-select-option value="music">Music</ion-select-option>
+              <ion-select-option value="hotels">Hotels</ion-select-option>
+              <ion-select-option value="stylist">Stylist</ion-select-option>
+              <ion-select-option value="decoration">Decoration</ion-select-option>
+              <ion-select-option value="planner">Event planning</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          <ion-item>
+            <ion-input [(ngModel)]="serviceItem.price" formControlName="price" name="price" placeholder="Price (CHF)"
+                       type="number"></ion-input>
+          </ion-item>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validationMessages.price">
+              <div *ngIf="serviceForm.get('price').hasError(validation.type) && (serviceForm.get('price').dirty || serviceForm.get('price').touched)"
+                   class="error-message">
+                <ion-icon name="information-circle"></ion-icon>
+                {{ validation.message }}
+              </div>
+            </ng-container>
           </div>
-        </ng-container>
-      </div>
-    </ion-col>
-  </ion-row>
-
-  <ion-row style="height: 100%">
-    <ion-col size="5">
-      <div>
-        <ion-item>
-          <ion-label color="dark">Category</ion-label>
-          <ion-select interface="popover" name="category" [(ngModel)]="serviceItem.category" multiple="false"
-                      formControlName="category">
-            <ion-select-option value="venue">Venue</ion-select-option>
-            <ion-select-option value="photography">Photography</ion-select-option>
-            <ion-select-option value="catering">Catering</ion-select-option>
-            <ion-select-option value="music">Music</ion-select-option>
-            <ion-select-option value="hotels">Hotels</ion-select-option>
-            <ion-select-option value="stylist">Stylist</ion-select-option>
-            <ion-select-option value="decoration">Decoration</ion-select-option>
-            <ion-select-option value="planner">Event planning</ion-select-option>
-          </ion-select>
-        </ion-item>
-      </div>
-    </ion-col>
-    <ion-col>
-      <div>
-        <ion-item>
-          <ion-input name="price" [(ngModel)]="serviceItem.price" placeholder="Price (CHF)" type="number"
-                     formControlName="price"></ion-input>
-        </ion-item>
-        <div class="validation-errors">
-          <ng-container *ngFor="let validation of validationMessages.price">
-            <div class="error-message"
-                 *ngIf="serviceForm.get('price').hasError(validation.type) && (serviceForm.get('price').dirty || serviceForm.get('price').touched)">
-              <ion-icon name="information-circle"></ion-icon>
-              {{ validation.message }}
-            </div>
-          </ng-container>
         </div>
-      </div>
-    </ion-col>
-    <ion-col>
-      <div>
-        <ion-item>
-          <ion-input name="location" [(ngModel)]="serviceItem.location" placeholder="Location" type="text"
-                     formControlName="location"></ion-input>
-        </ion-item>
+      </ion-col>
+      <ion-col>
+        <div>
+          <ion-item>
+            <ion-input [(ngModel)]="serviceItem.location" formControlName="location" name="location" placeholder="Location"
+                       type="text"></ion-input>
+          </ion-item>
 
-        <div class="validation-errors">
-          <ng-container *ngFor="let validation of validationMessages.location">
-            <div class="error-message"
-                 *ngIf="serviceForm.get('location').hasError(validation.type) && (serviceForm.get('location').dirty || serviceForm.get('location').touched)">
-              <ion-icon name="information-circle"></ion-icon>
-              {{ validation.message }}
-            </div>
-          </ng-container>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validationMessages.location">
+              <div *ngIf="serviceForm.get('location').hasError(validation.type) && (serviceForm.get('location').dirty || serviceForm.get('location').touched)"
+                   class="error-message">
+                <ion-icon name="information-circle"></ion-icon>
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
         </div>
-      </div>
-    </ion-col>
-  </ion-row>
-  <ion-row style="height: 100%">
-    <ion-col>
-      <ion-item>
-        <ion-label position="stacked">Description of service</ion-label>
-        <ion-textarea name="serviceDescription" [(ngModel)]="serviceItem.description"
-                      placeholder="Describe your service"
-                      rows="10" formControlName="description"></ion-textarea>
-      </ion-item>
-    </ion-col>
-  </ion-row>
+      </ion-col>
+    </ion-row>
+    <ion-row style="height: 100%">
+      <ion-col>
+        <ion-item>
+          <ion-label position="stacked">Description of service</ion-label>
+          <ion-textarea [(ngModel)]="serviceItem.description" formControlName="description"
+                        name="serviceDescription"
+                        placeholder="Describe your service" rows="10"></ion-textarea>
+        </ion-item>
+      </ion-col>
+    </ion-row>
 
-  <ion-row>
-    <ion-col size="2">
-      <ion-button (click)="clickModifyService(serviceItem.id)" color="success"
-                  [disabled]="!serviceForm.valid">Save your changes
+    <ion-row>
+      <ion-button (click)="clickModifyService(serviceItem.id)" [disabled]="!serviceForm.valid"
+                  color="olive">Save your changes
       </ion-button>
-      <ion-button (click)="modificationView=false" [routerLink]="['/serviceDetails']" color="danger">
-        <ion-icon slot="start" name="close"></ion-icon>
+      <ion-button (click)="modificationView=false" [routerLink]="['/serviceDetails']" color="berry">
         Cancel
       </ion-button>
-
-    </ion-col>
-  </ion-row>
-</div>
-  </form>
+    </ion-row>
+  </div>
+</form>

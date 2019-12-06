@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {UserItem} from '../../_models/user-item';
 import {AuthenticationService} from '../../_services';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -16,16 +16,6 @@ import {ValidationMessages} from '../../validators/validationMessages';
 })
 export class ProfilePageComponent implements OnInit {
 
-  constructor(
-    private authService: AuthenticationService,
-    private httpClient: HttpClient,
-    private router: Router,
-    private formBuilder: FormBuilder,
-    private alertController: AlertController,
-    private toastController: ToastController
-  ) {
-  }
-
   @Input()
   profilePageForm: FormGroup;
   user: UserItem;
@@ -37,6 +27,16 @@ export class ProfilePageComponent implements OnInit {
   userServiceView: boolean;
   validationMessages = ValidationMessages.validationMessages;
   isAdmin = false;
+
+  constructor(
+    private authService: AuthenticationService,
+    private httpClient: HttpClient,
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private alertController: AlertController,
+    private toastController: ToastController
+  ) {
+  }
 
   /**
    * Loads currently logged in user from db with token in localStorage. Creates form with current values.

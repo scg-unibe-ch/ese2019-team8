@@ -1,7 +1,7 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ServiceDetailsComponent } from './service-details.component';
+import {ServiceDetailsComponent} from './service-details.component';
 
 describe('SeviceDetailsComponent', () => {
   let component: ServiceDetailsComponent;
@@ -9,10 +9,10 @@ describe('SeviceDetailsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ServiceDetailsComponent ],
+      declarations: [ServiceDetailsComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

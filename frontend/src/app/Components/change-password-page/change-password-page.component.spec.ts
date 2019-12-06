@@ -1,7 +1,7 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ChangePasswordPageComponent } from './change-password-page.component';
+import {ChangePasswordPageComponent} from './change-password-page.component';
 
 describe('ChangePasswordPageComponent', () => {
   let component: ChangePasswordPageComponent;
@@ -9,10 +9,10 @@ describe('ChangePasswordPageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChangePasswordPageComponent ],
+      declarations: [ChangePasswordPageComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

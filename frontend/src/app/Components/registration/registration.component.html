@@ -19,12 +19,12 @@
                     <ion-label position="stacked">Username
                       <ion-text color="danger">*</ion-text>
                     </ion-label>
-                    <ion-input name="username" formControlName="username" required></ion-input>
+                    <ion-input formControlName="username" name="username" required></ion-input>
                   </ion-item>
                   <div class="validation-errors">
                     <ng-container *ngFor="let validation of validationMessages.username">
-                      <div class="error-message"
-                           *ngIf="registrationForm.get('username').hasError(validation.type) && (registrationForm.get('username').dirty || registrationForm.get('username').touched)">
+                      <div *ngIf="registrationForm.get('username').hasError(validation.type) && (registrationForm.get('username').dirty || registrationForm.get('username').touched)"
+                           class="error-message">
                         <ion-icon name="information-circle"></ion-icon>
                         {{ validation.message }}
                       </div>
@@ -36,12 +36,12 @@
                       <ion-label position="stacked">Password
                         <ion-text color="danger">*</ion-text>
                       </ion-label>
-                      <ion-input name="password" type="password" formControlName="password" required></ion-input>
+                      <ion-input formControlName="password" name="password" required type="password"></ion-input>
                     </ion-item>
                     <div class="validation-errors">
                       <ng-container *ngFor="let validation of validationMessages.password">
-                        <div class="error-message"
-                             *ngIf="registrationForm.get('passwordChecker').get('password').hasError(validation.type) && (registrationForm.get('passwordChecker').get('password').dirty || registrationForm.get('passwordChecker').get('password').touched)">
+                        <div *ngIf="registrationForm.get('passwordChecker').get('password').hasError(validation.type) && (registrationForm.get('passwordChecker').get('password').dirty || registrationForm.get('passwordChecker').get('password').touched)"
+                             class="error-message">
                           <ion-icon name="information-circle"></ion-icon>
                           {{ validation.message }}
                         </div>
@@ -51,13 +51,13 @@
                     <ion-item>
                       <ion-label position="stacked">Confirm password
                       </ion-label>
-                      <ion-input name="passwordConfirmation" type="password" formControlName="passwordConfirmation"
-                                 required></ion-input>
+                      <ion-input formControlName="passwordConfirmation" name="passwordConfirmation" required
+                                 type="password"></ion-input>
                     </ion-item>
                     <div class="validation-errors">
                       <ng-container *ngFor="let validation of validationMessages.passwordConfirmation">
-                        <div class="error-message"
-                             *ngIf="registrationForm.get('passwordChecker').get('passwordConfirmation').hasError(validation.type) && (registrationForm.get('passwordChecker').get('passwordConfirmation').dirty || registrationForm.get('passwordChecker').get('passwordConfirmation').touched)">
+                        <div *ngIf="registrationForm.get('passwordChecker').get('passwordConfirmation').hasError(validation.type) && (registrationForm.get('passwordChecker').get('passwordConfirmation').dirty || registrationForm.get('passwordChecker').get('passwordConfirmation').touched)"
+                             class="error-message">
                           <ion-icon name="information-circle"></ion-icon>
                           {{ validation.message }}
                         </div>
@@ -67,8 +67,8 @@
 
                   <div class="validation-errors">
                     <ng-container *ngFor="let validation of validationMessages.passwordConfirmation">
-                      <div class="error-message"
-                           *ngIf="registrationForm.get('passwordChecker').hasError(validation.type) && (registrationForm.get('passwordChecker').get('passwordConfirmation').dirty || registrationForm.get('passwordChecker').get('passwordConfirmation').touched)">
+                      <div *ngIf="registrationForm.get('passwordChecker').hasError(validation.type) && (registrationForm.get('passwordChecker').get('passwordConfirmation').dirty || registrationForm.get('passwordChecker').get('passwordConfirmation').touched)"
+                           class="error-message">
                         <ion-icon name="information-circle"></ion-icon>
                         {{ validation.message }}
                       </div>
@@ -77,7 +77,7 @@
 
                   <ion-item-divider class="ion-margin-top" color="dark" sticky="true">
                     <ion-label>
-                      <ion-icon class="form-icon" slot="start" name="people"></ion-icon>
+                      <ion-icon class="form-icon" name="people" slot="start"></ion-icon>
 
                     </ion-label>
                   </ion-item-divider>
@@ -86,12 +86,12 @@
                   <ion-item>
                     <ion-label position="stacked">Email</ion-label>
                     <ion-text color="danger">*</ion-text>
-                    <ion-input name="email" type="email" formControlName="email" required></ion-input>
+                    <ion-input formControlName="email" name="email" required type="email"></ion-input>
                   </ion-item>
                   <div class="validation-errors">
                     <ng-container *ngFor="let validation of validationMessages.email">
-                      <div class="error-message"
-                           *ngIf="registrationForm.get('email').hasError(validation.type) && (registrationForm.get('email').dirty || registrationForm.get('email').touched)">
+                      <div *ngIf="registrationForm.get('email').hasError(validation.type) && (registrationForm.get('email').dirty || registrationForm.get('email').touched)"
+                           class="error-message">
                         <ion-icon name="information-circle"></ion-icon>
                         {{ validation.message }}
                       </div>
@@ -100,33 +100,33 @@
 
                   <ion-item>
                     <ion-label position="stacked">Address</ion-label>
-                    <ion-input name="address" formControlName="address" placeholder="Address Line 1"></ion-input>
+                    <ion-input formControlName="address" name="address" placeholder="Address Line 1"></ion-input>
                     <div class="validation-errors">
                       <ng-container *ngFor="let validation of validationMessages.address">
-                        <div class="error-message"
-                             *ngIf="registrationForm.get('address').hasError(validation.type) && (registrationForm.get('address').dirty || registrationForm.get('address').touched)">
+                        <div *ngIf="registrationForm.get('address').hasError(validation.type) && (registrationForm.get('address').dirty || registrationForm.get('address').touched)"
+                             class="error-message">
                           <ion-icon name="information-circle"></ion-icon>
                           {{ validation.message }}
                         </div>
                       </ng-container>
                     </div>
 
-                    <ion-input name="zip" formControlName="zip" placeholder="Zip Code"></ion-input>
+                    <ion-input formControlName="zip" name="zip" placeholder="Zip Code"></ion-input>
                     <div class="validation-errors">
                       <ng-container *ngFor="let validation of validationMessages.zip">
-                        <div class="error-message"
-                             *ngIf="registrationForm.get('zip').hasError(validation.type) && (registrationForm.get('zip').dirty || registrationForm.get('zip').touched)">
+                        <div *ngIf="registrationForm.get('zip').hasError(validation.type) && (registrationForm.get('zip').dirty || registrationForm.get('zip').touched)"
+                             class="error-message">
                           <ion-icon name="information-circle"></ion-icon>
                           {{ validation.message }}
                         </div>
                       </ng-container>
                     </div>
 
-                    <ion-input name="city" formControlName="city" placeholder="City"></ion-input>
+                    <ion-input formControlName="city" name="city" placeholder="City"></ion-input>
                     <div class="validation-errors">
                       <ng-container *ngFor="let validation of validationMessages.city">
-                        <div class="error-message"
-                             *ngIf="registrationForm.get('city').hasError(validation.type) && (registrationForm.get('city').dirty || registrationForm.get('city').touched)">
+                        <div *ngIf="registrationForm.get('city').hasError(validation.type) && (registrationForm.get('city').dirty || registrationForm.get('city').touched)"
+                             class="error-message">
                           <ion-icon name="information-circle"></ion-icon>
                           {{ validation.message }}
                         </div>
@@ -135,12 +135,12 @@
                   </ion-item>
                   <ion-item>
                     <ion-label position="stacked">Phone</ion-label>
-                    <ion-input name="phoneNumber" formControlName="phoneNumber"></ion-input>
+                    <ion-input formControlName="phoneNumber" name="phoneNumber"></ion-input>
                   </ion-item>
                   <div class="validation-errors">
                     <ng-container *ngFor="let validation of validationMessages.phoneNumber">
-                      <div class="error-message"
-                           *ngIf="registrationForm.get('phoneNumber').hasError(validation.type) && (registrationForm.get('phoneNumber').dirty || registrationForm.get('phoneNumber').touched)">
+                      <div *ngIf="registrationForm.get('phoneNumber').hasError(validation.type) && (registrationForm.get('phoneNumber').dirty || registrationForm.get('phoneNumber').touched)"
+                           class="error-message">
                         <ion-icon name="information-circle"></ion-icon>
                         {{ validation.message }}
                       </div>
@@ -148,8 +148,8 @@
                   </div>
                   <!-- Checkbox for service Providers -->
                   <ion-item>
-                    <ion-checkbox name="isServiceProvider" formControlName="isServiceProvider" slot="start"
-                                  color="dark"></ion-checkbox>
+                    <ion-checkbox color="dark" formControlName="isServiceProvider" name="isServiceProvider"
+                                  slot="start"></ion-checkbox>
                     <ion-label>Register as service provider</ion-label>
                   </ion-item>
 
@@ -159,18 +159,17 @@
 
             <!--Button-->
             <ion-col>
-              <ion-button class="submit-btn" (click)="register()" [disabled]="!registrationForm.valid" color="olive">
-                <ion-icon slot="start" name="person-add"></ion-icon>
+              <ion-button (click)="register()" [disabled]="!registrationForm.valid" class="submit-btn" color="olive">
+                <ion-icon name="person-add" slot="start"></ion-icon>
                 Create Account
               </ion-button>
-              <ion-button [routerLink]="['/ProfilePage']" color="danger">
-                <ion-icon slot="start" name="close"></ion-icon>
+              <ion-button [routerLink]="['/ProfilePage']" color="berry">
                 Cancel
               </ion-button>
-              <ion-button (click)="reset()" color="light">
+              <!--<ion-button (click)="reset()" color="light">
                 <ion-icon slot="start" name="refresh"></ion-icon>
                 Reset
-              </ion-button>
+              </ion-button>-->
             </ion-col>
 
           </ion-col>

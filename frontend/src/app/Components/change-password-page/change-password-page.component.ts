@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {PasswordValidator} from '../../validators/password.validator';
 import {ValidationMessages} from '../../validators/validationMessages';
@@ -13,6 +13,11 @@ import {ToastController} from '@ionic/angular';
 })
 export class ChangePasswordPageComponent implements OnInit {
 
+  changePWForm: FormGroup;
+  passwordCheckerGroup: FormGroup;
+  token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
+  validationMessages = ValidationMessages.validationMessages;
+
   constructor(
     private httpClient: HttpClient,
     private router: Router,
@@ -20,11 +25,6 @@ export class ChangePasswordPageComponent implements OnInit {
     private toastController: ToastController
   ) {
   }
-
-  changePWForm: FormGroup;
-  passwordCheckerGroup: FormGroup;
-  token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
-  validationMessages = ValidationMessages.validationMessages;
 
   /**
    * Creates FormGroup with two slots so password can be changed and checked if input is the same.

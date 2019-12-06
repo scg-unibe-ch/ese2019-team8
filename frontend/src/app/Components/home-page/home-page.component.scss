@@ -1,3 +1,39 @@
-ion-title{
-  Font-size:20pt;
+/**
+* image source https://www.pexels.com/de-de/foto/abstrakt-beleuchtet-beleuchtung-bildung-301673/
+* Licence: https://www.pexels.com/de-de/fotolizenz/
+ */
+ion-title {
+  Font-size: 25pt;
+}
+
+ion-card {
+  ion-card-header {
+    background-image: url("../../../assets/abstract-art-blur-bokeh-301673-min.png");
+  }
+
+  ion-card-subtitle {
+    size: 14pt
+
+  }
+
+  ion-card-title {
+    size: 20pt;
+  }
+
+  ion-card-content {
+    color: #1e2023;
+  }
+}
+
+.featureTitle {
+  font-size: 25pt;
+  color: #5e5e5e;
+}
+
+.whiteChip {
+  color: white;
+}
+
+.blackChip {
+  color: black;
 }

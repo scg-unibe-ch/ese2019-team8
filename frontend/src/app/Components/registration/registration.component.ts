@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {PasswordValidator} from '../../validators/password.validator';
 import {UserItem} from '../../_models/user-item';
@@ -14,6 +14,12 @@ import {ToastController} from '@ionic/angular';
 })
 export class RegistrationComponent implements OnInit {
 
+  userItem: UserItem = new UserItem(null, '', false,
+    '', '', null, '', null);
+  registrationForm: FormGroup;
+  passwordCheckerGroup: FormGroup;
+  validationMessages = ValidationMessages.validationMessages;
+
   constructor(
     private httpClient: HttpClient,
     private router: Router,
@@ -21,12 +27,6 @@ export class RegistrationComponent implements OnInit {
     private toastController: ToastController
   ) {
   }
-
-  userItem: UserItem = new UserItem(null, '', false,
-    '', '', null, '', null);
-  registrationForm: FormGroup;
-  passwordCheckerGroup: FormGroup;
-  validationMessages = ValidationMessages.validationMessages;
 
   /**
    * Creates two forms, one for password and pw confirmation, the other for the other user details.
@@ -109,7 +109,7 @@ export class RegistrationComponent implements OnInit {
       phoneNumber: this.registrationForm.value.phoneNumber,
 
     }).subscribe(data => {
-        // console.log(data);
+        console.log(data);
         this.presentToast('Registration successful');
         this.router.navigate(['/login'], {queryParams: {registered: true}});
       },

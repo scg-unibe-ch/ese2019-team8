@@ -3,7 +3,6 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {FormGroup} from '@angular/forms';
 import {UserItem} from '../../_models/user-item';
 import {AlertController, ToastController} from '@ionic/angular';
-import {Router} from '@angular/router';
 
 
 @Component({
@@ -13,17 +12,17 @@ import {Router} from '@angular/router';
 })
 export class UserListComponent implements OnInit {
 
-  constructor(private httpClient: HttpClient,
-              private toastController: ToastController,
-              private alertController: AlertController) {
-  }
-
   @Input()
   profilePageForm: FormGroup;
   users: UserItem[] = [];
   userURL = 'http://localhost:3000/user/allUsers/';
   userItem: UserItem = new UserItem(null, '');
   token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
+
+  constructor(private httpClient: HttpClient,
+              private toastController: ToastController,
+              private alertController: AlertController) {
+  }
 
   /**
    * Get function so all users get pulled from the database to iterate into the list.

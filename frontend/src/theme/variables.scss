@@ -77,12 +77,39 @@
 
   /** olive **/
   --ion-color-olive: #559053;
-  --ion-color-olive-rgb: 85,144,83;
+  --ion-color-olive-rgb: 85, 144, 83;
   --ion-color-olive-contrast: #ffffff;
-  --ion-color-olive-contrast-rgb: 255,255,255;
+  --ion-color-olive-contrast-rgb: 255, 255, 255;
   --ion-color-olive-shade: #4b7f49;
   --ion-color-olive-tint: #669b64;
+
+  /**granit**/
+  --ion-color-granit: #5e5e5e;
+  --ion-color-granit-rgb: 94, 94, 94;
+  --ion-color-granit-contrast: #ffffff;
+  --ion-color-granit-contrast-rgb: 255, 255, 255;
+  --ion-color-granit-shade: #535353;
+  --ion-color-granit-tint: #6e6e6e;
+
+  /**berry**/
+  --ion-color-berry: #941651;
+  --ion-color-berry-rgb: 148, 22, 81;
+  --ion-color-berry-contrast: #ffffff;
+  --ion-color-berry-contrast-rgb: 255, 255, 255;
+  --ion-color-berry-shade: #821347;
+  --ion-color-berry-tint: #9f2d62;
+
+  /**okra**/
+  --ion-color-okra: #e1c224;
+  --ion-color-okra-rgb: 225,194,36;
+  --ion-color-okra-contrast: #000000;
+  --ion-color-okra-contrast-rgb: 0,0,0;
+  --ion-color-okra-shade: #c6ab20;
+  --ion-color-okra-tint: #e4c83a;
+
 }
+
+
 
 .ion-color-olive {
   --ion-color-base: var(--ion-color-olive);
@@ -92,5 +119,35 @@
   --ion-color-shade: var(--ion-color-olive-shade);
   --ion-color-tint: var(--ion-color-olive-tint);
 }
+
+.ion-color-granit {
+  --ion-color-base: var(--ion-color-granit);
+  --ion-color-base-rgb: var(--ion-color-granit-rgb);
+  --ion-color-contrast: var(--ion-color-granit-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-granit-contrast-rgb);
+  --ion-color-shade: var(--ion-color-granit-shade);
+  --ion-color-tint: var(--ion-color-granit-tint);
+}
+
+
+.ion-color-berry {
+  --ion-color-base: var(--ion-color-berry);
+  --ion-color-base-rgb: var(--ion-color-berry-rgb);
+  --ion-color-contrast: var(--ion-color-berry-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-berry-contrast-rgb);
+  --ion-color-shade: var(--ion-color-berry-shade);
+  --ion-color-tint: var(--ion-color-berry-tint);
+}
+
+
+.ion-color-okra {
+  --ion-color-base: var(--ion-color-okra);
+  --ion-color-base-rgb: var(--ion-color-okra-rgb);
+  --ion-color-contrast: var(--ion-color-okra-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-okra-contrast-rgb);
+  --ion-color-shade: var(--ion-color-okra-shade);
+  --ion-color-tint: var(--ion-color-okra-tint);
+}
+
 
 

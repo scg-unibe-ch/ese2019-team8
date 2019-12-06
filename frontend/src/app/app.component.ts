@@ -6,7 +6,7 @@ import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {UserItem} from './_models/user-item';
 import {HttpClient} from '@angular/common/http';
 
-import {AuthenticationService, UserService} from './_services';
+import {AuthenticationService} from './_services';
 
 @Component({
   selector: 'app-root',

@@ -1,7 +1,7 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ProfilePageComponent } from './profile-page.component';
+import {ProfilePageComponent} from './profile-page.component';
 
 describe('ProfilePageComponent', () => {
   let component: ProfilePageComponent;
@@ -9,10 +9,10 @@ describe('ProfilePageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProfilePageComponent ],
+      declarations: [ProfilePageComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

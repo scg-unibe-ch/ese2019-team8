@@ -10,7 +10,8 @@ export class UserItem {
     public city: string = '',
     public phoneNumber: number = null,
     public isApproved: boolean = false
-  ) {}
+  ) {
+  }
 
 
 }

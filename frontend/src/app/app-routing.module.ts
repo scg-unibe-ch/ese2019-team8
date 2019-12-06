@@ -12,7 +12,6 @@ import {ServiceDetailsComponent} from './Components/service-details/service-deta
 import {UserListComponent} from './Components/user-list/user-list.component';
 
 
-
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},

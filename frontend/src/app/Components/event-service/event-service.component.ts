@@ -12,16 +12,16 @@ import {AlertController} from '@ionic/angular';
 })
 export class EventServiceComponent implements OnInit {
 
-  constructor(private httpClient: HttpClient,
-              private alertController: AlertController) {
-  }
-
   @Input()
   profilePageForm: FormGroup;
   services: ServiceItem[] = [];
   serviceURL = 'http://localhost:3000/service';
   userItem: UserItem = new UserItem(null, '');
   token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
+
+  constructor(private httpClient: HttpClient,
+              private alertController: AlertController) {
+  }
 
   ngOnInit() {
     this.httpClient.get(this.serviceURL).subscribe((instances: any) => {
