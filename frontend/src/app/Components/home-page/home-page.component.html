@@ -35,12 +35,18 @@
           </ion-chip>
         </ion-card-header>
         <ion-card-content>
-          <ion-buttons>
+          <div>
             {{item.description}}
-            <ion-button (click)="showBooking(item.serviceName, item.contactMail)" align-self-end color="olive" fill="solid" size="large"
-                        slot="end">Book
-            </ion-button>
-          </ion-buttons>
+          </div>
+          <ion-row>
+            <ion-buttons>
+              <div>
+                <ion-button align-items-end (click)="showBooking(item.serviceName, item.contactMail)" align-self-end color="dark" fill="solid" size="large"
+                            slot="end">Book
+                </ion-button>
+              </div>
+            </ion-buttons>
+          </ion-row>
         </ion-card-content>
       </ion-card>
     </div>

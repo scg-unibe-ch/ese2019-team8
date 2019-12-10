@@ -1,9 +1,11 @@
 <ion-app>
 
   <ion-content class="ion-padding">
-    <ion-button>
-      <ion-icon name="arrow-round-back" slot="icon-only"></ion-icon>
+    <ion-buttons>
+    <ion-button color="dark">
+      <ion-icon name="arrow-round-back" slot="icon-only" [routerLink]="['/home']"></ion-icon>
     </ion-button>
+    </ion-buttons>
     <div>
       <ion-title align-self-center color="dark">All Services</ion-title>
     </div>
@@ -23,12 +25,18 @@
           </ion-chip>
         </ion-card-header>
         <ion-card-content>
-          <ion-buttons>
+          <div>
             {{item.description}}
-            <ion-button (click)="showBooking(item.serviceName, item.contactMail)" align-self-end color="olive" fill="solid" size="large"
+          </div>
+          <ion-row>
+          <ion-buttons>
+            <div>
+            <ion-button align-items-end (click)="showBooking(item.serviceName, item.contactMail)" align-self-end color="dark" fill="solid" size="large"
                         slot="end">Book
             </ion-button>
+            </div>
           </ion-buttons>
+          </ion-row>
         </ion-card-content>
       </ion-card>
     </div>
