@@ -16,10 +16,14 @@ Run the following commands in a console of your choosing
 - `npm run tsc` or alternatively when you want to see your changes live `npm run tsc -- --watch`
 - `node build/server.js`
 
+More details are available in the backend [readme](./backend/README.md).
+
 ### In Frontend-Folder:
 Run the following commands in a console of your choosing
 - `npm install`
 - `ng serve` or alternatively `ionic serve`
+
+More details are available in the frontend [readme](./frontend/README.md).
 
 ## Admin User
 Afterwards you can either register as a normal user or login as administrator with the following data:
