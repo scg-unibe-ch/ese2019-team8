@@ -1,5 +1,9 @@
 <div *ngIf="!modificationView">
-
+  <ion-buttons>
+    <ion-button color="dark" [routerLink]="['/profilePage']">
+      <ion-icon name="arrow-round-back" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-buttons>
   <div *ngFor="let item of services">
 
     <ion-card>

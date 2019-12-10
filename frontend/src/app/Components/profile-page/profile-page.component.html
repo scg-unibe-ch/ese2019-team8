@@ -157,13 +157,13 @@
             <!--Buttons-->
             <ion-row>
               <ion-buttons>
-                <ion-button (click)="getCurrentUserServices()" *ngIf="!userServiceView" color="dark">Show
+                <ion-button (click)="getCurrentUserServices()" *ngIf="userItem.isServiceProvider && !userServiceView" color="dark">Show
                   my Services
                 </ion-button>
-                <ion-button (click)="closeServices()" *ngIf="userServiceView" color="berry">Close my
+                <ion-button (click)="closeServices()" *ngIf="userItem.isServiceProvider && userServiceView" color="berry">Close my
                   Services
                 </ion-button>
-                <ion-button *ngIf="userServiceView" [routerLink]="['/serviceDetails']" color="dark">More
+                <ion-button *ngIf="userItem.isServiceProvider && userServiceView && services.length>0" [routerLink]="['/serviceDetails']" color="dark">More
                   <ion-icon name="more"></ion-icon>
                 </ion-button>
               </ion-buttons>
