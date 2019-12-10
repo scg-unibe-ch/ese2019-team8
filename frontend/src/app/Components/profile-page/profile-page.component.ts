@@ -22,7 +22,7 @@ export class ProfilePageComponent implements OnInit {
   profileURL = 'http://localhost:3000/user/profile/';
   currentUSerServicesURL = 'http://localhost:3000/service/myServices/';
   token = localStorage.getItem('currentUser').replace('"', '').replace('"', '');
-  userItem: UserItem = new UserItem(null, '', false, '', '', null, '', null);
+  userItem: UserItem = new UserItem(null, '');
   services: ServiceItem[] = [];
   userServiceView: boolean;
   validationMessages = ValidationMessages.validationMessages;
@@ -51,6 +51,7 @@ export class ProfilePageComponent implements OnInit {
         this.userItem.zip = instance.zip;
         this.userItem.phoneNumber = instance.phoneNumber;
         this.userItem.isServiceProvider = instance.isServiceProvider;
+        this.userItem.isApproved = instance.isApproved;
         this.isAdmin = instance.isAdmin;
         // console.log(instance);
       });

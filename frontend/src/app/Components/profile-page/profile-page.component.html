@@ -27,6 +27,7 @@
               <div class="registrationForm">
                 <div [formGroup]="profilePageForm">
 
+
                   <ion-item>
                     <ion-input formControlName="email" name="email" placeholder="Email" required
                                type="text" value="{{userItem.email}}"></ion-input>
@@ -113,13 +114,23 @@
                 </div>
               </div>
 
-
-              <ion-item>
-                <ion-checkbox checked="{{userItem.isServiceProvider}}"
-                              color="dark" disabled="true"
-                              name="isServiceProvider" slot="start"></ion-checkbox>
+              <ion-chip *ngIf="!userItem.isServiceProvider" color="dark" outline>
+                <ion-icon name="close"></ion-icon>
+                <ion-label>Not registered as Service Provider</ion-label>
+              </ion-chip>
+              <ion-chip *ngIf="userItem.isServiceProvider" color="dark" outline>
+                <ion-icon name="checkmark"></ion-icon>
                 <ion-label>Registered as Service Provider</ion-label>
-              </ion-item>
+              </ion-chip>
+              <ion-chip *ngIf="!userItem.isApproved" color="dark" outline>
+                <ion-icon name="close"></ion-icon>
+                <ion-label>Account is not approved</ion-label>
+              </ion-chip>
+              <ion-chip *ngIf="userItem.isApproved" color="dark" outline>
+                <ion-icon name="checkmark"></ion-icon>
+                <ion-label>Account is approved</ion-label>
+              </ion-chip>
+
 
               <!--Buttons-->
               <div>
