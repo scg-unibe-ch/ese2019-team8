@@ -8,6 +8,7 @@
 * Final presentation
 * Final software
 * Document for usability test, containing preparation, execution, documentation, interpretation of results
+###### Due date / code freeze: 10-Dec‑19, 11.50 PM
 
 ## Milestones
 #### Milestone 1
@@ -24,5 +25,5 @@
 
 #### Milestone 3
 * Special feature
-* All project deliverable
+* All project deliverables
 ###### Due date:  04‑Dec‑19

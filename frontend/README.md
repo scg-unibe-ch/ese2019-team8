@@ -4,7 +4,7 @@
 1. Install [Node.js](https://nodejs.org/en/) (must be done already, as it is a part of prerequisite!)
 1. `cd` into this frontend folder with your terminal or command prompt
 1. Run `npm install` which will install all the required dependencies
-1. When successful, run `ionic serve` or `ionic serve --lab` to get a mobile platform view. This will open the application in your default web browser on `http://localhost:8100/`.
+1. When successful, run `ionic serve`. This will open the application in your default web browser on `http://localhost:8100/`.
 1. Alternatively, you can run just `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 This project uses [Ionic UI Components](https://ionicframework.com/docs/components) for styling.
