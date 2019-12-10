@@ -36,3 +36,9 @@ Afterwards you can either register as a normal user or login as administrator wi
 * Project deliverables
 * Endpoint overview
 * Backend models and UML
+
+## Authors
+This project was created for the lecture Introduction to Software Engineering, HS 2019, University of Berne.
+
+
+Nina Baumgartner, Jonas Ph. Kocher, Lukas Schacher
