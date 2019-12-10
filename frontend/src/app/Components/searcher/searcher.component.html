@@ -141,12 +141,15 @@
 
     <div *ngIf="searchResultView">
       <ion-card *ngIf="services.length == 0" class="searchTitle" color="granit" text-center>No results for
-        '{{category}}{{inputValue}}'
+        '{{category}} {{inputValue}}'
       </ion-card>
-      <ion-card *ngIf="services.length >0 && !inputValue==null && !category==null" class="searchTitle" text-center>
-        Results for '{{category}}{{inputValue}}'
+      <ion-card *ngIf="services.length >0 && inputValue!=null" color="granit" class="searchTitle" text-center>
+        Results for '{{inputValue}}'
       </ion-card>
-      <ion-card *ngIf="inputValue==null && category==null" class="searchTitle" text-center>All services
+      <ion-card *ngIf="services.length >0 && category!=null" color="granit" class="searchTitle" text-center>
+        Results for '{{category}}'
+      </ion-card>
+      <ion-card *ngIf="inputValue==null && category==null" color="granit" class="searchTitle" text-center>All services
       </ion-card>
       <div *ngFor="let item of services">
         <ion-card>
