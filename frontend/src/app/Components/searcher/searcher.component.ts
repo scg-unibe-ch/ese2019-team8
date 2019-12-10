@@ -55,9 +55,6 @@ export class SearcherComponent implements OnInit {
       this.services.push.apply(this.services, instances.map((instance) =>
         new ServiceItem(instance.id, instance.user, instance.serviceName, instance.category
           , instance.price, instance.location, instance.description, instance.contactMail)));
-      console.log(this.services.length);
-      console.log(this.category);
-      console.log(this.inputValue);
     });
     // this.refresh();
   }
@@ -69,6 +66,8 @@ export class SearcherComponent implements OnInit {
     this.randomServiceView = false;
     this.services = [];
     this.randomServices = [];
+    this.category = null;
+    this.inputValue = null;
   }
 
   clickCategorySearch(categoryId) {

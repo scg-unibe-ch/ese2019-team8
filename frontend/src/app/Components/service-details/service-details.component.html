@@ -6,7 +6,6 @@
       <ion-card-header>
         <ion-card-subtitle color="light">{{item.category}}</ion-card-subtitle>
         <ion-card-title color="dark">{{item.serviceName}}</ion-card-title>
-      </ion-card-header>
       <ion-chip class="blackChip" color="dark" outline>
         <ion-icon name="cash"></ion-icon>
         <ion-label>{{item.price}} CHF</ion-label>
@@ -15,6 +14,7 @@
         <ion-icon name="pin"></ion-icon>
         <ion-label>{{item.location}}</ion-label>
       </ion-chip>
+      </ion-card-header>
       <ion-card-content>
         {{item.description}}
       </ion-card-content>

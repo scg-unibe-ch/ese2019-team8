@@ -27,6 +27,7 @@
               <div class="registrationForm">
                 <div [formGroup]="profilePageForm">
 
+
                   <ion-item>
                     <ion-input formControlName="email" name="email" placeholder="Email" required
                                type="text" value="{{userItem.email}}"></ion-input>
@@ -113,12 +114,24 @@
                 </div>
               </div>
 
-              <ion-item>
-                <ion-checkbox checked="{{userItem.isServiceProvider}}"
-                              color="dark" disabled="true"
-                              name="isServiceProvider" slot="start"></ion-checkbox>
+
+              <ion-chip *ngIf="!userItem.isServiceProvider" color="dark" outline>
+                <ion-icon name="close"></ion-icon>
+                <ion-label>Not registered as Service Provider</ion-label>
+              </ion-chip>
+              <ion-chip *ngIf="userItem.isServiceProvider" color="dark" outline>
+                <ion-icon name="checkmark"></ion-icon>
                 <ion-label>Registered as Service Provider</ion-label>
-              </ion-item>
+              </ion-chip>
+              <ion-chip *ngIf="!userItem.isApproved" color="dark" outline>
+                <ion-icon name="close"></ion-icon>
+                <ion-label>Account is not approved</ion-label>
+              </ion-chip>
+              <ion-chip *ngIf="userItem.isApproved" color="dark" outline>
+                <ion-icon name="checkmark"></ion-icon>
+                <ion-label>Account is approved</ion-label>
+              </ion-chip>
+
 
               <!--Buttons-->
               <div>
@@ -160,9 +173,7 @@
                 <ion-card-header>
                   <ion-card-subtitle color="light">{{item.category}}</ion-card-subtitle>
                   <ion-card-title color="dark">{{item.serviceName}}</ion-card-title>
-                  <!--<ion-button color="olive" (click)="showBooking(item.serviceName, item.contactMail)">Book
-                  </ion-button>-->
-                </ion-card-header>
+
                 <ion-chip class="blackChip" color="dark" outline>
                   <ion-icon name="cash"></ion-icon>
                   <ion-label>{{item.price}} CHF</ion-label>
@@ -171,6 +182,7 @@
                   <ion-icon name="pin"></ion-icon>
                   <ion-label>{{item.location}}</ion-label>
                 </ion-chip>
+                </ion-card-header>
                 <ion-card-content>
                   {{item.description.substring(0, 300)}} [...]
                 </ion-card-content>
