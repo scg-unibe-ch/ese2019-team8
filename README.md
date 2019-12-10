@@ -41,6 +41,8 @@ Afterwards you can either register as a normal user or login as administrator wi
 * Endpoint overview
 * Backend models and UML
 
+Postman test cases for the backend are located in a [subfolder in the backend](./backend/postman_tests).
+
 ## Authors
 This project was created for the lecture Introduction to Software Engineering, HS 2019, University of Berne.
 
